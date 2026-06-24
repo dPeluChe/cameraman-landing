@@ -182,7 +182,7 @@ export function Features() {
       <div className="relative max-w-[1120px] mx-auto px-6">
         <SectionHeading
           eyebrow="Features"
-          title="What&apos;s built, what&apos;s brewing."
+          title="What's built, what's brewing."
           subtitle="Most features ship in the current beta. A few — auto-zoom, transcription, overlays — are being actively tuned. Honest status on each card."
         />
 

@@ -3,17 +3,82 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/branding/favicon.png" />
+    <link rel="apple-touch-icon" href="/branding/app-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta -->
     <title>Cameraman — Open Source Screen Recorder & Editor for macOS</title>
     <meta name="description" content="Free, open source screen recorder and video editor for macOS. Swift native. Local-first. Smart auto-zoom. Edit your videos with AI agents via MCP." />
+    <meta name="keywords" content="screen recorder, video editor, macOS, open source, Swift, ScreenCaptureKit, MCP, AI agents, auto-zoom, WhisperKit, transcription, local-first" />
+    <meta name="author" content="dPeluChe" />
+    <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://cameraman.dev/" />
+
+    <!-- Theme / PWA -->
+    <meta name="theme-color" content="#0a0a0b" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Cameraman" />
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://cameraman.dev/" />
     <meta property="og:title" content="Cameraman — Open Source Screen Recorder & Editor for macOS" />
     <meta property="og:description" content="Free, open source screen recorder and video editor for macOS. Swift native. Local-first. Smart auto-zoom. Edit your videos with AI agents via MCP." />
     <meta property="og:image" content="https://cameraman.dev/branding/app-icon.png" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="1024" />
+    <meta property="og:image:alt" content="Cameraman app icon" />
+    <meta property="og:site_name" content="Cameraman" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cameraman — Open Source Screen Recorder & Editor for macOS" />
+    <meta name="twitter:description" content="Free, open source screen recorder and video editor for macOS. Swift native. Local-first. Smart auto-zoom. Edit your videos with AI agents via MCP." />
     <meta name="twitter:image" content="https://cameraman.dev/branding/app-icon.png" />
+    <meta name="twitter:image:alt" content="Cameraman app icon" />
+    <meta name="twitter:creator" content="@dPeluChe" />
+
+    <!-- Structured Data: SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Cameraman",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "macOS 13+",
+      "description": "Free, open source screen recorder and video editor for macOS. Swift native. Local-first. Smart auto-zoom. Edit your videos with AI agents via MCP.",
+      "url": "https://cameraman.dev/",
+      "downloadUrl": "https://github.com/dPeluChe/cameraman/releases/latest",
+      "softwareVersion": "0.7.0",
+      "license": "https://github.com/dPeluChe/cameraman/blob/main/LICENSE",
+      "codeRepository": "https://github.com/dPeluChe/cameraman",
+      "programmingLanguage": "Swift",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "dPeluChe",
+        "url": "https://github.com/dPeluChe"
+      },
+      "featureList": [
+        "Multi-track screen, camera, and audio recording",
+        "Non-destructive timeline editor",
+        "Per-segment speed, audio, and camera PiP controls",
+        "Smart auto-zoom from cursor telemetry",
+        "On-device transcription (WhisperKit)",
+        "Clip effects (sepia, B&W, blur, vignette)",
+        "Overlays (arrows, rectangles, lines, text)",
+        "Export presets (H.264, HEVC, 4K, Portrait, GIF)",
+        "MCP server for AI agent editing (42 tools)"
+      ],
+      "screenshot": "https://cameraman.dev/branding/app-icon.png"
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

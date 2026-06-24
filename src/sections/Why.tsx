@@ -36,7 +36,7 @@ export function Why() {
       <div className="relative max-w-[1120px] mx-auto px-6">
         <SectionHeading
           eyebrow="Why Cameraman"
-          title="A recorder that doesn&apos;t cost $89<br/>or need a PhD to use."
+          title={<>A recorder that doesn&apos;t cost $89<br />or need a PhD to use.</>}
           subtitle="Screen Studio is polished but paid and closed. OBS is free but has no editor. Cameraman is free, open source, and ships a full timeline editor — plus an MCP server so agents can help."
         />
         <Stagger className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-[18px]">

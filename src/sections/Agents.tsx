@@ -33,7 +33,7 @@ export function Agents() {
         <div>
           <SectionHeading
             eyebrow="Edit with AI agents"
-            title="Your editor,<br/>scripted by an agent."
+            title={<>Your editor,<br />scripted by an agent.</>}
             subtitle="Cameraman ships a built-in MCP server. Connect Claude Desktop, Claude Code, or Codex and they can inspect projects, split clips, add overlays, transcribe, and export — driving the exact same non-destructive engine as the app."
           />
           <Reveal delay={0.3}>

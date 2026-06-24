@@ -1,8 +1,9 @@
+import type { ReactNode } from 'react'
 import { Reveal } from './Reveal'
 
 interface SectionHeadingProps {
   eyebrow: string
-  title: string
+  title: ReactNode
   subtitle?: string
   center?: boolean
 }
@@ -21,10 +22,9 @@ export function SectionHeading({
         </div>
       </Reveal>
       <Reveal delay={0.1}>
-        <h2
-          className="text-[40px] font-extrabold tracking-[-1.5px] leading-[1.1] mb-3.5 max-md:text-[30px]"
-          dangerouslySetInnerHTML={{ __html: title }}
-        />
+        <h2 className="text-[40px] font-extrabold tracking-[-1.5px] leading-[1.1] mb-3.5 max-md:text-[30px]">
+          {title}
+        </h2>
       </Reveal>
       {subtitle && (
         <Reveal delay={0.2}>
