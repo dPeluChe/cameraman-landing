@@ -10,7 +10,7 @@ export function Footer() {
     <footer className="border-t border-border-soft pt-12 pb-12 text-center">
       <div className="max-w-[1120px] mx-auto px-6 flex flex-col items-center gap-4">
         <div className="flex items-center gap-2.5 font-bold">
-          <img src="/branding/favicon.png" alt="" className="w-7 h-7 rounded-[7px]" />
+          <img src="/branding/favicon.png" alt="Cameraman logo" className="w-7 h-7 rounded-[7px]" />
           cameraman
         </div>
         <div className="flex gap-5">

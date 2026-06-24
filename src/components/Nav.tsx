@@ -12,7 +12,7 @@ export function Nav() {
     <nav className="sticky top-0 z-100 bg-[rgba(10,10,11,0.72)] backdrop-blur-[20px] backdrop-saturate-[180%] border-b border-border-soft">
       <div className="max-w-[1120px] mx-auto px-6 flex items-center justify-between h-[60px]">
         <div className="flex items-center gap-2.5 text-[17px] font-bold tracking-[-0.4px]">
-          <img src="/branding/favicon.png" alt="" className="w-[26px] h-[26px] rounded-[6px]" />
+          <img src="/branding/favicon.png" alt="Cameraman logo" className="w-[26px] h-[26px] rounded-[6px]" />
           cameraman
         </div>
         <div className="flex items-center gap-7">
