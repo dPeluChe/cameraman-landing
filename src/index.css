@@ -42,17 +42,20 @@ body {
   color: var(--color-text);
 }
 
-/* Ambient hero glow - optimized without heavy CSS filter blur */
-.ambient-glow {
-  position: fixed;
-  top: -200px;
+/* Hardware-accelerated isolated hero glow */
+.hero-glow-isolated {
+  position: absolute;
+  top: -150px;
   left: 50%;
-  transform: translateX(-50%);
-  width: 800px;
+  transform: translateX(-50%) translateZ(0);
+  width: 900px;
   height: 600px;
-  background: radial-gradient(ellipse at center, rgba(10, 132, 255, 0.22) 0%, rgba(10, 132, 255, 0.04) 45%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(10, 132, 255, 0.28) 0%, rgba(191, 90, 242, 0.12) 40%, transparent 70%);
   pointer-events: none;
   z-index: 0;
+  contain: paint;
+  isolation: isolate;
+  will-change: transform;
 }
 
 /* Gradient text helper */

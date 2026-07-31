@@ -12,7 +12,6 @@ import { Install } from './sections/Install'
 export default function App() {
   return (
     <>
-      <div className="ambient-glow" />
       <Nav />
       <main>
         <Hero />
