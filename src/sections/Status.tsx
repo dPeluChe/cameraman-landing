@@ -16,8 +16,7 @@ export function Status() {
               className="absolute -top-20 -right-20 w-[300px] h-[300px] rounded-full opacity-20"
               style={{
                 background:
-                  'radial-gradient(circle, rgba(255,159,10,0.4) 0%, transparent 70%)',
-                filter: 'blur(60px)',
+                  'radial-gradient(circle, rgba(255,159,10,0.4) 0%, rgba(255,159,10,0.05) 50%, transparent 70%)',
               }}
             />
             <span className="inline-block px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.5px] bg-[rgba(255,159,10,0.12)] text-orange border border-[rgba(255,159,10,0.25)] mb-4.5 relative z-10">

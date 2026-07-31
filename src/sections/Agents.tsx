@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { SectionBackground } from '../components/SectionBackground'
 import { SectionHeading } from '../components/SectionHeading'
 import { Reveal } from '../components/Reveal'
@@ -68,20 +67,12 @@ export function Agents() {
           </Reveal>
         </div>
 
-        {/* Chat mock with sequential message reveals */}
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        {/* Chat mock with static presentation */}
+        <div
           className="bg-bg-card border border-border rounded-[14px] p-5 text-[13px] leading-[1.7] shadow-[0_20px_60px_rgba(0,0,0,0.3)]"
         >
           {/* User message */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.4 }}
+          <div
             className="mb-3.5"
           >
             <div className="text-[11px] font-bold uppercase tracking-[0.5px] text-text-muted mb-1">
@@ -91,14 +82,10 @@ export function Agents() {
               Trim the silent intro, add a zoom on the first click, then export
               to GIF.
             </div>
-          </motion.div>
+          </div>
 
           {/* Agent thinking */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 0.4 }}
+          <div
             className="mb-3.5"
           >
             <div className="text-[11px] font-bold uppercase tracking-[0.5px] text-purple mb-1">
@@ -108,14 +95,10 @@ export function Agents() {
               On it. I&apos;ll detect silence, split the clip, add a zoom
               adjustment, and kick off a GIF export.
             </div>
-          </motion.div>
+          </div>
 
-          {/* Tool calls with stagger */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.8, duration: 0.4 }}
+          {/* Tool calls */}
+          <div
             className="mb-3.5"
           >
             <div className="text-[11px] font-bold uppercase tracking-[0.5px] text-accent-bright mb-1">
@@ -123,38 +106,25 @@ export function Agents() {
             </div>
             <div className="text-text bg-bg-elev px-3.5 py-2.5 rounded-[9px] border border-border-soft space-y-1">
               {toolCalls.map((tc) => (
-                <motion.div
+                <div
                   key={tc.label}
-                  initial={{ opacity: 0, x: -15 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 1 + tc.delay, duration: 0.3 }}
                   className="flex items-center gap-2 text-text-muted font-mono text-xs"
                 >
                   <span className="text-accent-bright">→</span>
                   {tc.label}
                   {tc.args && <code className="text-green">{tc.args}</code>}
-                  <motion.span
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 1.2 + tc.delay, duration: 0.2 }}
+                  <span
                     className="text-green ml-auto text-[10px]"
                   >
                     ✓
-                  </motion.span>
-                </motion.div>
+                  </span>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Final agent message */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 1.8, duration: 0.4 }}
-          >
+          <div>
             <div className="text-[11px] font-bold uppercase tracking-[0.5px] text-purple mb-1">
               Agent
             </div>
@@ -163,8 +133,8 @@ export function Agents() {
               <code className="text-green font-mono">a1b2c3</code>. Polling
               status…
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   )

@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { SectionBackground } from '../components/SectionBackground'
 import { SectionHeading } from '../components/SectionHeading'
 import { Stagger, StaggerItem } from '../components/Reveal'
@@ -41,10 +40,8 @@ export function Tech() {
         <Stagger className="grid grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-5 mb-9">
           {stats.map((s) => (
             <StaggerItem key={s.label}>
-              <motion.div
-                whileHover={{ y: -4, scale: 1.03 }}
-                transition={{ duration: 0.2 }}
-                className="text-center bg-bg-card border border-border rounded-[14px] py-6 px-4 hover:border-accent transition-colors"
+              <div
+                className="text-center bg-bg-card border border-border rounded-[14px] py-6 px-4 hover:border-accent hover:-translate-y-1 transition-all duration-200"
               >
                 <div className="text-[34px] font-extrabold tracking-[-1.5px] gradient-accent">
                   {s.num}
@@ -52,7 +49,7 @@ export function Tech() {
                 <div className="text-[11px] text-text-muted uppercase tracking-[0.6px] mt-1 font-semibold">
                   {s.label}
                 </div>
-              </motion.div>
+              </div>
             </StaggerItem>
           ))}
         </Stagger>

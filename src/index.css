@@ -24,7 +24,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* instant scroll response */
 }
 
 body {
@@ -42,7 +42,7 @@ body {
   color: var(--color-text);
 }
 
-/* Ambient hero glow */
+/* Ambient hero glow - optimized without heavy CSS filter blur */
 .ambient-glow {
   position: fixed;
   top: -200px;
@@ -50,11 +50,9 @@ body {
   transform: translateX(-50%);
   width: 800px;
   height: 600px;
-  background: radial-gradient(ellipse at center, var(--color-accent-glow) 0%, transparent 60%);
-  filter: blur(80px);
+  background: radial-gradient(ellipse at center, rgba(10, 132, 255, 0.22) 0%, rgba(10, 132, 255, 0.04) 45%, transparent 70%);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.5;
 }
 
 /* Gradient text helper */

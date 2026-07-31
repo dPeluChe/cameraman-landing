@@ -53,3 +53,17 @@ Stats in `sections/Tech.tsx` (LOC, test lines, MCP tool count, version) and feat
 
 - **App repo:** [dPeluChe/cameraman](https://github.com/dPeluChe/cameraman) — the macOS app + EngineKit + MCP server
 - **This repo:** [dPeluChe/cameraman-landing](https://github.com/dPeluChe/cameraman-landing) — this landing page
+
+@~/.agents/skills/FLOW_CLAUDE.md
+
+## ship config
+
+```yaml
+lint: npm run lint
+typecheck: npx tsc -b --noEmit
+build: npm run build
+test: echo "no test suite defined"
+merge_policy: ask
+loc_limit: 500
+simplify: 500
+```
