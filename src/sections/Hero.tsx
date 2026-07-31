@@ -1,7 +1,6 @@
 import { Button } from '../components/Button'
 import { Badge } from '../components/Badge'
 import { EditorMockup } from '../components/EditorMockup'
-import { SectionBackground } from '../components/SectionBackground'
 
 const heroBadges = [
   { label: 'Swift Native', tone: 'blue' as const },
@@ -15,9 +14,8 @@ const heroBadges = [
 export function Hero() {
   return (
     <section className="relative pt-[100px] pb-[80px] text-center z-1 overflow-hidden">
-      {/* Layered backgrounds */}
-      <SectionBackground variant="orbs" />
-      <SectionBackground variant="grid" />
+      {/* Isolated Hardware-Accelerated Glow Layer */}
+      <div className="hero-glow-isolated" />
       {/* Top gradient fade */}
       <div
         className="absolute inset-0 pointer-events-none"
