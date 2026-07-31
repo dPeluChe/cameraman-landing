@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { SectionBackground } from '../components/SectionBackground'
 import { SectionHeading } from '../components/SectionHeading'
 import { Reveal, Stagger, StaggerItem } from '../components/Reveal'
@@ -189,10 +188,8 @@ export function Features() {
         <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[minmax(180px,auto)]">
           {features.map((f) => (
             <StaggerItem key={f.title} className={f.span ?? ''}>
-              <motion.div
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
-                className="h-full bg-bg-card border border-border rounded-[14px] overflow-hidden flex flex-col group hover:border-text-dim transition-colors"
+              <div
+                className="h-full bg-bg-card border border-border rounded-[14px] overflow-hidden flex flex-col group hover:border-text-dim hover:-translate-y-1 transition-all duration-200"
               >
                 {f.imageLabel && (
                   <div className="h-[140px] flex-shrink-0 border-b border-border-soft relative">
@@ -220,7 +217,7 @@ export function Features() {
                     {f.body}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             </StaggerItem>
           ))}
         </Stagger>

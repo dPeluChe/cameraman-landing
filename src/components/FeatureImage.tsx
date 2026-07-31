@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 
 interface FeatureImageProps {
   /** Label shown in the placeholder */
@@ -29,13 +28,9 @@ export function FeatureImage({
 }: FeatureImageProps) {
   if (src) {
     return (
-      <motion.img
+      <img
         src={src}
         alt={alt}
-        initial={{ opacity: 0, scale: 1.05 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
         className="w-full h-full object-cover"
       />
     )
@@ -59,15 +54,9 @@ export function FeatureImage({
         }}
       />
       {icon && (
-        <motion.span
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 0.9, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, type: 'spring' }}
-          className="text-[40px] relative z-10"
-        >
+        <span className="text-[40px] relative z-10 opacity-90">
           {icon}
-        </motion.span>
+        </span>
       )}
       <span className="text-[11px] text-white/50 uppercase tracking-[0.5px] font-semibold relative z-10">
         {label}

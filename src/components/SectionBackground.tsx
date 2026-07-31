@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 
 type Variant = 'grid' | 'mesh' | 'orbs' | 'dots' | 'gradient'
 
@@ -18,30 +17,22 @@ export function SectionBackground({
     >
       {variant === 'grid' && (
         <div
-          className="absolute inset-0 opacity-[0.04]"
+          className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage:
               'linear-gradient(var(--color-border) 1px, transparent 1px), linear-gradient(90deg, var(--color-border) 1px, transparent 1px)',
             backgroundSize: '48px 48px',
-            maskImage:
-              'radial-gradient(ellipse at center, black 30%, transparent 80%)',
-            WebkitMaskImage:
-              'radial-gradient(ellipse at center, black 30%, transparent 80%)',
           }}
         />
       )}
 
       {variant === 'dots' && (
         <div
-          className="absolute inset-0 opacity-[0.08]"
+          className="absolute inset-0 opacity-[0.06]"
           style={{
             backgroundImage:
               'radial-gradient(var(--color-text-dim) 1px, transparent 1px)',
             backgroundSize: '24px 24px',
-            maskImage:
-              'radial-gradient(ellipse at center, black 20%, transparent 70%)',
-            WebkitMaskImage:
-              'radial-gradient(ellipse at center, black 20%, transparent 70%)',
           }}
         />
       )}
@@ -52,16 +43,14 @@ export function SectionBackground({
             className="absolute -top-1/4 -left-1/4 w-[600px] h-[600px] rounded-full opacity-20"
             style={{
               background:
-                'radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%)',
-              filter: 'blur(60px)',
+                'radial-gradient(circle, var(--color-accent-glow) 0%, rgba(10,132,255,0.05) 50%, transparent 70%)',
             }}
           />
           <div
             className="absolute -bottom-1/4 -right-1/4 w-[500px] h-[500px] rounded-full opacity-15"
             style={{
               background:
-                'radial-gradient(circle, rgba(191,90,242,0.3) 0%, transparent 70%)',
-              filter: 'blur(60px)',
+                'radial-gradient(circle, rgba(191,90,242,0.35) 0%, rgba(191,90,242,0.05) 50%, transparent 70%)',
             }}
           />
         </>
@@ -69,47 +58,21 @@ export function SectionBackground({
 
       {variant === 'orbs' && (
         <>
-          <motion.div
-            animate={{ x: [0, 80, 0], y: [0, -40, 0] }}
-            transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+          <div
             className="absolute top-[10%] left-[5%] w-[300px] h-[300px] rounded-full opacity-20"
             style={{
               background:
-                'radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%)',
-              filter: 'blur(50px)',
+                'radial-gradient(circle, var(--color-accent-glow) 0%, rgba(10,132,255,0.05) 50%, transparent 70%)',
             }}
           />
-          <motion.div
-            animate={{ x: [0, -60, 0], y: [0, 60, 0] }}
-            transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
+          <div
             className="absolute bottom-[15%] right-[10%] w-[250px] h-[250px] rounded-full opacity-15"
             style={{
               background:
-                'radial-gradient(circle, rgba(191,90,242,0.35) 0%, transparent 70%)',
-              filter: 'blur(50px)',
-            }}
-          />
-          <motion.div
-            animate={{ x: [0, 40, 0], y: [0, 30, 0] }}
-            transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute top-[40%] right-[30%] w-[200px] h-[200px] rounded-full opacity-10"
-            style={{
-              background:
-                'radial-gradient(circle, rgba(255,159,10,0.3) 0%, transparent 70%)',
-              filter: 'blur(40px)',
+                'radial-gradient(circle, rgba(191,90,242,0.35) 0%, rgba(191,90,242,0.05) 50%, transparent 70%)',
             }}
           />
         </>
-      )}
-
-      {variant === 'gradient' && (
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{
-            background:
-              'linear-gradient(180deg, transparent 0%, var(--color-bg-alt) 50%, transparent 100%)',
-          }}
-        />
       )}
     </div>
   )
