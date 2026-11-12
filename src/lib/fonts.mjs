@@ -12,9 +12,9 @@ const SYSTEM_SANS = ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 
 export const FONTS = [
   {
     provider: fontProviders.google(),
-    name: 'Inter',
+    name: 'Bricolage Grotesque',
     cssVariable: '--font-brand',
-    weights: [400, 600, 700],
+    weights: [400, 600, 800],
     // Astro fetches normal and italic by default and preloads both. Nothing here
     // sets italic, so it was ~50 KB of preloaded font no page used.
     styles: ['normal'],

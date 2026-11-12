@@ -3,37 +3,44 @@
    change a value and the ratios are recomputed. docs/GUIDES/BRAND_TOKENS.md */
 
 :root {
-  --brand-50: #eff6ff;
-  --brand-100: #dbeafe;
-  --brand-300: #93c5fd;
-  --brand-400: #60a5fa;
-  --brand-500: #2563eb;
-  --brand-600: #1d4ed8;
-  --brand-700: #1e40af;
+  --brand-50: #fdf0ee;
+  --brand-100: #fbdcd7;
+  --brand-300: #f4a196;
+  --brand-400: #f27a6c;
+  --brand-500: #e94b3c;
+  --brand-600: #c23526;
+  --brand-700: #9c2a1e;
 
   --accent-500: var(--brand-500);
+  /* Cameraman's extra hues: section and card accents only, never body text. */
+  --pop-yellow: #ffc93c;
+  --pop-teal: #19b6a4;
+  --pop-violet: #8b5cf6;
+  --pop-blue: #3b82f6;
+  --pop-navy: #1f2937;
+  --pop-cream: #f5edd8;
   /* Status colors are per-theme: a red tuned for white fails on near-black. */
   --color-success: #15803d;
   --color-danger: #b91c1c;
 
-  --color-bg: #f8fafc;
-  --color-surface: #ffffff;
-  --color-surface-muted: #f1f5f9;
-  --color-border: #e2e8f0;
-  --color-border-strong: #7d8798;
+  --color-bg: #fbf6ea;
+  --color-surface: #fffdf8;
+  --color-surface-muted: #f5edd8;
+  --color-border: #eadfc6;
+  --color-border-strong: #857a64;
 
-  --color-text: #0f172a;
-  --color-text-muted: #475569;
-  --color-text-subtle: #64748b;
+  --color-text: #1f2937;
+  --color-text-muted: #4b5563;
+  --color-text-subtle: #626a76;
   --color-text-on-brand: #ffffff;
 
   --color-brand-fg: var(--brand-600);
   --color-brand-bg: var(--brand-50);
   --color-focus: var(--brand-600);
 
-  --decor-from: #e0f2fe;
-  --decor-mid: #f8fafc;
-  --decor-to: #e2e8f0;
+  --decor-from: #fde3d6;
+  --decor-mid: #fbf6ea;
+  --decor-to: #e7f3ef;
 
   /* --font-brand is emitted by Astro from src/lib/fonts.mjs. The stack after it
      is what renders if a clone ships no webfont, so both paths stay supported. */
@@ -43,11 +50,11 @@
 
   --font-weight-body: 400;
   --font-weight-strong: 600;
-  --font-weight-display: 700;
+  --font-weight-display: 800;
   --tracking-display: -0.02em;
 
   /* Single roundness dial; every other radius derives from it. */
-  --radius-base: 0.75rem;
+  --radius-base: 1rem;
   --radius-sm: calc(var(--radius-base) * 0.5);
   --radius-md: var(--radius-base);
   --radius-lg: calc(var(--radius-base) * 1.35);
@@ -57,7 +64,7 @@
   --shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.05);
   --shadow-md: 0 4px 12px -2px rgb(15 23 42 / 0.08);
   --shadow-lg: 0 12px 32px -8px rgb(15 23 42 / 0.12);
-  --shadow-brand: 0 12px 32px -8px rgb(37 99 235 / 0.25);
+  --shadow-brand: 0 12px 32px -8px rgb(233 75 60 / 0.35);
 
   --section-py: clamp(3.5rem, 8vw, 7rem);
   --container-max: 80rem;
@@ -68,28 +75,28 @@
   --color-success: #4ade80;
   --color-danger: #f87171;
 
-  --color-bg: #050505;
-  --color-surface: #0f1117;
-  --color-surface-muted: #161922;
-  --color-border: #262a35;
-  --color-border-strong: #5f6779;
+  --color-bg: #141b26;
+  --color-surface: #1f2937;
+  --color-surface-muted: #273244;
+  --color-border: #34405a;
+  --color-border-strong: #7a869c;
 
-  --color-text: #f8fafc;
-  --color-text-muted: #cbd5e1;
-  --color-text-subtle: #94a3b8;
+  --color-text: #f5edd8;
+  --color-text-muted: #d6cfbd;
+  --color-text-subtle: #a9a493;
   --color-text-on-brand: #ffffff;
 
   /* brand-600 fails AA as text on dark; step up to 400. */
   --color-brand-fg: var(--brand-400);
-  --color-brand-bg: rgb(37 99 235 / 0.16);
+  --color-brand-bg: rgb(233 75 60 / 0.16);
   --color-focus: var(--brand-400);
 
-  --decor-from: #0c162e;
-  --decor-mid: #050505;
-  --decor-to: #080c16;
+  --decor-from: #3a1e24;
+  --decor-mid: #141b26;
+  --decor-to: #102a2f;
 
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
   --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.6);
   --shadow-lg: 0 12px 32px -8px rgb(0 0 0 / 0.7);
-  --shadow-brand: 0 12px 32px -8px rgb(37 99 235 / 0.4);
+  --shadow-brand: 0 12px 32px -8px rgb(233 75 60 / 0.45);
 }

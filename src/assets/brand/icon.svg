@@ -1,4 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Nordika">
-  <rect width="64" height="64" rx="14" fill="#2563eb"/>
-  <path d="M20 44V20h5.4l13.2 15.2V20H44v24h-5.4L25.4 28.8V44H20Z" fill="#fff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="Cameraman">
+<rect width="1024" height="1024" rx="230" fill="#1f2937"/>
+<path d="M223 425 60 930l358-85 94 80 92-80 361 85-163-505Z" fill="#e94b3c"/>
+<rect x="226" y="186" width="572" height="592" rx="62" fill="#f5edd8" stroke="#1f2937" stroke-width="8"/>
+<path d="M350 340 440 400 350 460Z" fill="#1f2937"/>
+<circle cx="630" cy="400" r="64" fill="#e94b3c"/>
+<g fill="#1f2937"><rect x="305" y="607" width="24" height="44" rx="12"/><rect x="353" y="599" width="24" height="59" rx="12"/><rect x="401" y="607" width="24" height="44" rx="12"/><rect x="449" y="584" width="24" height="89" rx="12"/><rect x="497" y="604" width="24" height="49" rx="12"/><rect x="545" y="592" width="24" height="74" rx="12"/><rect x="593" y="607" width="24" height="44" rx="12"/><rect x="641" y="597" width="24" height="64" rx="12"/><rect x="689" y="607" width="24" height="44" rx="12"/></g>
 </svg>

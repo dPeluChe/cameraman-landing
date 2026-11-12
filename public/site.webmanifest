@@ -1,7 +1,7 @@
 {
-  "name": "Nordika",
-  "short_name": "Nordika",
-  "description": "Mantenimiento industrial y servicio en sitio para plantas que no pueden parar.",
+  "name": "TODO Brand name",
+  "short_name": "TODO Brand name",
+  "description": "TODO: one sentence on what this business does.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
