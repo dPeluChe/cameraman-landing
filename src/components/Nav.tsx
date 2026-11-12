@@ -15,6 +15,35 @@ export function Nav() {
           <img src="/branding/favicon.png" alt="Cameraman logo" className="w-[26px] h-[26px] rounded-[6px]" />
           cameraman
         </div>
+
+        {/* Toggle Version Switcher */}
+        <div className="flex items-center gap-1 bg-bg-elev p-1 rounded-full border border-border">
+          <a
+            href="/"
+            className="text-xs font-semibold px-3 py-1 rounded-full bg-accent text-white shadow-sm"
+          >
+            v1 Base
+          </a>
+          <a
+            href="/?v=2"
+            className="text-xs font-semibold px-3 py-1 rounded-full text-text-muted hover:text-text transition-colors"
+          >
+            v2 Refined
+          </a>
+          <a
+            href="/?v=3"
+            className="text-xs font-semibold px-3 py-1 rounded-full text-text-muted hover:text-text transition-colors"
+          >
+            v3 Bold
+          </a>
+          <a
+            href="/?v=4"
+            className="text-xs font-bold px-3 py-1 rounded-full text-[#2997ff] hover:text-white transition-colors"
+          >
+            v4 macOS  ✨
+          </a>
+        </div>
+
         <div className="flex items-center gap-7">
           {links.map((l) => (
             <a
