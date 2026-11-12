@@ -1,0 +1,31 @@
+---
+import SectionShell from './SectionShell.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import type { SectionOf } from '../../schemas/sections';
+
+export interface Props {
+  section: SectionOf<'stats'>;
+}
+
+const { section } = Astro.props;
+---
+
+<SectionShell anchor={section.anchor}>
+  <SectionHeader title={section.title} />
+
+  <dl
+    class:list={[
+      'grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border',
+      section.items.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-4',
+    ]}
+  >
+    {
+      section.items.map((item) => (
+        <div class="flex flex-col items-center justify-center bg-surface p-6 text-center md:p-8">
+          <dt class="order-2 mt-2 text-sm text-fg-muted">{item.label}</dt>
+          <dd class="order-1 text-3xl font-bold text-fg md:text-4xl">{item.value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</SectionShell>

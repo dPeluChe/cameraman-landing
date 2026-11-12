@@ -1,0 +1,26 @@
+---
+import Icon from './Icon.astro';
+import type { SiteEntry } from '../../lib/content';
+
+export interface Props {
+  site: SiteEntry;
+}
+
+const { site } = Astro.props;
+const config = site.features.stickyMobileCta;
+
+if (!config || !config.enabled) return;
+---
+
+<aside
+  class="fixed bottom-0 inset-x-0 z-40 p-3 bg-surface/90 backdrop-blur-md border-t border-border sm:hidden shadow-lg transition-transform duration-300"
+  aria-label="Mobile quick action"
+>
+  <a
+    href={config.href}
+    class="flex w-full items-center justify-center gap-2 rounded-md bg-brand-solid px-5 py-3 text-sm font-semibold text-on-brand shadow-sm active:scale-[0.98] transition-colors hover:bg-brand-solid-hover"
+  >
+    {config.icon && <Icon name={config.icon} size={18} />}
+    <span>{config.label}</span>
+  </a>
+</aside>

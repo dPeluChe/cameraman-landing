@@ -1,0 +1,34 @@
+---
+import SectionShell from './SectionShell.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import Icon from '../ui/Icon.astro';
+import type { SectionOf } from '../../schemas/sections';
+
+export interface Props {
+  section: SectionOf<'howItWorks'>;
+}
+
+const { section } = Astro.props;
+---
+
+<SectionShell anchor={section.anchor}>
+  <SectionHeader title={section.title} subtitle={section.subtitle} />
+
+  <ol class="grid gap-10 md:grid-cols-3">
+    {
+      section.steps.map((step, index) => (
+        <li class="relative flex flex-col items-center text-center">
+          {index < section.steps.length - 1 && (
+            <span class="absolute top-8 left-[60%] hidden h-px w-full bg-border md:block" aria-hidden="true" />
+          )}
+          <span class="relative z-10 flex size-16 items-center justify-center rounded-lg bg-brand-bg text-brand">
+            <Icon name={step.icon} size={30} />
+          </span>
+          <p class="mt-6 text-sm font-bold text-brand">{String(index + 1).padStart(2, '0')}</p>
+          <h3 class="mt-2 text-lg text-fg">{step.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-fg-muted">{step.description}</p>
+        </li>
+      ))
+    }
+  </ol>
+</SectionShell>

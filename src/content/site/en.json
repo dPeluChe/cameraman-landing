@@ -1,0 +1,72 @@
+{
+  "locale": "en",
+  "brand": {
+    "name": "TODO Brand name",
+    "tagline": "TODO: one sentence on what this business does.",
+    "logo": {
+      "light": {
+        "src": "../../assets/brand/logo.svg",
+        "alt": "TODO Brand name",
+        "width": 200,
+        "height": 40
+      }
+    }
+  },
+  "contact": {
+    "email": "todo@example.com",
+    "openingHours": []
+  },
+  "social": [],
+  "seo": {
+    "defaultTitle": "TODO Brand name",
+    "titleTemplate": "%title% | %brand%",
+    "defaultDescription": "TODO: replace this site description. It is long enough to satisfy the schema and short enough to fit a search result.",
+    "defaultOgImage": "/og/default.png",
+    "robots": {
+      "index": false,
+      "follow": true
+    },
+    "verification": {}
+  },
+  "organization": {
+    "type": "Organization",
+    "sameAs": []
+  },
+  "nav": [],
+  "footer": {
+    "columns": [],
+    "legalLinks": [],
+    "copyright": "© %year% %brand%."
+  },
+  "features": {
+    "darkMode": true,
+    "defaultTheme": "system",
+    "showThemeToggle": true,
+    "scrollLayout": "flow"
+  },
+  "contactForm": {
+    "provider": "mailto"
+  },
+  "routes": {
+    "services": {
+      "enabled": true,
+      "segment": "services"
+    },
+    "about": {
+      "enabled": true,
+      "segment": "about"
+    },
+    "updates": {
+      "enabled": false,
+      "segment": "updates"
+    },
+    "projects": {
+      "enabled": false,
+      "segment": "projects"
+    },
+    "contact": {
+      "enabled": true,
+      "segment": "contact"
+    }
+  }
+}

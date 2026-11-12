@@ -1,0 +1,57 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SectionRenderer from '../components/sections/SectionRenderer.astro';
+import { getPage, getSite, type PageRoute } from '../lib/content';
+import { breadcrumbJsonLd, faqJsonLd, ownerId, siteBase } from '../lib/seo';
+import { alternateHrefs, routeHref } from '../lib/routes';
+import type { Locale } from '../lib/i18n';
+
+export interface Props {
+  locale: Locale;
+  route: PageRoute;
+}
+
+const { locale, route } = Astro.props;
+const page = await getPage(locale, route);
+const site = await getSite(locale);
+const { seo, sections } = page.data;
+
+const alternates = await alternateHrefs(route);
+const base = siteBase(Astro);
+const graph: Record<string, unknown>[] = [];
+
+const faq = sections.find((section) => section.type === 'faq' && section.enabled && section.jsonLd);
+if (faq && faq.type === 'faq') graph.push(faqJsonLd(faq.items));
+
+// A personal site's home is the person's profile page.
+if (route === 'index' && site.organization.type === 'Person') {
+  graph.push({
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    url: new URL(Astro.url.pathname, base).href,
+    mainEntity: { '@id': ownerId(site, new URL(base).origin) },
+  });
+}
+
+if (route !== 'index') {
+  graph.push(
+    breadcrumbJsonLd([
+      { name: site.brand.name, url: new URL(routeHref(site, locale, 'index'), base).href },
+      { name: seo.title, url: new URL(Astro.url.pathname, base).href },
+    ]),
+  );
+}
+---
+
+<BaseLayout
+  locale={locale}
+  alternates={alternates}
+  title={seo.title}
+  description={seo.description}
+  ogImage={seo.ogImage}
+  noindex={seo.noindex}
+  canonical={seo.canonical}
+  jsonLd={graph}
+>
+  <SectionRenderer sections={sections} />
+</BaseLayout>

@@ -1,0 +1,17 @@
+{
+  "locale": "en",
+  "route": "updates",
+  "seo": {
+    "title": "TODO updates title",
+    "description": "TODO: replace this updates description. It is long enough to satisfy the schema and short enough to fit a search result.",
+    "noindex": false
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "title": "TODO: headline for the updates page",
+      "subtitle": "TODO: replace this subtitle. It is long enough to satisfy the schema and short enough to fit a search result.",
+      "actions": []
+    }
+  ]
+}

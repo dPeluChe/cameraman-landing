@@ -1,0 +1,46 @@
+---
+// Native <details>: zero JS, keyboard accessible and expandable by find-in-page.
+import SectionShell from './SectionShell.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import type { SectionOf } from '../../schemas/sections';
+
+export interface Props {
+  section: SectionOf<'faq'>;
+}
+
+const { section } = Astro.props;
+---
+
+<SectionShell anchor={section.anchor}>
+  <SectionHeader title={section.title} subtitle={section.subtitle} />
+
+  <div class="mx-auto max-w-3xl divide-y divide-border overflow-hidden rounded-xl border border-border bg-surface">
+    {
+      section.items.map((item) => (
+        <details class="group">
+          <summary class="flex cursor-pointer items-center justify-between gap-4 px-6 py-5 text-start text-base font-semibold text-fg marker:content-none hover:bg-surface-muted">
+            {item.question}
+            <svg
+              class="size-5 shrink-0 text-fg-subtle transition-transform duration-200 group-open:rotate-45"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          </summary>
+          <p class="px-6 pb-6 text-sm leading-relaxed text-fg-muted">{item.answer}</p>
+        </details>
+      ))
+    }
+  </div>
+</SectionShell>
+
+<style>
+  summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

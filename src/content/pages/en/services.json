@@ -1,0 +1,17 @@
+{
+  "locale": "en",
+  "route": "services",
+  "seo": {
+    "title": "TODO services title",
+    "description": "TODO: replace this services description. It is long enough to satisfy the schema and short enough to fit a search result.",
+    "noindex": false
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "title": "TODO: headline for the services page",
+      "subtitle": "TODO: replace this subtitle. It is long enough to satisfy the schema and short enough to fit a search result.",
+      "actions": []
+    }
+  ]
+}

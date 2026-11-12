@@ -1,0 +1,77 @@
+---
+import SectionShell from './SectionShell.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import Picture from '../ui/Picture.astro';
+import type { SectionOf } from '../../schemas/sections';
+import { getUi } from '../../lib/content';
+import { localeFromParam } from '../../lib/i18n';
+import { initialsOf } from '../../lib/format';
+
+export interface Props {
+  section: SectionOf<'testimonials'>;
+}
+
+const { section } = Astro.props;
+const ui = await getUi(localeFromParam(Astro.currentLocale));
+
+---
+
+<SectionShell anchor={section.anchor}>
+  <SectionHeader title={section.title} />
+
+  <div
+    class="relative mx-auto max-w-4xl rounded-xl border border-border bg-surface p-8 shadow-lg md:p-12"
+    data-carousel
+    data-autoplay="6000"
+  >
+    <div class="grid">
+      {
+        section.items.map((item) => (
+          <figure data-carousel-panel class="col-start-1 row-start-1 flex flex-col justify-center transition-opacity duration-500">
+            <blockquote class="text-center text-xl leading-relaxed font-medium text-fg-muted italic md:text-2xl">
+              {item.quote}
+            </blockquote>
+
+            <figcaption class="mt-8 flex items-center justify-center gap-4 border-t border-border pt-8">
+              {item.avatar ? (
+                <Picture media={item.avatar} class="size-12 shrink-0 rounded-full object-cover" sizes="3rem" />
+              ) : (
+                <span
+                  class="flex size-12 shrink-0 items-center justify-center rounded-full bg-brand-solid text-lg font-bold text-on-brand"
+                  aria-hidden="true"
+                >
+                  {initialsOf(item.name, item.initials)}
+                </span>
+              )}
+              <span class="text-start">
+                <span class="block font-bold text-fg">{item.name}</span>
+                {item.role && <span class="block text-sm font-medium text-brand">{item.role}</span>}
+              </span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+    {
+      section.items.length > 1 && (
+        <div class="mt-8 flex justify-center gap-2">
+          {section.items.map((item, index) => (
+            <button
+              type="button"
+              data-carousel-dot
+              class="group flex h-11 items-center px-1"
+              aria-label={`${ui.slideTo} ${index + 1}: ${item.name}`}
+            >
+              <span class="block h-1.5 w-2 rounded-full bg-border-strong transition-all duration-300 group-aria-[current=true]:w-8 group-aria-[current=true]:bg-brand-solid" />
+            </button>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</SectionShell>
+
+<script>
+  import '../../scripts/carousel';
+</script>

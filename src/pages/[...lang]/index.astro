@@ -1,0 +1,12 @@
+---
+import ContentPage from '../../layouts/ContentPage.astro';
+import { localeStaticPaths, type Locale } from '../../lib/i18n';
+
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+const { locale } = Astro.props as { locale: Locale };
+---
+
+<ContentPage locale={locale} route="index" />

@@ -1,0 +1,26 @@
+---
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  align?: 'center' | 'start';
+  as?: 'h1' | 'h2' | 'h3';
+  class?: string;
+}
+
+const { title, subtitle, align = 'center', as: Tag = 'h2', class: className = '' } = Astro.props;
+---
+
+{
+  (title || subtitle) && (
+    <div
+      class:list={[
+        'mb-12 max-w-3xl',
+        align === 'center' ? 'mx-auto text-center' : 'text-start',
+        className,
+      ]}
+    >
+      {title && <Tag class="text-3xl md:text-4xl text-fg">{title}</Tag>}
+      {subtitle && <p class="mt-4 text-lg leading-relaxed text-fg-muted">{subtitle}</p>}
+    </div>
+  )
+}

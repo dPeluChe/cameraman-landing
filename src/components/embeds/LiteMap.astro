@@ -1,0 +1,42 @@
+---
+// Facade: the map iframe (and its third-party cookies) only loads on click.
+export interface Props {
+  src: string;
+  label: string;
+  title: string;
+}
+
+const { src, label, title } = Astro.props;
+---
+
+<div
+  class="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-border bg-surface-muted"
+  data-lite-map
+  data-src={src}
+  data-title={title}
+>
+  <button
+    type="button"
+    class="absolute inset-0 flex flex-col items-center justify-center gap-3 text-fg-muted transition-colors hover:text-brand"
+  >
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+    <span class="text-sm font-medium">{label}</span>
+  </button>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-lite-map]').forEach((container) => {
+    container.querySelector('button')?.addEventListener('click', () => {
+      const frame = document.createElement('iframe');
+      frame.src = container.dataset.src ?? '';
+      frame.title = container.dataset.title ?? 'map';
+      frame.loading = 'lazy';
+      frame.referrerPolicy = 'no-referrer-when-downgrade';
+      frame.className = 'absolute inset-0 size-full border-0';
+      container.replaceChildren(frame);
+    });
+  });
+</script>

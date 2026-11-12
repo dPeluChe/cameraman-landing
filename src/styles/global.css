@@ -1,0 +1,9 @@
+/* Entry point. Import order matters: Tailwind first, then tokens, then the
+   layers that build on them. Split by concern so a clone can find and change one
+   thing — see docs/GUIDES/BRAND_TOKENS.md. */
+@import 'tailwindcss';
+@import './tokens.css';
+@import './theme.css';
+@import './base.css';
+@import './layout.css';
+@import './prose.css';

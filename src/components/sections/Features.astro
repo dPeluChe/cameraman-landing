@@ -1,0 +1,82 @@
+---
+import SectionShell from './SectionShell.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import Icon from '../ui/Icon.astro';
+import Picture from '../ui/Picture.astro';
+import LiteYouTube from '../embeds/LiteYouTube.astro';
+import type { SectionOf } from '../../schemas/sections';
+import { getUi } from '../../lib/content';
+import { localeFromParam } from '../../lib/i18n';
+
+export interface Props {
+  section: SectionOf<'features'>;
+}
+
+const { section } = Astro.props;
+const ui = await getUi(localeFromParam(Astro.currentLocale));
+const hasMedia = Boolean(section.youtubeId || section.media);
+---
+
+<SectionShell anchor={section.anchor}>
+  <SectionHeader title={section.title} subtitle={section.subtitle} />
+
+  <div class:list={['grid items-stretch gap-8', hasMedia && 'lg:grid-cols-12']}>
+    {
+      section.youtubeId ? (
+        <LiteYouTube videoId={section.youtubeId} label={ui.playVideo} title={section.title} class="lg:col-span-7" />
+      ) : (
+        section.media && (
+          <Picture
+            media={section.media}
+            class="w-full rounded-xl border border-border object-cover shadow-lg lg:col-span-7"
+            sizes="(min-width: 64rem) 44rem, 100vw"
+          />
+        )
+      )
+    }
+
+    <div
+      class:list={['flex flex-col rounded-xl border border-border bg-surface p-8 shadow-md', hasMedia && 'lg:col-span-5']}
+      data-carousel
+      data-autoplay={section.autoplayMs}
+    >
+      <div class="grid flex-1">
+        {
+          section.items.map((item) => (
+            <div
+              data-carousel-panel
+              class="col-start-1 row-start-1 flex flex-col justify-center transition-opacity duration-500"
+            >
+              <span class="flex size-16 items-center justify-center rounded-lg bg-brand-bg text-brand">
+                <Icon name={item.icon} size={32} />
+              </span>
+              <h3 class="mt-6 text-2xl text-fg">{item.title}</h3>
+              <p class="mt-4 text-base leading-relaxed text-fg-muted">{item.description}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      {
+        section.items.length > 1 && (
+          <div class="mt-8 flex gap-2">
+            {section.items.map((item, index) => (
+              <button
+                type="button"
+                data-carousel-dot
+                class="group flex h-11 items-center px-1"
+                aria-label={`${ui.slideTo} ${index + 1}: ${item.title}`}
+              >
+                <span class="block h-1.5 w-2 rounded-full bg-border-strong transition-all duration-300 group-aria-[current=true]:w-8 group-aria-[current=true]:bg-brand-solid" />
+              </button>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </div>
+</SectionShell>
+
+<script>
+  import '../../scripts/carousel';
+</script>

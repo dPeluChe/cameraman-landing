@@ -1,0 +1,10 @@
+---
+// Renders the section types declared in ./sections.ts. The blueprint declares
+// none, so this renders nothing. docs/GUIDES/EXTENDING.md
+import type { Section } from '../schemas/sections';
+
+export interface Props {
+  section: Section;
+  headingLevel?: 'h1' | 'h2';
+}
+---

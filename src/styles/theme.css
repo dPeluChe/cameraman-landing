@@ -1,0 +1,56 @@
+/* Tokens -> Tailwind bridge, plus the dark variant and the one keyframe base uses.
+   Everything here is wiring, no values: edit tokens.css to change how things look.
+   Left side is Tailwind's namespace, right side is the token — they share names on
+   purpose, so `bg-surface` and `--color-surface` are obviously the same thing. */
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-surface-muted: var(--color-surface-muted);
+  --color-border: var(--color-border);
+  --color-border-strong: var(--color-border-strong);
+
+  --color-fg: var(--color-text);
+  --color-fg-muted: var(--color-text-muted);
+  --color-fg-subtle: var(--color-text-subtle);
+  --color-on-brand: var(--color-text-on-brand);
+
+  --color-brand: var(--color-brand-fg);
+  --color-brand-bg: var(--color-brand-bg);
+  --color-brand-solid: var(--brand-600);
+  --color-brand-solid-hover: var(--brand-700);
+  --color-accent: var(--accent-500);
+  --color-success: var(--color-success);
+  --color-danger: var(--color-danger);
+
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-brand: var(--shadow-brand);
+
+  --animate-fade-in: fade-in 0.5s ease-out both;
+}
+
+/* Attribute-driven, not media-query-driven: the toggle must win over the OS. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* 0.01, not 0: Chrome does not count an opacity-0 paint as LCP. A clone that puts
+   this on its headline would report no LCP at all. docs/ARCHITECTURE/SEO.md#rules */
+@keyframes fade-in {
+  from {
+    opacity: 0.01;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

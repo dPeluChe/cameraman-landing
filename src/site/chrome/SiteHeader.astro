@@ -1,0 +1,21 @@
+---
+// What sits above <main> on every page. A clone with its own chrome replaces this
+// file instead of editing BaseLayout. docs/GUIDES/EXTENDING.md
+import BackgroundDecor from '../../components/layout/BackgroundDecor.astro';
+import Header from '../../components/layout/Header.astro';
+import type { SiteEntry, UiStrings } from '../../lib/content';
+import type { Alternate } from '../../lib/routes';
+import type { Locale } from '../../lib/i18n';
+
+export interface Props {
+  site: SiteEntry;
+  ui: UiStrings;
+  locale: Locale;
+  alternates: Alternate[];
+}
+
+const { site, ui, locale, alternates } = Astro.props;
+---
+
+<BackgroundDecor />
+<Header site={site} ui={ui} locale={locale} alternates={alternates} />

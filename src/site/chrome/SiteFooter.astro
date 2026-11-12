@@ -1,0 +1,20 @@
+---
+// What sits below <main> on every page. Replace this file for a custom footer.
+// docs/GUIDES/EXTENDING.md
+import Footer from '../../components/layout/Footer.astro';
+import FloatingContact from '../../components/ui/FloatingContact.astro';
+import StickyMobileCta from '../../components/ui/StickyMobileCta.astro';
+import type { SiteEntry } from '../../lib/content';
+import type { Locale } from '../../lib/i18n';
+
+export interface Props {
+  site: SiteEntry;
+  locale: Locale;
+}
+
+const { site, locale } = Astro.props;
+---
+
+<Footer site={site} locale={locale} />
+<FloatingContact site={site} />
+<StickyMobileCta site={site} />

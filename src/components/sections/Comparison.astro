@@ -1,0 +1,82 @@
+---
+import SectionShell from './SectionShell.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import type { SectionOf } from '../../schemas/sections';
+
+export interface Props {
+  section: SectionOf<'comparison'>;
+}
+
+const { section } = Astro.props;
+---
+
+<SectionShell anchor={section.anchor}>
+  <SectionHeader title={section.title} subtitle={section.subtitle} />
+
+  <div class="overflow-x-auto rounded-xl border border-border bg-surface shadow-sm">
+    <table class="w-full min-w-[500px] border-collapse text-start text-sm">
+      <thead>
+        <tr class="border-b border-border bg-surface-muted">
+          {
+            section.headers.map((header, idx) => (
+              <th
+                class:list={[
+                  'px-6 py-4 font-semibold text-fg',
+                  idx === 0 ? 'text-start w-2/5' : 'text-center',
+                  idx === 1 && 'text-brand font-bold bg-brand-bg/40',
+                ]}
+              >
+                {header}
+              </th>
+            ))
+          }
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-border">
+        {
+          section.rows.map((row) => (
+            <tr class="hover:bg-surface-muted/50 transition-colors">
+              <td class="px-6 py-4">
+                <p class="font-medium text-fg">{row.feature}</p>
+                {row.description && <p class="mt-0.5 text-xs text-fg-subtle">{row.description}</p>}
+              </td>
+              {row.values.map((val, idx) => (
+                <td
+                  class:list={[
+                    'px-6 py-4 text-center align-middle',
+                    idx === 0 && 'bg-brand-bg/20 font-semibold text-fg',
+                  ]}
+                >
+                  {typeof val === 'boolean' ? (
+                    val ? (
+                      <svg
+                        class="mx-auto size-5 text-brand"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="m5 13 4 4L19 7" />
+                      </svg>
+                    ) : (
+                      <span class="text-fg-subtle text-lg leading-none" aria-hidden="true">
+                        —
+                      </span>
+                    )
+                  ) : (
+                    <span class="text-fg-muted">{val}</span>
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  {section.note && <p class="mt-6 text-center text-xs text-fg-subtle">{section.note}</p>}
+</SectionShell>

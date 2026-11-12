@@ -1,0 +1,21 @@
+{
+  "locale": "es",
+  "route": "about",
+  "seo": {
+    "title": "TODO about title",
+    "description": "TODO: replace this about description. It is long enough to satisfy the schema and short enough to fit a search result.",
+    "noindex": false
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "title": "TODO: headline for the about page",
+      "subtitle": "TODO: replace this subtitle. It is long enough to satisfy the schema and short enough to fit a search result.",
+      "actions": []
+    },
+    {
+      "type": "richText",
+      "body": "TODO: tell the story of this business in Markdown."
+    }
+  ]
+}

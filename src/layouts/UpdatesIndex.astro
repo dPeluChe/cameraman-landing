@@ -1,0 +1,56 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SectionRenderer from '../components/sections/SectionRenderer.astro';
+import PostCard from '../components/ui/PostCard.astro';
+import { getPage, getPosts, getSite, getUi } from '../lib/content';
+import { breadcrumbJsonLd, siteBase } from '../lib/seo';
+import { alternateHrefs, routeHref } from '../lib/routes';
+import type { Locale } from '../lib/i18n';
+
+export interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const page = await getPage(locale, 'updates');
+const site = await getSite(locale);
+const ui = await getUi(locale);
+const posts = await getPosts(locale);
+
+const alternates = await alternateHrefs('updates');
+const base = siteBase(Astro);
+const crumbs = breadcrumbJsonLd([
+  { name: site.brand.name, url: new URL(routeHref(site, locale, 'index'), base).href },
+  { name: page.data.seo.title, url: new URL(Astro.url.pathname, base).href },
+]);
+---
+
+<BaseLayout
+  locale={locale}
+  alternates={alternates}
+  title={page.data.seo.title}
+  description={page.data.seo.description}
+  ogImage={page.data.seo.ogImage}
+  noindex={page.data.seo.noindex}
+  jsonLd={[crumbs]}
+>
+  <SectionRenderer sections={page.data.sections} />
+
+  <section class="section-y pt-0">
+    <div class="container-page">
+      {
+        posts.length === 0 ? (
+          <p class="text-center text-fg-muted">{ui.emptyPosts}</p>
+        ) : (
+          <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post) => (
+              <li>
+                <PostCard post={post} site={site} locale={locale} ui={ui} headingLevel="h2" />
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

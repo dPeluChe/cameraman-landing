@@ -1,0 +1,44 @@
+{
+  "locale": "es",
+  "route": "index",
+  "seo": {
+    "title": "TODO index title",
+    "description": "TODO: replace this index description. It is long enough to satisfy the schema and short enough to fit a search result.",
+    "noindex": false
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "title": "TODO: headline for the index page",
+      "subtitle": "TODO: replace this subtitle. It is long enough to satisfy the schema and short enough to fit a search result.",
+      "actions": []
+    },
+    {
+      "type": "services",
+      "title": "TODO: what you offer",
+      "items": [
+        {
+          "icon": "circle",
+          "title": "TODO item one",
+          "description": "TODO: replace this description. It is long enough to satisfy the schema and short enough to fit a search result."
+        },
+        {
+          "icon": "circle",
+          "title": "TODO item two",
+          "description": "TODO: replace this description. It is long enough to satisfy the schema and short enough to fit a search result."
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "title": "TODO: closing call to action",
+      "actions": [
+        {
+          "label": "TODO button",
+          "href": "#",
+          "variant": "primary"
+        }
+      ]
+    }
+  ]
+}

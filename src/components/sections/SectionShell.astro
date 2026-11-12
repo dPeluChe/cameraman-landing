@@ -1,0 +1,15 @@
+---
+export interface Props {
+  anchor?: string;
+  class?: string;
+  labelledBy?: string;
+}
+
+const { anchor, class: className = '', labelledBy } = Astro.props;
+---
+
+<section id={anchor} class:list={['section-y', className]} aria-labelledby={labelledBy}>
+  <div class="container-page w-full">
+    <slot />
+  </div>
+</section>

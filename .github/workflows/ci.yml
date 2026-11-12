@@ -1,0 +1,106 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# A clone building here (CI=true) must name its origin or the build refuses to run
+# (src/lib/site-url.mjs). Set the SITE_URL repository variable: Settings > Secrets and
+# variables > Actions > Variables. The blueprint itself leaves it unset on purpose.
+env:
+  SITE_URL: ${{ vars.SITE_URL }}
+
+jobs:
+  lint-and-typecheck:
+    name: Lint & Type Check
+    runs-on: [self-hosted, sbk-small]
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Runner image inventory
+        run: |
+          uname -a
+          ldd --version 2>&1 | head -1
+          nproc
+          git --version 2>/dev/null || echo 'git: not in image'
+          node -v 2>/dev/null || echo 'node: not in image'
+          npm -v 2>/dev/null || echo 'npm: not in image'
+          docker --version 2>/dev/null || echo 'docker: not in image'
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: npm
+      - run: npm ci
+      - name: Astro check (0 errors, 0 warnings, 0 hints)
+        run: npm run check
+      - name: Lint
+        run: npm run lint
+      - name: Audit (no high or critical advisories)
+        run: npm audit --audit-level=high
+      # The gate parses the score the pinned devDependency prints and requires exactly 100:
+      # the blueprint ships at 100, and a lower score is a finding to fix, not accept.
+      - name: React Doctor (score 100)
+        run: npm run doctor
+
+  build-and-test:
+    name: Build & Test
+    runs-on: [self-hosted, sbk-small]
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Runner image inventory
+        run: |
+          uname -a
+          ldd --version 2>&1 | head -1
+          nproc
+          git --version 2>/dev/null || echo 'git: not in image'
+          node -v 2>/dev/null || echo 'node: not in image'
+          npm -v 2>/dev/null || echo 'npm: not in image'
+          docker --version 2>/dev/null || echo 'docker: not in image'
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: npm
+      - name: Font CDN egress
+        run: node scripts/check-font-egress.mjs
+      - run: npm ci
+      # The suite asserts against built HTML and fails if dist/ is older
+      # than src/, so the build must land before the tests.
+      - name: Build
+        run: npm run build
+      - name: Test
+        run: npm test
+
+  # Own job so its extra astro builds run beside Build & Test instead of after it.
+  verify-clone:
+    name: Verify clone
+    runs-on: [self-hosted, sbk-small]
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Runner image inventory
+        run: |
+          uname -a
+          ldd --version 2>&1 | head -1
+          nproc
+          git --version 2>/dev/null || echo 'git: not in image'
+          node -v 2>/dev/null || echo 'node: not in image'
+          npm -v 2>/dev/null || echo 'npm: not in image'
+          docker --version 2>/dev/null || echo 'docker: not in image'
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: npm
+      - name: Font CDN egress
+        run: node scripts/check-font-egress.mjs
+      - run: npm ci
+      # tests/presets.test.ts checks the data presets emit; this is the only gate
+      # that runs `astro build` on each one — image() path resolution included.
+      - name: Verify clone (reset, suite, every preset builds)
+        run: npm run verify:clone

@@ -1,0 +1,28 @@
+---
+// One route for both detail collections: the URL shape is identical and the
+// segment comes from site config, so a clone renames either without touching
+// this file. Which collection it is arrives as a prop. See ROUTING.md.
+import PostDetail from '../../../layouts/PostDetail.astro';
+import ProjectDetail from '../../../layouts/ProjectDetail.astro';
+import { detailPaths } from '../../../lib/routes';
+import type { DetailRoute, PostEntry, ProjectEntry } from '../../../lib/content';
+import type { Locale } from '../../../lib/i18n';
+
+export async function getStaticPaths() {
+  return detailPaths();
+}
+
+const { locale, route, detail } = Astro.props as {
+  locale: Locale;
+  route: DetailRoute;
+  detail: PostEntry | ProjectEntry;
+};
+---
+
+{
+  route === 'projects' ? (
+    <ProjectDetail locale={locale} project={detail as ProjectEntry} />
+  ) : (
+    <PostDetail locale={locale} post={detail as PostEntry} />
+  )
+}

@@ -1,0 +1,84 @@
+---
+// Single dispatch point from content `type` to component. A new section type is
+// three edits: schema variant, component, entry here.
+import SiteSection from '../../site/SiteSection.astro';
+import Hero from './Hero.astro';
+import Stats from './Stats.astro';
+import Features from './Features.astro';
+import HowItWorks from './HowItWorks.astro';
+import Services from './Services.astro';
+import Testimonials from './Testimonials.astro';
+import Cta from './Cta.astro';
+import Faq from './Faq.astro';
+import Logos from './Logos.astro';
+import Location from './Location.astro';
+import Pricing from './Pricing.astro';
+import RichText from './RichText.astro';
+import Team from './Team.astro';
+import ContactFormSection from './ContactFormSection.astro';
+import PostsPreview from './PostsPreview.astro';
+import ProjectsPreview from './ProjectsPreview.astro';
+import Comparison from './Comparison.astro';
+import Timeline from './Timeline.astro';
+import Bento from './Bento.astro';
+import type { Section } from '../../schemas/sections';
+
+export interface Props {
+  sections: Section[];
+  /** Only the first section of a page may own the h1. */
+  firstIsHeading?: boolean;
+}
+
+const { sections, firstIsHeading = true } = Astro.props;
+const visible = sections.filter((section) => section.enabled);
+---
+
+{
+  visible.map((section, index) => {
+    switch (section.type) {
+      case 'hero':
+        return <Hero section={section} headingLevel={index === 0 && firstIsHeading ? 'h1' : 'h2'} />;
+      case 'stats':
+        return <Stats section={section} />;
+      case 'features':
+        return <Features section={section} />;
+      case 'howItWorks':
+        return <HowItWorks section={section} />;
+      case 'services':
+        return <Services section={section} />;
+      case 'testimonials':
+        return <Testimonials section={section} />;
+      case 'cta':
+        return <Cta section={section} />;
+      case 'faq':
+        return <Faq section={section} />;
+      case 'logos':
+        return <Logos section={section} />;
+      case 'location':
+        return <Location section={section} />;
+      case 'pricing':
+        return <Pricing section={section} />;
+      case 'comparison':
+        return <Comparison section={section} />;
+      case 'timeline':
+        return <Timeline section={section} />;
+      case 'bento':
+        return <Bento section={section} />;
+      case 'richText':
+        return <RichText section={section} />;
+      case 'team':
+        return <Team section={section} />;
+      case 'contactForm':
+        return <ContactFormSection section={section} />;
+      case 'postsPreview':
+        return <PostsPreview section={section} />;
+
+      case 'projectsPreview':
+        return <ProjectsPreview section={section} />;
+
+      default:
+        // Types a clone adds in src/site/sections.ts.
+        return <SiteSection section={section} headingLevel={index === 0 && firstIsHeading ? 'h1' : 'h2'} />;
+    }
+  })
+}

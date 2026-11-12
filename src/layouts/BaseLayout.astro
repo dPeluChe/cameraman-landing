@@ -1,0 +1,100 @@
+---
+import BaseHead from '../components/seo/BaseHead.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import SiteHeader from '../site/chrome/SiteHeader.astro';
+import SiteFooter from '../site/chrome/SiteFooter.astro';
+import { getSite, getUi } from '../lib/content';
+import type { Alternate } from '../lib/routes';
+import { htmlLang, type Locale } from '../lib/i18n';
+import { organizationJsonLd, websiteJsonLd, siteBase } from '../lib/seo';
+import '../styles/global.css';
+
+export interface Props {
+  locale: Locale;
+  alternates: Alternate[];
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  canonical?: string;
+  jsonLd?: Record<string, unknown>[];
+  publishedTime?: Date;
+  modifiedTime?: Date;
+}
+
+const {
+  locale,
+  alternates,
+  title,
+  description,
+  ogImage,
+  ogType,
+  noindex,
+  canonical,
+  jsonLd = [],
+  publishedTime,
+  modifiedTime,
+} = Astro.props;
+
+const site = await getSite(locale);
+const ui = await getUi(locale);
+const base = siteBase(Astro);
+const origin = new URL(base).origin;
+const logoUrl = new URL(
+  typeof site.brand.logo.light.src === 'string' ? site.brand.logo.light.src : site.brand.logo.light.src.src,
+  base,
+).href;
+
+const graph = [organizationJsonLd(site, origin, logoUrl), websiteJsonLd(site, origin, locale), ...jsonLd];
+
+const { darkMode, defaultTheme, scrollLayout } = site.features;
+const initialTheme = darkMode ? defaultTheme : 'light';
+---
+
+<!doctype html>
+<html lang={htmlLang(locale)} data-theme={darkMode && defaultTheme === 'dark' ? 'dark' : 'light'}>
+  <head>
+    <BaseHead
+      site={site}
+      locale={locale}
+      alternates={alternates}
+      title={title}
+      description={description}
+      ogImage={ogImage}
+      ogType={ogType}
+      noindex={noindex}
+      canonical={canonical}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+    />
+    <JsonLd schema={graph} />
+    {/* Resolves the theme before first paint; without it the page flashes. */}
+    <script is:inline define:vars={{ initialTheme, darkMode }}>
+      (() => {
+        if (!darkMode) return;
+        const stored = localStorage.getItem('theme');
+        const system = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        const resolved = stored ?? (initialTheme === 'system' ? system : initialTheme);
+        document.documentElement.dataset.theme = resolved;
+      })();
+    </script>
+  </head>
+
+  <body class="flex min-h-svh flex-col" data-scroll-layout={scrollLayout}>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-100 focus:rounded-md focus:bg-brand-solid focus:px-4 focus:py-2 focus:text-on-brand"
+    >
+      {ui.skipToContent}
+    </a>
+
+    <SiteHeader site={site} ui={ui} locale={locale} alternates={alternates} />
+
+    <main id="main" class="relative z-10 flex-1">
+      <slot />
+    </main>
+
+    <SiteFooter site={site} locale={locale} />
+  </body>
+</html>

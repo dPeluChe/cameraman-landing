@@ -1,0 +1,34 @@
+---
+import type { SiteEntry, UiStrings } from '../../lib/content';
+import type { Alternate } from '../../lib/routes';
+import type { Locale } from '../../lib/i18n';
+
+export interface Props {
+  site: SiteEntry;
+  ui: UiStrings;
+  locale: Locale;
+  alternates: Alternate[];
+}
+
+const { site, ui, locale, alternates } = Astro.props;
+const visible = site.features.showLocaleSwitcher && alternates.length > 1;
+---
+
+{
+  visible && (
+    <div class="flex items-center rounded-md border border-border p-0.5" role="group" aria-label={ui.switchLanguage}>
+      {alternates.map((alt) => (
+        <a
+          href={alt.href}
+          hreflang={alt.tag}
+          lang={alt.tag}
+          aria-current={alt.locale === locale ? 'true' : undefined}
+          class="rounded-sm px-2 py-1 text-xs font-semibold uppercase text-fg-subtle transition-colors hover:text-brand aria-[current]:bg-brand-bg aria-[current]:text-brand"
+        >
+          <span aria-hidden="true">{alt.locale}</span>
+          <span class="sr-only">{alt.label}</span>
+        </a>
+      ))}
+    </div>
+  )
+}

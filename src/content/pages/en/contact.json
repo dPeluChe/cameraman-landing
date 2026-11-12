@@ -1,0 +1,25 @@
+{
+  "locale": "en",
+  "route": "contact",
+  "seo": {
+    "title": "TODO contact title",
+    "description": "TODO: replace this contact description. It is long enough to satisfy the schema and short enough to fit a search result.",
+    "noindex": false
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "title": "TODO: headline for the contact page",
+      "subtitle": "TODO: replace this subtitle. It is long enough to satisfy the schema and short enough to fit a search result.",
+      "actions": []
+    },
+    {
+      "type": "contactForm",
+      "title": "TODO: contact heading",
+      "submitLabel": "TODO send",
+      "successMessage": "TODO: confirmation message",
+      "errorMessage": "TODO: failure message",
+      "extraFields": []
+    }
+  ]
+}

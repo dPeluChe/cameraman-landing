@@ -1,0 +1,15 @@
+---
+export interface Props {
+  schema: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { schema } = Astro.props;
+const payload = Array.isArray(schema) ? schema : [schema];
+---
+
+{
+  // `<` escaped: CMS text containing "</script>" would otherwise close the tag early.
+  payload.map((entry) => (
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(entry).replace(/</g, '\\u003c')} />
+  ))
+}

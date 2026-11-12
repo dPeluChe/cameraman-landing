@@ -1,0 +1,95 @@
+/* Brand tokens. The only file to edit when rebranding a clone.
+   AA contrast is enforced by tests/contrast.test.ts, not asserted here:
+   change a value and the ratios are recomputed. docs/GUIDES/BRAND_TOKENS.md */
+
+:root {
+  --brand-50: #eff6ff;
+  --brand-100: #dbeafe;
+  --brand-300: #93c5fd;
+  --brand-400: #60a5fa;
+  --brand-500: #2563eb;
+  --brand-600: #1d4ed8;
+  --brand-700: #1e40af;
+
+  --accent-500: var(--brand-500);
+  /* Status colors are per-theme: a red tuned for white fails on near-black. */
+  --color-success: #15803d;
+  --color-danger: #b91c1c;
+
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f1f5f9;
+  --color-border: #e2e8f0;
+  --color-border-strong: #7d8798;
+
+  --color-text: #0f172a;
+  --color-text-muted: #475569;
+  --color-text-subtle: #64748b;
+  --color-text-on-brand: #ffffff;
+
+  --color-brand-fg: var(--brand-600);
+  --color-brand-bg: var(--brand-50);
+  --color-focus: var(--brand-600);
+
+  --decor-from: #e0f2fe;
+  --decor-mid: #f8fafc;
+  --decor-to: #e2e8f0;
+
+  /* --font-brand is emitted by Astro from src/lib/fonts.mjs. The stack after it
+     is what renders if a clone ships no webfont, so both paths stay supported. */
+  --font-sans: var(--font-brand, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif);
+  --font-display: var(--font-sans);
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+
+  --font-weight-body: 400;
+  --font-weight-strong: 600;
+  --font-weight-display: 700;
+  --tracking-display: -0.02em;
+
+  /* Single roundness dial; every other radius derives from it. */
+  --radius-base: 0.75rem;
+  --radius-sm: calc(var(--radius-base) * 0.5);
+  --radius-md: var(--radius-base);
+  --radius-lg: calc(var(--radius-base) * 1.35);
+  --radius-xl: calc(var(--radius-base) * 2);
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.05);
+  --shadow-md: 0 4px 12px -2px rgb(15 23 42 / 0.08);
+  --shadow-lg: 0 12px 32px -8px rgb(15 23 42 / 0.12);
+  --shadow-brand: 0 12px 32px -8px rgb(37 99 235 / 0.25);
+
+  --section-py: clamp(3.5rem, 8vw, 7rem);
+  --container-max: 80rem;
+  --container-px: clamp(1.25rem, 4vw, 3rem);
+}
+
+[data-theme='dark'] {
+  --color-success: #4ade80;
+  --color-danger: #f87171;
+
+  --color-bg: #050505;
+  --color-surface: #0f1117;
+  --color-surface-muted: #161922;
+  --color-border: #262a35;
+  --color-border-strong: #5f6779;
+
+  --color-text: #f8fafc;
+  --color-text-muted: #cbd5e1;
+  --color-text-subtle: #94a3b8;
+  --color-text-on-brand: #ffffff;
+
+  /* brand-600 fails AA as text on dark; step up to 400. */
+  --color-brand-fg: var(--brand-400);
+  --color-brand-bg: rgb(37 99 235 / 0.16);
+  --color-focus: var(--brand-400);
+
+  --decor-from: #0c162e;
+  --decor-mid: #050505;
+  --decor-to: #080c16;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+  --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.6);
+  --shadow-lg: 0 12px 32px -8px rgb(0 0 0 / 0.7);
+  --shadow-brand: 0 12px 32px -8px rgb(37 99 235 / 0.4);
+}

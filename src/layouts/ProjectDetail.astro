@@ -1,0 +1,78 @@
+---
+// A project detail is composed from the same sections a page is, so the header
+// here stays deliberately thin: identity and spec sheet, then the author's blocks.
+import BaseLayout from './BaseLayout.astro';
+import SectionRenderer from '../components/sections/SectionRenderer.astro';
+import Picture from '../components/ui/Picture.astro';
+import { getSite, getUi, type ProjectEntry } from '../lib/content';
+import { alternateHrefs, routeHref } from '../lib/routes';
+import { breadcrumbJsonLd, siteBase } from '../lib/seo';
+import type { Locale } from '../lib/i18n';
+
+export interface Props {
+  locale: Locale;
+  project: ProjectEntry;
+}
+
+const { locale, project } = Astro.props;
+const site = await getSite(locale);
+const ui = await getUi(locale);
+const { title, description, cover, category, meta, seo, draft } = project.data;
+
+const alternates = await alternateHrefs('projects', project);
+const base = siteBase(Astro);
+const url = new URL(Astro.url.pathname, base).href;
+const projectsHref = routeHref(site, locale, 'projects');
+
+const crumbs = breadcrumbJsonLd([
+  { name: site.brand.name, url: new URL(routeHref(site, locale, 'index'), base).href },
+  { name: ui.projectsTitle, url: new URL(projectsHref, base).href },
+  { name: title, url },
+]);
+---
+
+<BaseLayout
+  locale={locale}
+  alternates={alternates}
+  title={seo?.title ?? title}
+  description={seo?.description ?? description}
+  ogImage={seo?.ogImage}
+  noindex={draft || seo?.noindex}
+  jsonLd={[crumbs]}
+>
+  <article>
+    <header class="section-y pb-0">
+      <div class="container-page max-w-3xl">
+        <a href={projectsHref} class="text-sm font-medium text-brand hover:underline">
+          ← {ui.backTo} {ui.projectsTitle.toLowerCase()}
+        </a>
+
+        {category && (
+          <p class="mt-6 text-xs">
+            <span class="rounded-full bg-brand-bg px-2.5 py-0.5 font-medium text-brand">{category}</span>
+          </p>
+        )}
+
+        <h1 class="mt-4 text-3xl text-fg md:text-5xl">{title}</h1>
+        <p class="mt-4 text-lg leading-relaxed text-fg-muted">{description}</p>
+
+        {meta.length > 0 && (
+          <dl class="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-border pt-6 sm:grid-cols-4">
+            {meta.map((item) => (
+              <div>
+                <dt class="text-xs text-fg-subtle">{item.label}</dt>
+                <dd class="mt-1 text-sm font-medium text-fg">{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+      </div>
+
+      <div class="container-page mt-10">
+        <Picture media={cover} class="w-full rounded-xl border border-border" sizes="(min-width: 80rem) 72rem, 100vw" />
+      </div>
+    </header>
+
+    <SectionRenderer sections={project.data.sections} />
+  </article>
+</BaseLayout>
