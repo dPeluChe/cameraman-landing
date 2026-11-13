@@ -23,8 +23,9 @@ Backlog for cameraman.dev.
 | Date | What happened | Where | How it was solved |
 |---|---|---|---|
 | 2026-11-12 | `howItWorks` draws its connector past the page with 4+ steps: the grid is `md:grid-cols-3`, so step 3's line runs off the row | `components/sections/HowItWorks.astro` | Used 3 steps |
-| 2026-11-12 | A clone with no posts fails CI: git does not keep the empty `src/content/posts/`, and the sitemap test scans it | `tests/build-output.test.ts` | `.gitkeep` in `src/content/posts/` |
+| 2026-11-12 | A clone with no posts fails CI: git does not keep the empty `src/content/posts/`, and the sitemap test scans it and reads every file in it as a post (a `.gitkeep` fails too) | `tests/build-output.test.ts` | Open: needs the blueprint fix |
 | 2026-11-12 | `verify:clone` fails in a clone that kept `docs/CLONE_CHECKLIST.md`, which reset itself creates and tells the clone to keep | `scripts/verify-clone.mjs` | Moved the checklist here, as dpeluche-landing did |
+| 2026-11-12 | `verify:clone` fails in an English-default clone: reset writes the same segment for both locales, so the hreflang test fails, and the posts test above fails too | `scripts/reset-templates.mjs` | Open: needs the blueprint fix (issue #64 is the same family) |
 | 2026-11-12 | The icon schema accepts lucide names only, not aliases (`history` fails, `undo-2` works) | `schemas/primitives.ts` | Picked a non-alias icon |
 
 ## Not this repo's problem
