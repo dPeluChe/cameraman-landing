@@ -60,7 +60,6 @@ page can exist without being published.
 | [ARCHITECTURE/ROUTING.md](docs/ARCHITECTURE/ROUTING.md) | Routes, URL segments, hreflang |
 | [ARCHITECTURE/SEO.md](docs/ARCHITECTURE/SEO.md) | What metadata ships and where it comes from |
 | [ARCHITECTURE/STRUCTURE.md](docs/ARCHITECTURE/STRUCTURE.md) | Where things live |
-| [CLONE_CHECKLIST.md](docs/CLONE_CHECKLIST.md) | This clone's working list: inputs, what failed, before launch |
 | [GUIDES/BRAND_TOKENS.md](docs/GUIDES/BRAND_TOKENS.md) | Rebranding and contrast |
 | [GUIDES/STATIC_ASSETS.md](docs/GUIDES/STATIC_ASSETS.md) | Favicons, manifest, OG image |
 | [GUIDES/CONTACT_FORM.md](docs/GUIDES/CONTACT_FORM.md) | Form transport |
