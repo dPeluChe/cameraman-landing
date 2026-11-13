@@ -1,6 +1,7 @@
 ---
 import SectionShell from '../../components/sections/SectionShell.astro';
-import Picture from '../../components/ui/Picture.astro';
+import Mascot from '../Mascot.astro';
+import Shot from '../Shot.astro';
 import type { ImageMetadata } from 'astro';
 import type { SectionOf } from '../../schemas/sections';
 
@@ -35,9 +36,16 @@ const isPortrait = (src: string | ImageMetadata) => typeof src !== 'string' && s
                 </ul>
               )}
             </div>
-            <figure class:list={['cm-shot', isPortrait(row.media.src) && 'w-full max-w-sm justify-self-center']}>
-              <Picture media={row.media} class="w-full" sizes="(min-width: 80rem) 40rem, (min-width: 64rem) 50vw, 100vw" />
-            </figure>
+            <div class:list={['relative', isPortrait(row.media.src) && 'w-full max-w-sm justify-self-center']}>
+              <figure class="cm-shot">
+                <Shot media={row.media} sizes="(min-width: 80rem) 40rem, (min-width: 64rem) 50vw, 100vw" />
+              </figure>
+              {row.mascot && (
+                <div class:list={['cm-peeker', i % 2 === 1 && 'cm-peeker-left']}>
+                  <Mascot mode="peek" face={row.mascot} />
+                </div>
+              )}
+            </div>
           </div>
         ))
       }
@@ -69,6 +77,34 @@ const isPortrait = (src: string | ImageMetadata) => typeof src !== 'string' && s
     border-radius: 50%;
     background: var(--pop);
     transform: translateY(-0.1rem);
+  }
+  .cm-peeker {
+    position: absolute;
+    right: -1.5rem;
+    bottom: -2rem;
+    width: clamp(4.5rem, 9vw, 7rem);
+  }
+  .cm-peeker-left {
+    right: auto;
+    left: -1.5rem;
+  }
+  @media (width >= 80rem) {
+    .cm-peeker {
+      right: -3rem;
+      bottom: -3rem;
+    }
+    .cm-peeker-left {
+      right: auto;
+      left: -3rem;
+    }
+  }
+  @media (width < 40rem) {
+    .cm-peeker {
+      right: -0.5rem;
+    }
+    .cm-peeker-left {
+      left: -0.5rem;
+    }
   }
   .cm-shot {
     overflow: hidden;

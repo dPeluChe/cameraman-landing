@@ -3,8 +3,10 @@ import { z } from 'astro/zod';
 import { iconSchema, linkSchema, mediaSchema, sectionBase, type ImageFn } from '../schemas/primitives';
 
 /** Accent hues from tokens.css (--pop-*); cards and chips only, never body text. */
-export const popColor = z.enum(['red', 'yellow', 'teal', 'plum', 'sky']);
+const popColor = z.enum(['red', 'yellow', 'teal', 'plum', 'sky']);
 export type PopColor = z.infer<typeof popColor>;
+export const mascotFace = z.enum(['play', 'pause', 'rec', 'talk']);
+export type MascotFace = z.infer<typeof mascotFace>;
 
 export const buildSiteSections = (image: ImageFn) =>
   [
@@ -55,6 +57,7 @@ export const buildSiteSections = (image: ImageFn) =>
             points: z.array(z.string().min(1)).max(4).default([]),
             color: popColor,
             media: mediaSchema(image),
+            mascot: mascotFace.optional(),
           }),
         )
         .min(1)

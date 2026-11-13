@@ -100,7 +100,8 @@
           "media": {
             "src": "../../../assets/screens/record.jpg",
             "alt": "The Cameraman recording window with camera, microphone, system audio, drawing and teleprompter toggles, quality and timer options, and a Start Recording button."
-          }
+          },
+          "mascot": "rec"
         },
         {
           "title": "A camera bubble you style, not just place.",
@@ -114,7 +115,8 @@
           "media": {
             "src": "../../../assets/screens/camera.jpg",
             "alt": "The camera panel in Cameraman: frame shape options, background set to Remove, accessories, and the speaker shown without his background."
-          }
+          },
+          "mascot": "play"
         },
         {
           "title": "Music and overlays in the same window.",
@@ -128,7 +130,8 @@
           "media": {
             "src": "../../../assets/screens/music.jpg",
             "alt": "The music panel in Cameraman with six styles, Cinematic selected, volume and lower-under-voice sliders, and a red arrow overlay on the video preview."
-          }
+          },
+          "mascot": "talk"
         }
       ]
     },

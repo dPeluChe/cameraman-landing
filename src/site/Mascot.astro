@@ -1,18 +1,22 @@
 ---
+import type { MascotFace } from './sections';
+
 export interface Props {
-  // cycle: steps through its faces; follow: floats in a corner once the hero is gone and reacts to the section in view.
-  mode: 'cycle' | 'follow';
+  // cycle: steps through its faces; follow: floats in a corner once the hero is gone and reacts to the section in view;
+  // peek: pops up beside a screenshot as it scrolls in, holding one face.
+  mode: 'cycle' | 'follow' | 'peek';
+  face?: MascotFace;
   class?: string;
 }
 
-const { mode, class: className } = Astro.props;
+const { mode, face = 'play', class: className } = Astro.props;
 const bars: [number, number, number][] = [
   [305, 607, 44], [353, 599, 59], [401, 607, 44], [449, 584, 89], [497, 604, 49],
   [545, 592, 74], [593, 607, 44], [641, 597, 64], [689, 607, 44],
 ];
 ---
 
-<div class:list={['cm-mascot', mode === 'follow' && 'cm-follow', className]} data-mascot={mode} data-face="play" aria-hidden="true">
+<div class:list={['cm-mascot', `cm-${mode}`, className]} data-mascot={mode} data-face={face} aria-hidden="true">
   <svg viewBox="0 0 1024 1024">
     <path class="cm-cape" d="M223 425 60 930l358-85 94 80 92-80 361 85-163-505Z" />
     <g class="cm-head">
@@ -34,8 +38,9 @@ const bars: [number, number, number][] = [
 <script>
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const faces = ['play', 'pause', 'rec', 'talk'];
-  // What each section is about: recording, the assistant talking, a comparison to pause on.
-  const bySection: Record<string, string> = { features: 'rec', more: 'play', agents: 'talk', compare: 'pause', download: 'play', faq: 'pause' };
+  // What each section is about: the assistant talking, a comparison to pause on. In the showcase
+  // (features) the screenshots carry their own mascot, so the floater steps aside.
+  const bySection: Record<string, string> = { features: 'away', more: 'play', agents: 'talk', compare: 'pause', download: 'play', faq: 'pause' };
 
   if (!reduced) {
     for (const el of document.querySelectorAll<HTMLElement>('[data-mascot="cycle"]')) {
@@ -53,7 +58,11 @@ const bars: [number, number, number][] = [
       .filter((el): el is HTMLElement => el !== null);
     const watch = new IntersectionObserver(
       (entries) => {
-        for (const entry of entries) if (entry.isIntersecting) follower.dataset.face = bySection[entry.target.id];
+        for (const entry of entries) if (entry.isIntersecting) {
+          const face = bySection[entry.target.id];
+          follower.toggleAttribute('data-away', face === 'away');
+          if (face !== 'away') follower.dataset.face = face;
+        }
       },
       { rootMargin: '-45% 0px -50% 0px' },
     );
@@ -82,9 +91,24 @@ const bars: [number, number, number][] = [
     translate: 0 2rem;
     transition: opacity 0.4s, translate 0.4s;
   }
-  .cm-follow[data-shown] {
+  .cm-follow[data-shown]:not([data-away]) {
     opacity: 1;
     translate: 0 0;
+  }
+  .cm-peek {
+    filter: drop-shadow(0 14px 20px rgb(0 0 0 / 0.35));
+    animation: none;
+  }
+  @supports (animation-timeline: view()) {
+    .cm-peek {
+      animation: cm-pop linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 35%;
+    }
+  }
+  @keyframes cm-pop {
+    from { opacity: 0; transform: translateY(40%) rotate(12deg) scale(0.6); }
+    to { opacity: 1; transform: none; }
   }
   @media (width < 64rem) {
     .cm-follow {
@@ -153,7 +177,7 @@ const bars: [number, number, number][] = [
     50% { opacity: 0.25; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .cm-mascot, .cm-cape, .cm-eye, .cm-mouth rect, [data-face='rec'] .cm-l-rec { animation: none; }
+    .cm-mascot, .cm-peek, .cm-cape, .cm-eye, .cm-mouth rect, [data-face='rec'] .cm-l-rec { animation: none; }
     .cm-follow, .cm-l { transition: none; }
   }
 </style>

@@ -100,7 +100,8 @@
           "media": {
             "src": "../../../assets/screens/record.jpg",
             "alt": "La ventana de grabación de Cameraman con interruptores de cámara, micrófono, audio del sistema, dibujo y teleprompter, opciones de calidad y temporizador, y el botón Start Recording."
-          }
+          },
+          "mascot": "rec"
         },
         {
           "title": "Una burbuja de cámara que estilizas, no solo colocas.",
@@ -114,7 +115,8 @@
           "media": {
             "src": "../../../assets/screens/camera.jpg",
             "alt": "El panel de cámara de Cameraman: formas de marco, fondo en Remove, accesorios, y el presentador sin su fondo."
-          }
+          },
+          "mascot": "play"
         },
         {
           "title": "Música y anotaciones en la misma ventana.",
@@ -128,7 +130,8 @@
           "media": {
             "src": "../../../assets/screens/music.jpg",
             "alt": "El panel de música de Cameraman con seis estilos, Cinematic elegido, controles de volumen y de bajar bajo la voz, y una flecha roja sobre la vista previa."
-          }
+          },
+          "mascot": "talk"
         }
       ]
     },
