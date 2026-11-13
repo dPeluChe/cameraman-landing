@@ -1,0 +1,82 @@
+---
+import SectionShell from '../../components/sections/SectionShell.astro';
+import Icon from '../../components/ui/Icon.astro';
+import type { SectionOf } from '../../schemas/sections';
+
+export interface Props {
+  section: SectionOf<'cmFeatures'>;
+}
+
+const { section } = Astro.props;
+---
+
+<SectionShell anchor={section.anchor}>
+  <div class="mx-auto mb-12 max-w-3xl text-center">
+    {section.eyebrow && <p class="mb-3 text-sm font-bold uppercase tracking-widest text-brand">{section.eyebrow}</p>}
+    <h2 class="text-3xl text-fg md:text-5xl">{section.title}</h2>
+    {section.subtitle && <p class="mt-4 text-lg leading-relaxed text-fg-muted">{section.subtitle}</p>}
+  </div>
+  <ul class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+    {
+      section.items.map((item) => (
+        <li class:list={['cm-card', item.wide && 'lg:col-span-2']} style={`--pop: var(--pop-${item.color})`}>
+          <div class="flex items-start justify-between gap-4">
+            <span class="cm-icon">
+              <Icon name={item.icon} size={24} />
+            </span>
+            {item.tag && <span class="cm-tag">{item.tag}</span>}
+          </div>
+          <h3 class="mt-5 text-xl text-fg">{item.title}</h3>
+          <p class="mt-2 leading-relaxed text-fg-muted">{item.description}</p>
+        </li>
+      ))
+    }
+  </ul>
+</SectionShell>
+
+<style>
+  .cm-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    background: color-mix(in srgb, var(--pop) 12%, var(--color-surface));
+    border: 1px solid color-mix(in srgb, var(--pop) 35%, var(--color-border));
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .cm-card::after {
+    content: '';
+    position: absolute;
+    right: -2.5rem;
+    bottom: -2.5rem;
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--pop) 25%, transparent);
+  }
+  .cm-card:hover {
+    transform: translateY(-3px) rotate(-0.4deg);
+    box-shadow: 0 16px 36px -14px color-mix(in srgb, var(--pop) 70%, transparent);
+  }
+  .cm-icon {
+    display: inline-flex;
+    width: 3rem;
+    height: 3rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    background: var(--pop);
+    color: var(--pop-navy);
+  }
+  .cm-tag {
+    border-radius: var(--radius-full);
+    padding: 0.25rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-text);
+    background: color-mix(in srgb, var(--pop) 28%, var(--color-surface));
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cm-card, .cm-card:hover { transition: none; transform: none; }
+  }
+</style>

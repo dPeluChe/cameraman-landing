@@ -2,41 +2,335 @@
   "locale": "en",
   "route": "index",
   "seo": {
-    "title": "TODO index title",
-    "description": "TODO: replace this index description. It is long enough to satisfy the schema and short enough to fit a search result.",
+    "title": "Free screen recorder and video editor for Mac",
+    "description": "Record your screen, camera and mic on a Mac, edit on a multi-track timeline, and let an AI agent do the cuts. Free, open source and local.",
     "noindex": false
   },
   "sections": [
     {
-      "type": "hero",
-      "title": "TODO: headline for the index page",
-      "subtitle": "TODO: replace this subtitle. It is long enough to satisfy the schema and short enough to fit a search result.",
-      "actions": []
-    },
-    {
-      "type": "services",
-      "title": "TODO: what you offer",
-      "items": [
+      "type": "cmHero",
+      "badge": "Free and open source · beta",
+      "title": "Record your Mac. Let AI do the cuts.",
+      "titleHighlight": "Let AI do the cuts.",
+      "subtitle": "Cameraman records screen, camera and audio as separate tracks, gives you a real timeline editor, and comes with an assistant that edits the video when you ask.",
+      "actions": [
         {
-          "icon": "circle",
-          "title": "TODO item one",
-          "description": "TODO: replace this description. It is long enough to satisfy the schema and short enough to fit a search result."
+          "label": "Download for macOS",
+          "href": "https://github.com/dPeluChe/cameraman/releases/latest",
+          "variant": "primary",
+          "icon": "download",
+          "external": true
         },
         {
-          "icon": "circle",
-          "title": "TODO item two",
-          "description": "TODO: replace this description. It is long enough to satisfy the schema and short enough to fit a search result."
+          "label": "View source",
+          "href": "https://github.com/dPeluChe/cameraman",
+          "variant": "secondary",
+          "icon": "github",
+          "external": true
+        }
+      ],
+      "note": "macOS 13 or later · Apple Silicon and Intel",
+      "chips": [
+        {
+          "label": "Swift native",
+          "color": "red"
+        },
+        {
+          "label": "Local-first",
+          "color": "yellow"
+        },
+        {
+          "label": "MCP server",
+          "color": "teal"
+        },
+        {
+          "label": "Auto-zoom",
+          "color": "violet"
+        },
+        {
+          "label": "Subtitles",
+          "color": "blue"
+        },
+        {
+          "label": "Music",
+          "color": "red"
         }
       ]
     },
     {
+      "type": "stats",
+      "items": [
+        {
+          "value": "$0",
+          "label": "No subscription, ever"
+        },
+        {
+          "value": "100%",
+          "label": "On your Mac, no uploads"
+        },
+        {
+          "value": "40+",
+          "label": "Tools for AI agents"
+        },
+        {
+          "value": "MIT",
+          "label": "Open source license"
+        }
+      ]
+    },
+    {
+      "type": "cmFeatures",
+      "anchor": "features",
+      "eyebrow": "Features",
+      "title": "Everything a screen video needs.",
+      "subtitle": "Record once, then shape it: cuts, camera, captions, motion and music, all without leaving the app.",
+      "items": [
+        {
+          "icon": "circle-dot",
+          "title": "Multi-track recording",
+          "description": "Screen, camera, system audio and microphone are captured at once as separate tracks, so you can trim, mute or move each one on its own.",
+          "color": "red",
+          "wide": true
+        },
+        {
+          "icon": "user-round",
+          "title": "A camera that looks good",
+          "description": "Circle, rounded or capsule frames, a blurred, colored or removed background, and a place and size you can change for each part of the video.",
+          "color": "yellow",
+          "tag": "New"
+        },
+        {
+          "icon": "scissors",
+          "title": "Multi-track timeline",
+          "description": "Trim, split and ripple-delete, then add B-roll, images, color cards and music on their own tracks.",
+          "color": "teal"
+        },
+        {
+          "icon": "zoom-in",
+          "title": "Auto-zoom",
+          "description": "Clicks and pauses become smooth zooms on their own, and you can still place your own keyframes.",
+          "color": "violet"
+        },
+        {
+          "icon": "captions",
+          "title": "Subtitles on your Mac",
+          "description": "Speech is transcribed on-device with WhisperKit, turned into styled subtitles, and exported as SRT or VTT. Nothing is uploaded.",
+          "color": "blue"
+        },
+        {
+          "icon": "sparkles",
+          "title": "Motion graphics",
+          "description": "Name cards, titles, counting stats and bar charts, or your own HTML animation, rendered to transparent video and placed under the camera.",
+          "color": "red",
+          "tag": "New"
+        },
+        {
+          "icon": "music",
+          "title": "Music from code",
+          "description": "Six styles composed on your Mac for the length of the video, ducked under your voice. Or bring your own song.",
+          "color": "yellow",
+          "tag": "New"
+        },
+        {
+          "icon": "pen-line",
+          "title": "Draw while you record",
+          "description": "Pen, arrows, shapes, a laser pointer and blur over the screen, each on a single key.",
+          "color": "teal"
+        },
+        {
+          "icon": "wand-sparkles",
+          "title": "Effects per layer",
+          "description": "Sepia, black and white, color, blur and vignette on the screen, the camera or the background, plus voice pitch.",
+          "color": "violet"
+        },
+        {
+          "icon": "share",
+          "title": "Export in every shape",
+          "description": "1080p H.264, HEVC, 4K, vertical 9:16, square, 4:5 and animated GIF, with the mix you set.",
+          "color": "blue"
+        },
+        {
+          "icon": "undo-2",
+          "title": "Non-destructive",
+          "description": "Edits live in the project file and your recordings are never changed. Undo anything and move projects as portable bundles.",
+          "color": "red"
+        }
+      ]
+    },
+    {
+      "type": "cmAgent",
+      "anchor": "agents",
+      "eyebrow": "Edit with AI",
+      "title": "Say what you want. The assistant edits.",
+      "subtitle": "Open the assistant with ⌘J and ask in plain words. It uses the same editor you do, step by step, and you can watch every change land on the timeline.",
+      "points": [
+        {
+          "title": "Built into the app.",
+          "description": "One chat for all your projects that runs on your own Claude Code login. Cameraman never sees it."
+        },
+        {
+          "title": "40+ editing tools.",
+          "description": "Projects, clips, camera, subtitles, motions, music and export, over a built-in MCP server."
+        },
+        {
+          "title": "Safe to try.",
+          "description": "Edits are non-destructive, so your recordings stay untouched and everything can be undone."
+        },
+        {
+          "title": "Bring your own agent.",
+          "description": "Claude Code, Codex CLI, Cursor and Claude Desktop can connect too."
+        }
+      ],
+      "clients": [
+        "Claude Code",
+        "Codex CLI",
+        "Cursor",
+        "Claude Desktop"
+      ],
+      "chat": {
+        "label": "Example conversation with the Cameraman assistant",
+        "youLabel": "You",
+        "agentLabel": "Assistant",
+        "request": "Cut the long pauses, add calm music, and show a name card when I introduce myself.",
+        "reply": "On it. I read the captions to find the pauses and your introduction.",
+        "tools": [
+          "get_captions",
+          "delete_range",
+          "add_music",
+          "add_motion",
+          "preview_frame"
+        ],
+        "done": "Done: 14 pauses cut, calm music under your voice, and a name card at 0:08."
+      }
+    },
+    {
+      "type": "comparison",
+      "anchor": "compare",
+      "title": "How it compares",
+      "subtitle": "Against tools you might already use.",
+      "headers": [
+        "Feature",
+        "Cameraman",
+        "Screen Studio",
+        "OBS"
+      ],
+      "rows": [
+        {
+          "feature": "Price",
+          "values": [
+            "Free",
+            "Paid",
+            "Free"
+          ]
+        },
+        {
+          "feature": "Open source",
+          "values": [
+            true,
+            false,
+            true
+          ]
+        },
+        {
+          "feature": "Video editor included",
+          "values": [
+            true,
+            true,
+            false
+          ]
+        },
+        {
+          "feature": "Edit with AI agents",
+          "values": [
+            true,
+            false,
+            false
+          ]
+        },
+        {
+          "feature": "Works without an account",
+          "values": [
+            true,
+            true,
+            true
+          ]
+        }
+      ],
+      "note": "Checked November 2026. Something out of date? Open an issue on GitHub."
+    },
+    {
+      "type": "howItWorks",
+      "anchor": "download",
+      "title": "From recording to export",
+      "subtitle": "Download the beta and make your first video in minutes.",
+      "steps": [
+        {
+          "icon": "download",
+          "title": "Download",
+          "description": "Get the notarized DMG from GitHub and drag Cameraman to Applications."
+        },
+        {
+          "icon": "video",
+          "title": "Record",
+          "description": "Pick a screen, window or area, turn on the camera and mic, and press record."
+        },
+        {
+          "icon": "scissors",
+          "title": "Edit and export",
+          "description": "Cut on the timeline or ask the assistant, then pick a preset. The file never leaves your Mac."
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "anchor": "faq",
+      "title": "Questions",
+      "items": [
+        {
+          "question": "Is Cameraman really free?",
+          "answer": "Yes. It is MIT licensed, with no subscription, no account and no watermark. If it helps you, you can support it on GitHub Sponsors."
+        },
+        {
+          "question": "What do I need to run it?",
+          "answer": "A Mac with macOS 13 or later, Apple Silicon or Intel. On-device transcription needs Apple Silicon."
+        },
+        {
+          "question": "Does it upload my videos?",
+          "answer": "No. Recording, editing, transcription and export all happen on your Mac."
+        },
+        {
+          "question": "What does the AI assistant cost?",
+          "answer": "Cameraman charges nothing. The assistant runs the Claude Code you already have, so replies come out of your own Claude plan."
+        },
+        {
+          "question": "Is it stable?",
+          "answer": "It is a beta in active development. Recording, editing and export are in daily use; see the changelog for what changed and what is next."
+        },
+        {
+          "question": "Can I build it myself?",
+          "answer": "Yes. Clone the repository and open the Xcode project; the README has the steps."
+        }
+      ],
+      "jsonLd": true
+    },
+    {
       "type": "cta",
-      "title": "TODO: closing call to action",
+      "title": "Make your next screen video with Cameraman.",
+      "subtitle": "Free, open source, and yours to change.",
       "actions": [
         {
-          "label": "TODO button",
-          "href": "#",
-          "variant": "primary"
+          "label": "Download for macOS",
+          "href": "https://github.com/dPeluChe/cameraman/releases/latest",
+          "variant": "primary",
+          "icon": "download",
+          "external": true
+        },
+        {
+          "label": "Star on GitHub",
+          "href": "https://github.com/dPeluChe/cameraman",
+          "variant": "secondary",
+          "icon": "star",
+          "external": true
         }
       ]
     }

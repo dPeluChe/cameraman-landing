@@ -1,0 +1,214 @@
+---
+import Button from '../../components/ui/Button.astro';
+import type { SectionOf } from '../../schemas/sections';
+
+export interface Props {
+  section: SectionOf<'cmHero'>;
+  headingLevel?: 'h1' | 'h2';
+}
+
+const { section, headingLevel: Heading = 'h1' } = Astro.props;
+const { badge, title, titleHighlight, subtitle, actions, chips, note, anchor } = section;
+const highlight = titleHighlight && title.includes(titleHighlight) ? titleHighlight : undefined;
+const [before, after] = highlight ? (title.split(highlight) as [string, string]) : [title, ''];
+
+// Decorative timeline rows: [start %, width %, hue] per clip.
+const rows: [number, number, string][][] = [
+  [[0, 38, 'red'], [40, 34, 'red'], [76, 24, 'red']],
+  [[6, 18, 'yellow'], [52, 22, 'yellow']],
+  [[0, 100, 'teal']],
+  [[26, 20, 'violet'], [70, 16, 'blue']],
+];
+---
+
+<section id={anchor} class="cm-hero relative overflow-hidden" aria-labelledby="hero-title">
+  <div class="cm-blobs" aria-hidden="true"></div>
+  <div class="container-page relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+    <div class="flex flex-col items-start">
+      {badge && <p class="animate-fade-in mb-6 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-semibold">{badge}</p>}
+      <Heading id="hero-title" class="text-4xl leading-[1.05] md:text-6xl">
+        {before}
+        {highlight && <span class="cm-hl">{highlight}</span>}
+        {after}
+      </Heading>
+      <p class="cm-sub mt-6 max-w-xl text-lg leading-relaxed md:text-xl">{subtitle}</p>
+      <div class="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+        {actions.map((action) => <Button link={action} />)}
+      </div>
+      {note && <p class="cm-sub mt-4 text-sm">{note}</p>}
+      {
+        chips.length > 0 && (
+          <ul class="mt-8 flex flex-wrap gap-2">
+            {chips.map((chip) => (
+              <li class="cm-chip" style={`--pop: var(--pop-${chip.color})`}>{chip.label}</li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+
+    <div class="cm-window" aria-hidden="true">
+      <div class="flex gap-1.5 px-4 py-3">
+        <span class="cm-dot" style="--pop: var(--pop-red)"></span>
+        <span class="cm-dot" style="--pop: var(--pop-yellow)"></span>
+        <span class="cm-dot" style="--pop: var(--pop-teal)"></span>
+      </div>
+      <div class="cm-preview mx-3">
+        <div class="cm-lines">
+          <span style="width: 62%"></span><span style="width: 44%"></span><span style="width: 70%"></span><span style="width: 36%"></span>
+        </div>
+        <div class="cm-cam"><span class="cm-cam-play"></span><span class="cm-cam-rec"></span></div>
+      </div>
+      <div class="cm-timeline m-3 mt-3">
+        {
+          rows.map((row) => (
+            <div class="cm-row">
+              {row.map(([start, width, hue]) => (
+                <span class="cm-clip" style={`left: ${start}%; width: ${width}%; --pop: var(--pop-${hue})`} />
+              ))}
+            </div>
+          ))
+        }
+        <span class="cm-playhead"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cm-hero {
+    background: var(--pop-navy);
+    color: var(--pop-cream);
+    border-bottom-left-radius: var(--radius-xl);
+    border-bottom-right-radius: var(--radius-xl);
+  }
+  .cm-blobs {
+    position: absolute;
+    inset: -20% -10% auto auto;
+    width: 70%;
+    height: 140%;
+    background:
+      radial-gradient(closest-side, color-mix(in srgb, var(--pop-red) 45%, transparent), transparent) 20% 30% / 55% 45% no-repeat,
+      radial-gradient(closest-side, color-mix(in srgb, var(--pop-violet) 40%, transparent), transparent) 80% 20% / 50% 40% no-repeat,
+      radial-gradient(closest-side, color-mix(in srgb, var(--pop-teal) 35%, transparent), transparent) 70% 75% / 55% 45% no-repeat,
+      radial-gradient(closest-side, color-mix(in srgb, var(--pop-yellow) 30%, transparent), transparent) 30% 85% / 40% 35% no-repeat;
+    filter: blur(20px);
+    pointer-events: none;
+  }
+  .cm-hl {
+    color: var(--brand-400);
+  }
+  .cm-sub {
+    color: color-mix(in srgb, var(--pop-cream) 82%, var(--pop-navy));
+  }
+  .cm-chip {
+    border-radius: var(--radius-full);
+    padding: 0.35rem 0.85rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--pop-cream);
+    background: color-mix(in srgb, var(--pop) 22%, var(--pop-navy));
+    border: 1px solid color-mix(in srgb, var(--pop) 55%, transparent);
+  }
+  .cm-window {
+    position: relative;
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--pop-cream) 6%, var(--pop-navy));
+    border: 1px solid color-mix(in srgb, var(--pop-cream) 14%, transparent);
+    box-shadow: 0 30px 80px -20px rgb(0 0 0 / 0.6);
+    transform: rotate(1.5deg);
+  }
+  .cm-dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background: var(--pop);
+  }
+  .cm-preview {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--pop-blue), var(--pop-violet) 60%, var(--pop-red));
+    overflow: hidden;
+  }
+  .cm-lines {
+    position: absolute;
+    inset: 14% 40% auto 8%;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .cm-lines span {
+    display: block;
+    height: 0.55rem;
+    border-radius: var(--radius-full);
+    background: rgb(255 255 255 / 0.55);
+  }
+  .cm-cam {
+    position: absolute;
+    right: 6%;
+    bottom: 9%;
+    width: 30%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--pop-cream);
+    border: 0.3rem solid var(--pop-yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14%;
+    animation: cm-bob 4s ease-in-out infinite;
+  }
+  .cm-cam-play {
+    width: 0;
+    height: 0;
+    border-top: 0.6rem solid transparent;
+    border-bottom: 0.6rem solid transparent;
+    border-left: 0.9rem solid var(--pop-navy);
+  }
+  .cm-cam-rec {
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--pop-red);
+  }
+  .cm-timeline {
+    position: relative;
+    display: grid;
+    gap: 0.45rem;
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    background: rgb(0 0 0 / 0.25);
+  }
+  .cm-row {
+    position: relative;
+    height: 1.1rem;
+  }
+  .cm-clip {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-radius: 0.35rem;
+    background: var(--pop);
+  }
+  .cm-playhead {
+    position: absolute;
+    top: 0.4rem;
+    bottom: 0.4rem;
+    left: 0.75rem;
+    width: 2px;
+    background: var(--pop-cream);
+    box-shadow: 0 0 0 1px var(--pop-navy);
+    animation: cm-play 7s linear infinite;
+  }
+  @keyframes cm-play {
+    from { left: 0.75rem; }
+    to { left: calc(100% - 0.75rem); }
+  }
+  @keyframes cm-bob {
+    50% { transform: translateY(-6%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cm-playhead, .cm-cam { animation: none; }
+    .cm-playhead { left: 42%; }
+  }
+</style>

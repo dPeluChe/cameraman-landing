@@ -161,3 +161,15 @@ configuration would let a CMS point at a collection that does not exist.
 Lighthouse on the demo site, desktop preset: **Performance ≥ 95, Accessibility 100,
 Best Practices 100, SEO 100**. Measured on `/`, `/servicios`, `/contacto`,
 a post page and `/en`. Not met = not done.
+
+## Cameraman specifics
+
+- Site: cameraman.dev, the landing of [dPeluChe/cameraman](https://github.com/dPeluChe/cameraman). English is the
+  default locale (`/`), Spanish at `/es`. One page (`index`); the other routes are off.
+- Own section types in `src/site/`: `cmHero` (navy hero with the CSS editor mockup), `cmFeatures` (color cards),
+  `cmAgent` (assistant chat). Card hues are the `--pop-*` tokens in `tokens.css`.
+- The logo SVGs in `src/assets/brand/` were redrawn from the app icon (`docs/branding` in the app repo).
+- Feature copy must match the app: check its `docs/CHANGELOG.md` before claiming a feature, and keep the
+  MCP tool count ("40+") and "beta" honest.
+- The React/Vite site this replaced is at tag `react-landing-final`; its July 2026 v2-v4 experiments are on
+  branch `archive/react-variants`.

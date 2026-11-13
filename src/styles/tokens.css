@@ -13,6 +13,7 @@
 
   --accent-500: var(--brand-500);
   /* Cameraman's extra hues: section and card accents only, never body text. */
+  --pop-red: var(--brand-500);
   --pop-yellow: #ffc93c;
   --pop-teal: #19b6a4;
   --pop-violet: #8b5cf6;
@@ -40,7 +41,7 @@
 
   --decor-from: #fde3d6;
   --decor-mid: #fbf6ea;
-  --decor-to: #e7f3ef;
+  --decor-to: #fbf6ea;
 
   /* --font-brand is emitted by Astro from src/lib/fonts.mjs. The stack after it
      is what renders if a clone ships no webfont, so both paths stay supported. */
@@ -93,7 +94,7 @@
 
   --decor-from: #3a1e24;
   --decor-mid: #141b26;
-  --decor-to: #102a2f;
+  --decor-to: #141b26;
 
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
   --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.6);

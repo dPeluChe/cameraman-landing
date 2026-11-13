@@ -1,0 +1,127 @@
+---
+import SectionShell from '../../components/sections/SectionShell.astro';
+import type { SectionOf } from '../../schemas/sections';
+
+export interface Props {
+  section: SectionOf<'cmAgent'>;
+}
+
+const { section } = Astro.props;
+const { chat } = section;
+const hues = ['red', 'yellow', 'teal', 'violet', 'blue'];
+---
+
+<SectionShell anchor={section.anchor}>
+  <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+    <div>
+      {section.eyebrow && <p class="mb-3 text-sm font-bold uppercase tracking-widest text-brand">{section.eyebrow}</p>}
+      <h2 class="text-3xl text-fg md:text-5xl">{section.title}</h2>
+      <p class="mt-4 text-lg leading-relaxed text-fg-muted">{section.subtitle}</p>
+      <ul class="mt-8 grid gap-4">
+        {
+          section.points.map((point, i) => (
+            <li class="flex gap-3" style={`--pop: var(--pop-${hues[i % hues.length]})`}>
+              <span class="cm-bullet" aria-hidden="true" />
+              <p class="text-fg-muted">
+                <strong class="text-fg">{point.title}</strong> {point.description}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+      {
+        section.clients.length > 0 && (
+          <ul class="mt-8 flex flex-wrap gap-2">
+            {section.clients.map((client) => (
+              <li class="rounded-full border border-border-strong px-3 py-1 text-sm font-semibold text-fg">{client}</li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+
+    <figure class="cm-chat" aria-label={chat.label}>
+      <div class="cm-msg cm-you">
+        <p class="cm-who">{chat.youLabel}</p>
+        <p>{chat.request}</p>
+      </div>
+      <div class="cm-msg">
+        <p class="cm-who">{chat.agentLabel}</p>
+        <p>{chat.reply}</p>
+        <ul class="mt-3 grid gap-1.5">
+          {
+            chat.tools.map((tool, i) => (
+              <li class="cm-tool" style={`--pop: var(--pop-${hues[i % hues.length]})`}>
+                <span class="cm-tool-dot" aria-hidden="true" />
+                <code>{tool}</code>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-3">{chat.done}</p>
+      </div>
+    </figure>
+  </div>
+</SectionShell>
+
+<style>
+  .cm-bullet {
+    flex: none;
+    margin-top: 0.35rem;
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 0.25rem;
+    background: var(--pop);
+    transform: rotate(45deg);
+  }
+  .cm-chat {
+    display: grid;
+    gap: 0.9rem;
+    padding: 1.5rem;
+    border-radius: var(--radius-xl);
+    background: var(--pop-navy);
+    color: var(--pop-cream);
+    box-shadow: 0 30px 70px -25px color-mix(in srgb, var(--pop-violet) 60%, transparent);
+    transform: rotate(-1deg);
+  }
+  .cm-msg {
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.1rem;
+    background: rgb(255 255 255 / 0.06);
+    line-height: 1.55;
+  }
+  .cm-you {
+    justify-self: end;
+    max-width: 85%;
+    background: color-mix(in srgb, var(--pop-red) 30%, var(--pop-navy));
+  }
+  .cm-who {
+    margin-bottom: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--pop-yellow);
+  }
+  .cm-tool {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.85rem;
+  }
+  .cm-tool code {
+    font-family: var(--font-mono);
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.4rem;
+    background: rgb(0 0 0 / 0.3);
+  }
+  .cm-tool-dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--pop);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cm-chat { transform: none; }
+  }
+</style>

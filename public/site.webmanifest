@@ -1,7 +1,7 @@
 {
-  "name": "TODO Brand name",
-  "short_name": "TODO Brand name",
-  "description": "TODO: one sentence on what this business does.",
+  "name": "Cameraman",
+  "short_name": "Cameraman",
+  "description": "A free, open source screen recorder and video editor for macOS that AI agents can edit for you.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

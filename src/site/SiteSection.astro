@@ -1,10 +1,18 @@
 ---
-// Renders the section types declared in ./sections.ts. The blueprint declares
-// none, so this renders nothing. docs/GUIDES/EXTENDING.md
+// Renders the section types declared in ./sections.ts. docs/GUIDES/EXTENDING.md
 import type { Section } from '../schemas/sections';
+import CmHero from './sections/CmHero.astro';
+import CmFeatures from './sections/CmFeatures.astro';
+import CmAgent from './sections/CmAgent.astro';
 
 export interface Props {
   section: Section;
   headingLevel?: 'h1' | 'h2';
 }
+
+const { section, headingLevel = 'h2' } = Astro.props;
 ---
+
+{section.type === 'cmHero' && <CmHero section={section} headingLevel={headingLevel} />}
+{section.type === 'cmFeatures' && <CmFeatures section={section} />}
+{section.type === 'cmAgent' && <CmAgent section={section} />}

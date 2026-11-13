@@ -1,42 +1,144 @@
 {
   "locale": "en",
   "brand": {
-    "name": "TODO Brand name",
-    "tagline": "TODO: one sentence on what this business does.",
+    "name": "Cameraman",
+    "tagline": "A free, open source screen recorder and video editor for macOS that AI agents can edit for you.",
     "logo": {
       "light": {
         "src": "../../assets/brand/logo.svg",
-        "alt": "TODO Brand name",
-        "width": 200,
+        "alt": "Cameraman",
+        "width": 210,
+        "height": 40
+      },
+      "dark": {
+        "src": "../../assets/brand/logo-dark.svg",
+        "alt": "Cameraman",
+        "width": 210,
         "height": 40
       }
     }
   },
   "contact": {
-    "email": "todo@example.com",
+    "email": "support@dpeluche.dev",
     "openingHours": []
   },
-  "social": [],
+  "social": [
+    {
+      "platform": "GitHub",
+      "url": "https://github.com/dPeluChe/cameraman"
+    }
+  ],
   "seo": {
-    "defaultTitle": "TODO Brand name",
+    "defaultTitle": "Cameraman: free screen recorder and video editor for macOS",
     "titleTemplate": "%title% | %brand%",
-    "defaultDescription": "TODO: replace this site description. It is long enough to satisfy the schema and short enough to fit a search result.",
+    "defaultDescription": "Free, open source screen recorder and video editor for macOS. Local-first, Swift native, with an AI assistant and an MCP server that edits your videos.",
     "defaultOgImage": "/og/default.png",
     "robots": {
-      "index": false,
+      "index": true,
       "follow": true
     },
     "verification": {}
   },
   "organization": {
     "type": "Organization",
-    "sameAs": []
+    "sameAs": [
+      "https://github.com/dPeluChe/cameraman"
+    ]
   },
-  "nav": [],
+  "nav": [
+    {
+      "label": "Features",
+      "href": "/#features",
+      "variant": "ghost"
+    },
+    {
+      "label": "AI editing",
+      "href": "/#agents",
+      "variant": "ghost"
+    },
+    {
+      "label": "Compare",
+      "href": "/#compare",
+      "variant": "ghost"
+    },
+    {
+      "label": "FAQ",
+      "href": "/#faq",
+      "variant": "ghost"
+    }
+  ],
   "footer": {
-    "columns": [],
+    "columns": [
+      {
+        "title": "Product",
+        "links": [
+          {
+            "label": "Download",
+            "href": "https://github.com/dPeluChe/cameraman/releases/latest",
+            "variant": "ghost",
+            "external": true
+          },
+          {
+            "label": "All releases",
+            "href": "https://github.com/dPeluChe/cameraman/releases",
+            "variant": "ghost",
+            "external": true
+          },
+          {
+            "label": "Changelog",
+            "href": "https://github.com/dPeluChe/cameraman/blob/main/docs/CHANGELOG.md",
+            "variant": "ghost",
+            "external": true
+          }
+        ]
+      },
+      {
+        "title": "Open source",
+        "links": [
+          {
+            "label": "Source code",
+            "href": "https://github.com/dPeluChe/cameraman",
+            "variant": "ghost",
+            "external": true
+          },
+          {
+            "label": "Report a bug",
+            "href": "https://github.com/dPeluChe/cameraman/issues/new",
+            "variant": "ghost",
+            "external": true
+          },
+          {
+            "label": "Contributing",
+            "href": "https://github.com/dPeluChe/cameraman/blob/main/CONTRIBUTING.md",
+            "variant": "ghost",
+            "external": true
+          }
+        ]
+      },
+      {
+        "title": "Support the project",
+        "links": [
+          {
+            "label": "GitHub Sponsors",
+            "href": "https://github.com/sponsors/dPeluChe",
+            "variant": "ghost",
+            "external": true
+          },
+          {
+            "label": "PayPal",
+            "href": "https://paypal.me/dpeluche",
+            "variant": "ghost",
+            "external": true
+          }
+        ]
+      }
+    ],
     "legalLinks": [],
-    "copyright": "© %year% %brand%."
+    "copyright": "© %year% %brand%. MIT licensed.",
+    "credit": {
+      "label": "dPeluChe",
+      "href": "https://dpeluche.dev"
+    }
   },
   "features": {
     "darkMode": true,
@@ -49,11 +151,11 @@
   },
   "routes": {
     "services": {
-      "enabled": true,
+      "enabled": false,
       "segment": "services"
     },
     "about": {
-      "enabled": true,
+      "enabled": false,
       "segment": "about"
     },
     "updates": {
@@ -65,7 +167,7 @@
       "segment": "projects"
     },
     "contact": {
-      "enabled": true,
+      "enabled": false,
       "segment": "contact"
     }
   }
