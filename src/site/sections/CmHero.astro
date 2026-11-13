@@ -1,6 +1,7 @@
 ---
 import Button from '../../components/ui/Button.astro';
 import Picture from '../../components/ui/Picture.astro';
+import Mascot from '../Mascot.astro';
 import type { SectionOf } from '../../schemas/sections';
 
 export interface Props {
@@ -49,26 +50,8 @@ const rows: [number, number, string][][] = [
     </div>
       {
         media && (
-          <div class="cm-mascot hidden lg:block" aria-hidden="true">
-            <svg viewBox="0 0 1024 1024">
-              <path class="cm-cape" d="M223 425 60 930l358-85 94 80 92-80 361 85-163-505Z" />
-              <g class="cm-head">
-                <rect class="cm-face" x="226" y="186" width="572" height="592" rx="62" />
-                <path class="cm-ink" d="M350 340 440 400 350 460Z" />
-                <circle class="cm-eye" cx="630" cy="400" r="64" />
-                <g class="cm-ink">
-              <rect x="305" y="607" width="24" height="44" rx="12" style="--d: 0.00s" />
-              <rect x="353" y="599" width="24" height="59" rx="12" style="--d: 0.11s" />
-              <rect x="401" y="607" width="24" height="44" rx="12" style="--d: 0.22s" />
-              <rect x="449" y="584" width="24" height="89" rx="12" style="--d: 0.33s" />
-              <rect x="497" y="604" width="24" height="49" rx="12" style="--d: 0.44s" />
-              <rect x="545" y="592" width="24" height="74" rx="12" style="--d: 0.55s" />
-              <rect x="593" y="607" width="24" height="44" rx="12" style="--d: 0.66s" />
-              <rect x="641" y="597" width="24" height="64" rx="12" style="--d: 0.77s" />
-              <rect x="689" y="607" width="24" height="44" rx="12" style="--d: 0.88s" />
-                </g>
-              </g>
-            </svg>
+          <div class="hidden w-[clamp(14rem,22vw,20rem)] lg:block">
+            <Mascot mode="cycle" />
           </div>
         )
       }
@@ -104,6 +87,7 @@ const rows: [number, number, string][][] = [
     </div>
     )}
   </div>
+  {media && <Mascot mode="follow" />}
 </section>
 
 <style>
@@ -127,47 +111,6 @@ const rows: [number, number, string][][] = [
     color: var(--pop-cream);
     background: color-mix(in srgb, var(--pop) 22%, var(--pop-navy));
     border: 1px solid color-mix(in srgb, var(--pop) 55%, transparent);
-  }
-  .cm-mascot {
-    width: clamp(14rem, 22vw, 20rem);
-    filter: drop-shadow(0 30px 40px rgb(0 0 0 / 0.45));
-    animation: cm-float 5s ease-in-out infinite;
-  }
-  .cm-mascot svg {
-    display: block;
-    overflow: visible;
-  }
-  .cm-cape {
-    fill: var(--pop-red);
-    transform-origin: 512px 425px;
-    animation: cm-sway 5s ease-in-out infinite;
-  }
-  .cm-face {
-    fill: var(--pop-cream);
-    stroke: var(--pop-navy);
-    stroke-width: 8;
-  }
-  .cm-ink {
-    fill: var(--pop-navy);
-  }
-  .cm-eye {
-    fill: var(--pop-red);
-    animation: cm-blink 1.4s steps(2, jump-none) infinite;
-  }
-  .cm-ink rect {
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: cm-talk 0.9s ease-in-out var(--d) infinite alternate;
-  }
-  @keyframes cm-float {
-    50% { transform: translateY(-14px) rotate(-2deg); }
-  }
-  @keyframes cm-sway {
-    50% { transform: skewX(-3deg) scaleY(1.03); }
-  }
-  @keyframes cm-talk {
-    from { transform: scaleY(0.45); }
-    to { transform: scaleY(1.15); }
   }
   .cm-shot {
     overflow: hidden;
@@ -291,7 +234,7 @@ const rows: [number, number, string][][] = [
     50% { transform: translateY(-6%); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .cm-playhead, .cm-cam, .cm-rec, .cm-mascot, .cm-cape, .cm-eye, .cm-ink rect { animation: none; }
+    .cm-playhead, .cm-cam, .cm-rec { animation: none; }
     .cm-playhead { left: 42%; }
   }
 </style>

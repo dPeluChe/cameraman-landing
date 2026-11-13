@@ -166,7 +166,7 @@ a post page and `/en`. Not met = not done.
 
 - Site: cameraman.dev, the landing of [dPeluChe/cameraman](https://github.com/dPeluChe/cameraman). English is the
   default locale (`/`), Spanish at `/es`. One page (`index`); the other routes are off.
-- Own section types in `src/site/`: `cmHero` (navy hero; a real screenshot, or the CSS editor mockup without one),
+- Own section types in `src/site/`: `cmHero` (navy hero; a real screenshot, or the CSS editor mockup without one; with a screenshot it shows `Mascot.astro`, the icon whose face swaps between playback controls, inline and as a desktop-only floater that reacts to the section in view),
   `cmShowcase` (alternating screenshot rows), `cmFeatures` (compact list), `cmAgent` (assistant chat). Accent hues
   are the `--pop-*` tokens in `tokens.css`. `src/site/chrome/SiteHeader.astro` highlights the nav link in view.
 - App screenshots live in `src/assets/screens/` (owned in `.blueprint-lock.json`). Before adding one, check the

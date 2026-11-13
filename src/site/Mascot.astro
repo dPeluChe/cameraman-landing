@@ -1,0 +1,159 @@
+---
+export interface Props {
+  // cycle: steps through its faces; follow: floats in a corner once the hero is gone and reacts to the section in view.
+  mode: 'cycle' | 'follow';
+  class?: string;
+}
+
+const { mode, class: className } = Astro.props;
+const bars: [number, number, number][] = [
+  [305, 607, 44], [353, 599, 59], [401, 607, 44], [449, 584, 89], [497, 604, 49],
+  [545, 592, 74], [593, 607, 44], [641, 597, 64], [689, 607, 44],
+];
+---
+
+<div class:list={['cm-mascot', mode === 'follow' && 'cm-follow', className]} data-mascot={mode} data-face="play" aria-hidden="true">
+  <svg viewBox="0 0 1024 1024">
+    <path class="cm-cape" d="M223 425 60 930l358-85 94 80 92-80 361 85-163-505Z" />
+    <g class="cm-head">
+      <rect class="cm-face" x="226" y="186" width="572" height="592" rx="62" />
+      <path class="cm-ink cm-l cm-l-play" d="M350 340 440 400 350 460Z" />
+      <g class="cm-ink cm-l cm-l-pause">
+        <rect x="348" y="342" width="30" height="116" rx="8" />
+        <rect x="410" y="342" width="30" height="116" rx="8" />
+      </g>
+      <circle class="cm-red cm-l cm-l-rec" cx="395" cy="400" r="56" />
+      <circle class="cm-red cm-eye" cx="630" cy="400" r="64" />
+      <g class="cm-ink cm-mouth">
+        {bars.map(([x, y, h], i) => <rect x={x} y={y} width="24" height={h} rx="12" style={`--d: ${(i * 0.11).toFixed(2)}s`} />)}
+      </g>
+    </g>
+  </svg>
+</div>
+
+<script>
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const faces = ['play', 'pause', 'rec', 'talk'];
+  // What each section is about: recording, the assistant talking, a comparison to pause on.
+  const bySection: Record<string, string> = { features: 'rec', more: 'play', agents: 'talk', compare: 'pause', download: 'play', faq: 'pause' };
+
+  if (!reduced) {
+    for (const el of document.querySelectorAll<HTMLElement>('[data-mascot="cycle"]')) {
+      let i = 0;
+      setInterval(() => (el.dataset.face = faces[++i % faces.length]), 2600);
+    }
+  }
+
+  const follower = document.querySelector<HTMLElement>('[data-mascot="follow"]');
+  const hero = document.querySelector('.cm-hero');
+  if (follower && hero && 'IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => entries.forEach((e) => follower.toggleAttribute('data-shown', !e.isIntersecting))).observe(hero);
+    const sections = Object.keys(bySection)
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+    const watch = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) if (entry.isIntersecting) follower.dataset.face = bySection[entry.target.id];
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    sections.forEach((el) => watch.observe(el));
+  }
+</script>
+
+<style>
+  .cm-mascot {
+    filter: drop-shadow(0 30px 40px rgb(0 0 0 / 0.45));
+    animation: cm-float 5s ease-in-out infinite;
+  }
+  .cm-mascot svg {
+    display: block;
+    overflow: visible;
+  }
+  .cm-follow {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    z-index: 40;
+    width: 5.5rem;
+    pointer-events: none;
+    filter: drop-shadow(0 12px 18px rgb(0 0 0 / 0.3));
+    opacity: 0;
+    translate: 0 2rem;
+    transition: opacity 0.4s, translate 0.4s;
+  }
+  .cm-follow[data-shown] {
+    opacity: 1;
+    translate: 0 0;
+  }
+  @media (width < 64rem) {
+    .cm-follow {
+      display: none;
+    }
+  }
+  .cm-cape {
+    fill: var(--pop-red);
+    transform-origin: 512px 425px;
+    animation: cm-sway 5s ease-in-out infinite;
+  }
+  .cm-face {
+    fill: var(--pop-cream);
+    stroke: var(--pop-navy);
+    stroke-width: 8;
+  }
+  .cm-ink {
+    fill: var(--pop-navy);
+  }
+  .cm-red {
+    fill: var(--pop-red);
+  }
+  .cm-eye {
+    animation: cm-blink 1.4s steps(2, jump-none) infinite;
+  }
+  .cm-l {
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+    scale: 0.4;
+    transition: opacity 0.25s, scale 0.35s cubic-bezier(0.3, 1.6, 0.5, 1);
+  }
+  [data-face='play'] .cm-l-play,
+  [data-face='talk'] .cm-l-play,
+  [data-face='pause'] .cm-l-pause,
+  [data-face='rec'] .cm-l-rec {
+    opacity: 1;
+    scale: 1;
+  }
+  [data-face='rec'] .cm-l-rec {
+    animation: cm-blink 1.4s steps(2, jump-none) infinite;
+  }
+  .cm-mouth rect {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: cm-talk 0.9s ease-in-out var(--d) infinite alternate;
+    transition: scale 0.3s;
+  }
+  [data-face='talk'] .cm-mouth rect {
+    animation-duration: 0.4s;
+  }
+  [data-face='pause'] .cm-mouth rect {
+    animation-play-state: paused;
+  }
+  @keyframes cm-float {
+    50% { transform: translateY(-14px) rotate(-2deg); }
+  }
+  @keyframes cm-sway {
+    50% { transform: skewX(-3deg) scaleY(1.03); }
+  }
+  @keyframes cm-talk {
+    from { transform: scaleY(0.45); }
+    to { transform: scaleY(1.15); }
+  }
+  @keyframes cm-blink {
+    50% { opacity: 0.25; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cm-mascot, .cm-cape, .cm-eye, .cm-mouth rect, [data-face='rec'] .cm-l-rec { animation: none; }
+    .cm-follow, .cm-l { transition: none; }
+  }
+</style>
