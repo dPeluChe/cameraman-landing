@@ -8,7 +8,7 @@ export interface Props {
 
 const { section } = Astro.props;
 const { chat } = section;
-const hues = ['red', 'yellow', 'teal', 'violet', 'blue'];
+const hues = ['red', 'yellow', 'teal', 'plum', 'sky'];
 ---
 
 <SectionShell anchor={section.anchor}>
@@ -81,8 +81,7 @@ const hues = ['red', 'yellow', 'teal', 'violet', 'blue'];
     border-radius: var(--radius-xl);
     background: var(--pop-navy);
     color: var(--pop-cream);
-    box-shadow: 0 30px 70px -25px color-mix(in srgb, var(--pop-violet) 60%, transparent);
-    transform: rotate(-1deg);
+    box-shadow: var(--shadow-lg);
   }
   .cm-msg {
     border-radius: var(--radius-lg);
@@ -120,8 +119,5 @@ const hues = ['red', 'yellow', 'teal', 'violet', 'blue'];
     height: 0.55rem;
     border-radius: 50%;
     background: var(--pop);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .cm-chat { transform: none; }
   }
 </style>

@@ -14,10 +14,10 @@
   --accent-500: var(--brand-500);
   /* Cameraman's extra hues: section and card accents only, never body text. */
   --pop-red: var(--brand-500);
-  --pop-yellow: #ffc93c;
-  --pop-teal: #19b6a4;
-  --pop-violet: #8b5cf6;
-  --pop-blue: #3b82f6;
+  --pop-yellow: #f2b134;
+  --pop-teal: #1a9e8f;
+  --pop-plum: #a4508b;
+  --pop-sky: #4a90c2;
   --pop-navy: #1f2937;
   --pop-cream: #f5edd8;
   /* Status colors are per-theme: a red tuned for white fails on near-black. */

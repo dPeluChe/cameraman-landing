@@ -3,7 +3,7 @@ import { z } from 'astro/zod';
 import { iconSchema, linkSchema, sectionBase, type ImageFn } from '../schemas/primitives';
 
 /** Accent hues from tokens.css (--pop-*); cards and chips only, never body text. */
-export const popColor = z.enum(['red', 'yellow', 'teal', 'violet', 'blue']);
+export const popColor = z.enum(['red', 'yellow', 'teal', 'plum', 'sky']);
 export type PopColor = z.infer<typeof popColor>;
 
 export const buildSiteSections = (_image: ImageFn) =>

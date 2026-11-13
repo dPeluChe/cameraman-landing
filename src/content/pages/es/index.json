@@ -9,7 +9,6 @@
   "sections": [
     {
       "type": "cmHero",
-      "badge": "Gratis y de código abierto · beta",
       "title": "Graba tu Mac. Deja que la IA haga los cortes.",
       "titleHighlight": "Deja que la IA haga los cortes.",
       "subtitle": "Cameraman graba pantalla, cámara y audio en pistas separadas, te da un editor con timeline de verdad y trae un asistente que edita el video cuando se lo pides.",
@@ -29,7 +28,7 @@
           "external": true
         }
       ],
-      "note": "macOS 13 o posterior · Apple Silicon e Intel",
+      "note": "Beta · macOS 13 o posterior · Apple Silicon e Intel",
       "chips": [
         {
           "label": "Nativo en Swift",
@@ -45,11 +44,11 @@
         },
         {
           "label": "Auto-zoom",
-          "color": "violet"
+          "color": "plum"
         },
         {
           "label": "Subtítulos",
-          "color": "blue"
+          "color": "sky"
         },
         {
           "label": "Música",
@@ -61,29 +60,28 @@
       "type": "stats",
       "items": [
         {
-          "value": "$0",
-          "label": "Sin suscripción, nunca"
-        },
-        {
-          "value": "100%",
-          "label": "En tu Mac, sin subir nada"
+          "value": "4",
+          "label": "Pistas por grabación: pantalla, cámara, audio del sistema y micrófono"
         },
         {
           "value": "40+",
-          "label": "Herramientas para agentes de IA"
+          "label": "Herramientas de edición para un agente de IA"
         },
         {
-          "value": "MIT",
-          "label": "Licencia de código abierto"
+          "value": "6",
+          "label": "Estilos de música compuestos en tu Mac"
+        },
+        {
+          "value": "0",
+          "label": "Archivos subidos, nunca"
         }
       ]
     },
     {
       "type": "cmFeatures",
       "anchor": "features",
-      "eyebrow": "Funciones",
-      "title": "Todo lo que pide un video de pantalla.",
-      "subtitle": "Graba una vez y dale forma: cortes, cámara, subtítulos, animaciones y música, sin salir de la app.",
+      "title": "Graba una vez y arréglalo en la edición.",
+      "subtitle": "Cortes, cámara, subtítulos, animaciones y música, dentro de la misma app con la que grabaste.",
       "items": [
         {
           "icon": "circle-dot",
@@ -109,13 +107,13 @@
           "icon": "zoom-in",
           "title": "Auto-zoom",
           "description": "Los clics y las pausas se vuelven zooms suaves solos, y aun así puedes poner tus propios keyframes.",
-          "color": "violet"
+          "color": "plum"
         },
         {
           "icon": "captions",
           "title": "Subtítulos en tu Mac",
           "description": "La voz se transcribe en el equipo con WhisperKit, se vuelve subtítulos con estilo y se exporta en SRT o VTT. No se sube nada.",
-          "color": "blue"
+          "color": "sky"
         },
         {
           "icon": "sparkles",
@@ -141,13 +139,13 @@
           "icon": "wand-sparkles",
           "title": "Efectos por capa",
           "description": "Sepia, blanco y negro, color, desenfoque y viñeta en la pantalla, la cámara o el fondo, y cambio de tono de voz.",
-          "color": "violet"
+          "color": "plum"
         },
         {
           "icon": "share",
           "title": "Exporta en cualquier formato",
           "description": "1080p H.264, HEVC, 4K, vertical 9:16, cuadrado, 4:5 y GIF animado, con la mezcla que elegiste.",
-          "color": "blue"
+          "color": "sky"
         },
         {
           "icon": "undo-2",
@@ -160,8 +158,7 @@
     {
       "type": "cmAgent",
       "anchor": "agents",
-      "eyebrow": "Edición con IA",
-      "title": "Di lo que quieres. El asistente edita.",
+      "title": "Pide la edición con tus palabras.",
       "subtitle": "Abre el asistente con ⌘J y pídelo con tus palabras. Usa el mismo editor que tú, paso a paso, y ves cada cambio llegar al timeline.",
       "points": [
         {
@@ -316,7 +313,7 @@
     {
       "type": "cta",
       "title": "Haz tu próximo video de pantalla con Cameraman.",
-      "subtitle": "Gratis, de código abierto y tuyo para cambiarlo.",
+      "subtitle": "Licencia MIT. Lee el código, cámbialo y compila tu propia versión.",
       "actions": [
         {
           "label": "Descargar para macOS",

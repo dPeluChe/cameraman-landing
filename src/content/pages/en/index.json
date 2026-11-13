@@ -9,7 +9,6 @@
   "sections": [
     {
       "type": "cmHero",
-      "badge": "Free and open source · beta",
       "title": "Record your Mac. Let AI do the cuts.",
       "titleHighlight": "Let AI do the cuts.",
       "subtitle": "Cameraman records screen, camera and audio as separate tracks, gives you a real timeline editor, and comes with an assistant that edits the video when you ask.",
@@ -29,7 +28,7 @@
           "external": true
         }
       ],
-      "note": "macOS 13 or later · Apple Silicon and Intel",
+      "note": "Beta · macOS 13 or later · Apple Silicon and Intel",
       "chips": [
         {
           "label": "Swift native",
@@ -45,11 +44,11 @@
         },
         {
           "label": "Auto-zoom",
-          "color": "violet"
+          "color": "plum"
         },
         {
           "label": "Subtitles",
-          "color": "blue"
+          "color": "sky"
         },
         {
           "label": "Music",
@@ -61,29 +60,28 @@
       "type": "stats",
       "items": [
         {
-          "value": "$0",
-          "label": "No subscription, ever"
-        },
-        {
-          "value": "100%",
-          "label": "On your Mac, no uploads"
+          "value": "4",
+          "label": "Tracks per recording: screen, camera, system audio, mic"
         },
         {
           "value": "40+",
-          "label": "Tools for AI agents"
+          "label": "Editing tools an AI agent can call"
         },
         {
-          "value": "MIT",
-          "label": "Open source license"
+          "value": "6",
+          "label": "Music styles composed on your Mac"
+        },
+        {
+          "value": "0",
+          "label": "Files uploaded, ever"
         }
       ]
     },
     {
       "type": "cmFeatures",
       "anchor": "features",
-      "eyebrow": "Features",
-      "title": "Everything a screen video needs.",
-      "subtitle": "Record once, then shape it: cuts, camera, captions, motion and music, all without leaving the app.",
+      "title": "Record once, then fix it in the edit.",
+      "subtitle": "Cuts, camera, captions, motion and music, all inside the app you recorded with.",
       "items": [
         {
           "icon": "circle-dot",
@@ -109,13 +107,13 @@
           "icon": "zoom-in",
           "title": "Auto-zoom",
           "description": "Clicks and pauses become smooth zooms on their own, and you can still place your own keyframes.",
-          "color": "violet"
+          "color": "plum"
         },
         {
           "icon": "captions",
           "title": "Subtitles on your Mac",
           "description": "Speech is transcribed on-device with WhisperKit, turned into styled subtitles, and exported as SRT or VTT. Nothing is uploaded.",
-          "color": "blue"
+          "color": "sky"
         },
         {
           "icon": "sparkles",
@@ -141,13 +139,13 @@
           "icon": "wand-sparkles",
           "title": "Effects per layer",
           "description": "Sepia, black and white, color, blur and vignette on the screen, the camera or the background, plus voice pitch.",
-          "color": "violet"
+          "color": "plum"
         },
         {
           "icon": "share",
           "title": "Export in every shape",
           "description": "1080p H.264, HEVC, 4K, vertical 9:16, square, 4:5 and animated GIF, with the mix you set.",
-          "color": "blue"
+          "color": "sky"
         },
         {
           "icon": "undo-2",
@@ -160,8 +158,7 @@
     {
       "type": "cmAgent",
       "anchor": "agents",
-      "eyebrow": "Edit with AI",
-      "title": "Say what you want. The assistant edits.",
+      "title": "Ask for the edit in plain words.",
       "subtitle": "Open the assistant with ⌘J and ask in plain words. It uses the same editor you do, step by step, and you can watch every change land on the timeline.",
       "points": [
         {
@@ -316,7 +313,7 @@
     {
       "type": "cta",
       "title": "Make your next screen video with Cameraman.",
-      "subtitle": "Free, open source, and yours to change.",
+      "subtitle": "MIT licensed. Read the code, change it, ship your own build.",
       "actions": [
         {
           "label": "Download for macOS",

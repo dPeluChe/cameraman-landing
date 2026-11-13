@@ -17,12 +17,11 @@ const rows: [number, number, string][][] = [
   [[0, 38, 'red'], [40, 34, 'red'], [76, 24, 'red']],
   [[6, 18, 'yellow'], [52, 22, 'yellow']],
   [[0, 100, 'teal']],
-  [[26, 20, 'violet'], [70, 16, 'blue']],
+  [[26, 20, 'plum'], [70, 16, 'sky']],
 ];
 ---
 
 <section id={anchor} class="cm-hero relative overflow-hidden" aria-labelledby="hero-title">
-  <div class="cm-blobs" aria-hidden="true"></div>
   <div class="container-page relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
     <div class="flex flex-col items-start">
       {badge && <p class="animate-fade-in mb-6 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-semibold">{badge}</p>}
@@ -48,10 +47,8 @@ const rows: [number, number, string][][] = [
     </div>
 
     <div class="cm-window" aria-hidden="true">
-      <div class="flex gap-1.5 px-4 py-3">
-        <span class="cm-dot" style="--pop: var(--pop-red)"></span>
-        <span class="cm-dot" style="--pop: var(--pop-yellow)"></span>
-        <span class="cm-dot" style="--pop: var(--pop-teal)"></span>
+      <div class="cm-bar">
+        <span class="cm-rec"></span>REC <span class="cm-tc">00:42:17</span>
       </div>
       <div class="cm-preview mx-3">
         <div class="cm-lines">
@@ -82,19 +79,6 @@ const rows: [number, number, string][][] = [
     border-bottom-left-radius: var(--radius-xl);
     border-bottom-right-radius: var(--radius-xl);
   }
-  .cm-blobs {
-    position: absolute;
-    inset: -20% -10% auto auto;
-    width: 70%;
-    height: 140%;
-    background:
-      radial-gradient(closest-side, color-mix(in srgb, var(--pop-red) 45%, transparent), transparent) 20% 30% / 55% 45% no-repeat,
-      radial-gradient(closest-side, color-mix(in srgb, var(--pop-violet) 40%, transparent), transparent) 80% 20% / 50% 40% no-repeat,
-      radial-gradient(closest-side, color-mix(in srgb, var(--pop-teal) 35%, transparent), transparent) 70% 75% / 55% 45% no-repeat,
-      radial-gradient(closest-side, color-mix(in srgb, var(--pop-yellow) 30%, transparent), transparent) 30% 85% / 40% 35% no-repeat;
-    filter: blur(20px);
-    pointer-events: none;
-  }
   .cm-hl {
     color: var(--brand-400);
   }
@@ -118,17 +102,32 @@ const rows: [number, number, string][][] = [
     box-shadow: 0 30px 80px -20px rgb(0 0 0 / 0.6);
     transform: rotate(1.5deg);
   }
-  .cm-dot {
-    width: 0.7rem;
-    height: 0.7rem;
+  .cm-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  .cm-rec {
+    width: 0.6rem;
+    height: 0.6rem;
     border-radius: 50%;
-    background: var(--pop);
+    background: var(--pop-red);
+    animation: cm-blink 1.4s steps(2, jump-none) infinite;
+  }
+  .cm-tc {
+    margin-left: auto;
+    opacity: 0.7;
   }
   .cm-preview {
     position: relative;
     aspect-ratio: 16 / 9;
     border-radius: var(--radius-md);
-    background: linear-gradient(135deg, var(--pop-blue), var(--pop-violet) 60%, var(--pop-red));
+    background: color-mix(in srgb, var(--pop-cream) 92%, var(--pop-navy));
     overflow: hidden;
   }
   .cm-lines {
@@ -141,7 +140,7 @@ const rows: [number, number, string][][] = [
     display: block;
     height: 0.55rem;
     border-radius: var(--radius-full);
-    background: rgb(255 255 255 / 0.55);
+    background: color-mix(in srgb, var(--pop-navy) 22%, transparent);
   }
   .cm-cam {
     position: absolute;
@@ -150,7 +149,7 @@ const rows: [number, number, string][][] = [
     width: 30%;
     aspect-ratio: 1;
     border-radius: 50%;
-    background: var(--pop-cream);
+    background: var(--pop-teal);
     border: 0.3rem solid var(--pop-yellow);
     display: flex;
     align-items: center;
@@ -204,11 +203,14 @@ const rows: [number, number, string][][] = [
     from { left: 0.75rem; }
     to { left: calc(100% - 0.75rem); }
   }
+  @keyframes cm-blink {
+    50% { opacity: 0.25; }
+  }
   @keyframes cm-bob {
     50% { transform: translateY(-6%); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .cm-playhead, .cm-cam { animation: none; }
+    .cm-playhead, .cm-cam, .cm-rec { animation: none; }
     .cm-playhead { left: 42%; }
   }
 </style>
