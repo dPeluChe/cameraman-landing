@@ -80,6 +80,7 @@ const isPortrait = (src: string | ImageMetadata) => typeof src !== 'string' && s
   }
   .cm-peeker {
     position: absolute;
+    z-index: 2;
     right: -1.5rem;
     bottom: -2rem;
     width: clamp(4.5rem, 9vw, 7rem);

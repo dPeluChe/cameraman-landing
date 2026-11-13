@@ -6,6 +6,7 @@
     "src/assets/brand/",
     "src/assets/demo/",
     "src/assets/screens/",
+    "src/icons/",
     "src/styles/tokens.css",
     "src/lib/locales.mjs",
     "src/lib/fonts.mjs",
