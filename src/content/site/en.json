@@ -133,7 +133,18 @@
         ]
       }
     ],
-    "legalLinks": [],
+    "legalLinks": [
+      {
+        "label": "Privacy",
+        "href": "/privacy",
+        "variant": "ghost"
+      },
+      {
+        "label": "Terms",
+        "href": "/terms",
+        "variant": "ghost"
+      }
+    ],
     "copyright": "© %year% %brand%. MIT licensed.",
     "credit": {
       "label": "dPeluChe",
@@ -169,6 +180,14 @@
     "contact": {
       "enabled": false,
       "segment": "contact"
+    },
+    "privacy": {
+      "enabled": true,
+      "segment": "privacy"
+    },
+    "terms": {
+      "enabled": true,
+      "segment": "terms"
     }
   }
 }

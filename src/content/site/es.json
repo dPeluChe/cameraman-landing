@@ -133,7 +133,18 @@
         ]
       }
     ],
-    "legalLinks": [],
+    "legalLinks": [
+      {
+        "label": "Privacidad",
+        "href": "/es/privacidad",
+        "variant": "ghost"
+      },
+      {
+        "label": "Términos",
+        "href": "/es/terminos",
+        "variant": "ghost"
+      }
+    ],
     "copyright": "© %year% %brand%. Licencia MIT.",
     "credit": {
       "label": "dPeluChe",
@@ -169,6 +180,14 @@
     "contact": {
       "enabled": false,
       "segment": "contacto"
+    },
+    "privacy": {
+      "enabled": true,
+      "segment": "privacidad"
+    },
+    "terms": {
+      "enabled": true,
+      "segment": "terminos"
     }
   }
 }

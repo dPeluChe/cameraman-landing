@@ -1,0 +1,22 @@
+{
+  "locale": "es",
+  "route": "privacy",
+  "seo": {
+    "title": "Política de privacidad",
+    "description": "Cómo tratan tus datos la app Cameraman y este sitio: la app no recopila nada y tus grabaciones nunca salen de tu Mac.",
+    "noindex": false
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "layout": "centered",
+      "title": "Política de privacidad",
+      "subtitle": "Última actualización: 13 de noviembre de 2026"
+    },
+    {
+      "type": "richText",
+      "body": "**La app Cameraman no recopila, envía ni comparte datos personales.** No tiene cuenta, analíticas, rastreo ni SDKs de terceros que recopilen datos.\n\n## Tus grabaciones se quedan en tu Mac\n\nLas grabaciones, proyectos, subtítulos y exportaciones se guardan solo en tu Mac, y la app funciona sin conexión. Cameraman usa la cámara, el micrófono y la pantalla solo cuando empiezas a grabar.\n\n## La transcripción corre en tu Mac\n\nLa voz se transcribe en el equipo. El audio nunca se envía a un servidor.\n\n## El asistente de IA\n\nEl asistente de la app usa el Claude Code que ya tienes instalado y con sesión iniciada. Tus pedidos, y los datos del proyecto que el asistente lee para responderlos, van a Anthropic por tu propia sesión de Claude Code, bajo la [política de privacidad de Anthropic](https://www.anthropic.com/legal/privacy) y tu plan. Cameraman nunca ve esa conversación ni tu sesión, y puedes usar la app sin el asistente.\n\n## El servidor MCP\n\nEl servidor MCP integrado es opcional, corre en tu Mac y solo acepta apps de IA que conectes en esa Mac. Edita tus archivos de proyecto locales y no envía nada a ningún lado. Lo que esas apps envíen a sus propios proveedores lo cubren sus políticas.\n\n## Búsqueda de actualizaciones\n\nLa app puede buscar versiones nuevas pidiendo la lista de releases a la API pública de GitHub. La petición no lleva información personal. GitHub ve tu dirección IP, como en cualquier petición web.\n\n## Este sitio\n\nEste sitio no tiene analíticas, cookies ni scripts de rastreo. El hosting guarda registros normales del servidor, como la dirección IP y las páginas pedidas, para operar y proteger el servicio. Las descargas vienen de GitHub, bajo su [declaración de privacidad](https://docs.github.com/es/site-policy/privacy-policies/github-general-privacy-statement).\n\n## Cambios\n\nSi esta política cambia, la nueva versión se publica aquí con una fecha nueva.\n\n## Contacto\n\nDudas sobre esta política: [support@dpeluche.dev](mailto:support@dpeluche.dev).",
+      "layout": "prose"
+    }
+  ]
+}

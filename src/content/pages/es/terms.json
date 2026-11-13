@@ -1,0 +1,22 @@
+{
+  "locale": "es",
+  "route": "terms",
+  "seo": {
+    "title": "Términos de uso",
+    "description": "Los términos para usar la app Cameraman y este sitio: licencia MIT, sin garantía, y lo que grabas es tuyo.",
+    "noindex": false
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "layout": "centered",
+      "title": "Términos de uso",
+      "subtitle": "Última actualización: 13 de noviembre de 2026"
+    },
+    {
+      "type": "richText",
+      "body": "Estos términos cubren la app Cameraman y este sitio. Cameraman lo hace dPeluChe.\n\n## La app tiene licencia MIT\n\nCameraman es gratis y de código abierto bajo la [licencia MIT](https://github.com/dPeluChe/cameraman/blob/main/LICENSE). Puedes usarla, copiarla, modificarla y compartirla, también para trabajo comercial, siempre que el aviso de la licencia acompañe tus copias. La licencia es el acuerdo completo sobre el software; estos términos solo agregan contexto.\n\n## Sin garantía\n\nLa app se entrega \"tal cual\", sin garantía de ningún tipo, como dice la licencia MIT. Es una beta: guarda copia de las grabaciones que no puedas perder. En la medida que la ley lo permita, los autores no responden por datos perdidos ni por otros daños derivados de su uso.\n\n## Lo que grabas es tuyo\n\nTus grabaciones, proyectos y exportaciones son tuyos. Eres responsable de lo que capturas, incluido pedir consentimiento a las personas que grabas y cumplir las leyes de grabación y privacidad del lugar donde tú y ellas están.\n\n## Servicios de otras empresas\n\nAlgunas funciones usan servicios que tú eliges, cada uno con sus propios términos:\n\n- El asistente de IA usa tu Claude Code, bajo los [términos de Anthropic](https://www.anthropic.com/legal/consumer-terms) y tu plan de Claude.\n- Las apps de IA que conectes al servidor MCP tienen sus propios términos.\n- Las descargas y la búsqueda de actualizaciones usan GitHub, bajo sus [términos de servicio](https://docs.github.com/es/site-policy/github-terms/github-terms-of-service).\n\n## Este sitio\n\nEl sitio describe la app con fines informativos. Las funciones y comparaciones pueden cambiar entre versiones, y el [changelog](https://github.com/dPeluChe/cameraman/blob/main/docs/CHANGELOG.md) es el registro de lo que salió. Los nombres de productos en la comparación pertenecen a sus dueños.\n\n## Cambios\n\nSi estos términos cambian, la nueva versión se publica aquí con una fecha nueva.\n\n## Contacto\n\n[support@dpeluche.dev](mailto:support@dpeluche.dev).",
+      "layout": "prose"
+    }
+  ]
+}
