@@ -1,5 +1,6 @@
 ---
 import Button from '../../components/ui/Button.astro';
+import Picture from '../../components/ui/Picture.astro';
 import type { SectionOf } from '../../schemas/sections';
 
 export interface Props {
@@ -8,7 +9,7 @@ export interface Props {
 }
 
 const { section, headingLevel: Heading = 'h1' } = Astro.props;
-const { badge, title, titleHighlight, subtitle, actions, chips, note, anchor } = section;
+const { badge, title, titleHighlight, subtitle, actions, chips, note, anchor, media } = section;
 const highlight = titleHighlight && title.includes(titleHighlight) ? titleHighlight : undefined;
 const [before, after] = highlight ? (title.split(highlight) as [string, string]) : [title, ''];
 
@@ -22,8 +23,8 @@ const rows: [number, number, string][][] = [
 ---
 
 <section id={anchor} class="cm-hero relative overflow-hidden" aria-labelledby="hero-title">
-  <div class="container-page relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
-    <div class="flex flex-col items-start">
+  <div class:list={['container-page relative grid items-center gap-12 py-16 md:py-24', media ? 'lg:gap-14' : 'lg:grid-cols-[1.05fr_1fr] lg:gap-16']}>
+    <div class:list={['flex flex-col items-start', media && 'max-w-3xl']}>
       {badge && <p class="animate-fade-in mb-6 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-semibold">{badge}</p>}
       <Heading id="hero-title" class="text-4xl leading-[1.05] md:text-6xl">
         {before}
@@ -46,6 +47,11 @@ const rows: [number, number, string][][] = [
       }
     </div>
 
+    {media ? (
+      <figure class="cm-shot">
+        <Picture media={media} class="w-full" sizes="(min-width: 80rem) 74rem, 100vw" />
+      </figure>
+    ) : (
     <div class="cm-window" aria-hidden="true">
       <div class="cm-bar">
         <span class="cm-rec"></span>REC <span class="cm-tc">00:42:17</span>
@@ -69,6 +75,7 @@ const rows: [number, number, string][][] = [
         <span class="cm-playhead"></span>
       </div>
     </div>
+    )}
   </div>
 </section>
 
@@ -93,6 +100,12 @@ const rows: [number, number, string][][] = [
     color: var(--pop-cream);
     background: color-mix(in srgb, var(--pop) 22%, var(--pop-navy));
     border: 1px solid color-mix(in srgb, var(--pop) 55%, transparent);
+  }
+  .cm-shot {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    border: 1px solid color-mix(in srgb, var(--pop-cream) 18%, transparent);
+    box-shadow: 0 40px 90px -30px rgb(0 0 0 / 0.75), 0 0 0 6px color-mix(in srgb, var(--pop-red) 35%, transparent);
   }
   .cm-window {
     position: relative;

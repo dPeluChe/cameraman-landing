@@ -4,6 +4,7 @@ import type { Section } from '../schemas/sections';
 import CmHero from './sections/CmHero.astro';
 import CmFeatures from './sections/CmFeatures.astro';
 import CmAgent from './sections/CmAgent.astro';
+import CmShowcase from './sections/CmShowcase.astro';
 
 export interface Props {
   section: Section;
@@ -16,3 +17,4 @@ const { section, headingLevel = 'h2' } = Astro.props;
 {section.type === 'cmHero' && <CmHero section={section} headingLevel={headingLevel} />}
 {section.type === 'cmFeatures' && <CmFeatures section={section} />}
 {section.type === 'cmAgent' && <CmAgent section={section} />}
+{section.type === 'cmShowcase' && <CmShowcase section={section} />}

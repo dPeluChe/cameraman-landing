@@ -23,7 +23,7 @@
         {
           "label": "Ver el código",
           "href": "https://github.com/dPeluChe/cameraman",
-          "variant": "secondary",
+          "variant": "ghost",
           "icon": "github",
           "external": true
         }
@@ -54,7 +54,12 @@
           "label": "Música",
           "color": "red"
         }
-      ]
+      ],
+      "media": {
+        "src": "../../../assets/screens/editor.jpg",
+        "alt": "El editor de Cameraman: una grabación con la burbuja de cámara del presentador y subtítulos, el timeline multipista abajo y el panel de estilo de subtítulos a la derecha.",
+        "priority": true
+      }
     },
     {
       "type": "stats",
@@ -78,25 +83,60 @@
       ]
     },
     {
-      "type": "cmFeatures",
+      "type": "cmShowcase",
       "anchor": "features",
       "title": "Graba una vez y arréglalo en la edición.",
       "subtitle": "Cortes, cámara, subtítulos, animaciones y música, dentro de la misma app con la que grabaste.",
-      "items": [
+      "rows": [
         {
-          "icon": "circle-dot",
-          "title": "Grabación multipista",
-          "description": "Pantalla, cámara, audio del sistema y micrófono se graban a la vez en pistas separadas, para recortar, silenciar o mover cada una por su cuenta.",
+          "title": "Graba pantalla, cámara y audio en una sola toma.",
+          "description": "Elige una pantalla, una ventana o una app, enciende la cámara y el micrófono, y define la calidad y una cuenta atrás. Cada fuente queda en su propia pista.",
+          "points": [
+            "Dibuja en pantalla mientras grabas",
+            "Teleprompter integrado",
+            "Captura nativa, 1080p o 720p"
+          ],
           "color": "red",
-          "wide": true
+          "media": {
+            "src": "../../../assets/screens/record.jpg",
+            "alt": "La ventana de grabación de Cameraman con interruptores de cámara, micrófono, audio del sistema, dibujo y teleprompter, opciones de calidad y temporizador, y el botón Start Recording."
+          }
         },
         {
-          "icon": "user-round",
-          "title": "Una cámara que se ve bien",
-          "description": "Marco circular, redondeado o de cápsula, fondo desenfocado, de color o quitado, y posición y tamaño distintos en cada parte del video.",
+          "title": "Una burbuja de cámara que estilizas, no solo colocas.",
+          "description": "Marco rectangular, circular, redondeado o de cápsula. Desenfoca el fondo, llénalo de color o quítalo y quédate solo tú. La grabación original nunca cambia.",
+          "points": [
+            "Quitar el fondo en tu Mac",
+            "Accesorios, o tu propio logo",
+            "Muévela a donde quieras, por parte del video"
+          ],
           "color": "yellow",
-          "tag": "Nuevo"
+          "media": {
+            "src": "../../../assets/screens/camera.jpg",
+            "alt": "El panel de cámara de Cameraman: formas de marco, fondo en Remove, accesorios, y el presentador sin su fondo."
+          }
         },
+        {
+          "title": "Música y anotaciones en la misma ventana.",
+          "description": "Seis estilos de música compuestos en tu Mac a la medida del video, que bajan cuando hablas. Flechas, recuadros, líneas, texto e imágenes encima de cualquier momento.",
+          "points": [
+            "Otra variación con un clic",
+            "O importa tu propia canción",
+            "Volumen y bajada bajo la voz"
+          ],
+          "color": "teal",
+          "media": {
+            "src": "../../../assets/screens/music.jpg",
+            "alt": "El panel de música de Cameraman con seis estilos, Cinematic elegido, controles de volumen y de bajar bajo la voz, y una flecha roja sobre la vista previa."
+          }
+        }
+      ]
+    },
+    {
+      "type": "cmFeatures",
+      "anchor": "more",
+      "title": "Además, en el editor",
+      "items": [
         {
           "icon": "scissors",
           "title": "Timeline multipista",
@@ -121,19 +161,6 @@
           "description": "Tarjetas de nombre, títulos, cifras que cuentan y gráficas de barras, o tu propia animación en HTML, en video transparente y debajo de la cámara.",
           "color": "red",
           "tag": "Nuevo"
-        },
-        {
-          "icon": "music",
-          "title": "Música desde código",
-          "description": "Seis estilos compuestos en tu Mac a la medida del video, que bajan cuando hablas. O usa tu propia canción.",
-          "color": "yellow",
-          "tag": "Nuevo"
-        },
-        {
-          "icon": "pen-line",
-          "title": "Dibuja mientras grabas",
-          "description": "Pluma, flechas, figuras, puntero láser y desenfoque sobre la pantalla, cada uno con una tecla.",
-          "color": "teal"
         },
         {
           "icon": "wand-sparkles",
@@ -245,10 +272,10 @@
           ]
         },
         {
-          "feature": "Funciona sin cuenta",
+          "feature": "Windows y Linux",
           "values": [
-            true,
-            true,
+            false,
+            false,
             true
           ]
         }

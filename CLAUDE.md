@@ -166,8 +166,11 @@ a post page and `/en`. Not met = not done.
 
 - Site: cameraman.dev, the landing of [dPeluChe/cameraman](https://github.com/dPeluChe/cameraman). English is the
   default locale (`/`), Spanish at `/es`. One page (`index`); the other routes are off.
-- Own section types in `src/site/`: `cmHero` (navy hero with the CSS editor mockup), `cmFeatures` (color cards),
-  `cmAgent` (assistant chat). Card hues are the `--pop-*` tokens in `tokens.css`.
+- Own section types in `src/site/`: `cmHero` (navy hero; a real screenshot, or the CSS editor mockup without one),
+  `cmShowcase` (alternating screenshot rows), `cmFeatures` (compact list), `cmAgent` (assistant chat). Accent hues
+  are the `--pop-*` tokens in `tokens.css`. `src/site/chrome/SiteHeader.astro` highlights the nav link in view.
+- App screenshots live in `src/assets/screens/` (owned in `.blueprint-lock.json`). Before adding one, check the
+  recorded terminal for tokens: the Nov 2026 shots showed an MCP bearer token and were pixelated before commit.
 - The logo SVGs in `src/assets/brand/` were redrawn from the app icon (`docs/branding` in the app repo).
 - Feature copy must match the app: check its `docs/CHANGELOG.md` before claiming a feature, and keep the
   MCP tool count ("40+") and "beta" honest.

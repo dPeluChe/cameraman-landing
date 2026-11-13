@@ -155,7 +155,13 @@
     "darkMode": true,
     "defaultTheme": "system",
     "showThemeToggle": true,
-    "scrollLayout": "flow"
+    "scrollLayout": "flow",
+    "stickyMobileCta": {
+      "enabled": true,
+      "label": "Descargar para macOS",
+      "href": "https://github.com/dPeluChe/cameraman/releases/latest",
+      "icon": "download"
+    }
   },
   "contactForm": {
     "provider": "mailto"

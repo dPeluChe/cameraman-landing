@@ -19,3 +19,32 @@ const { site, ui, locale, alternates } = Astro.props;
 
 <BackgroundDecor />
 <Header site={site} ui={ui} locale={locale} alternates={alternates} />
+
+<script>
+  // Marks the nav link of the section in view; links are absolute (/#id), so match on the hash.
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('header nav a[href*="#"]')];
+  const byId = new Map<string, HTMLAnchorElement[]>();
+  for (const link of links) {
+    const id = link.hash.slice(1);
+    if (id && document.getElementById(id)) byId.set(id, [...(byId.get(id) ?? []), link]);
+  }
+  if (byId.size > 0) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          for (const link of links) link.removeAttribute('data-active');
+          for (const link of byId.get(entry.target.id) ?? []) link.setAttribute('data-active', '');
+        }
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    for (const id of byId.keys()) observer.observe(document.getElementById(id)!);
+  }
+</script>
+
+<style is:global>
+  header nav a[data-active] {
+    color: var(--color-brand-fg);
+  }
+</style>

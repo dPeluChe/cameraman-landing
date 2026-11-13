@@ -23,7 +23,7 @@
         {
           "label": "View source",
           "href": "https://github.com/dPeluChe/cameraman",
-          "variant": "secondary",
+          "variant": "ghost",
           "icon": "github",
           "external": true
         }
@@ -54,7 +54,12 @@
           "label": "Music",
           "color": "red"
         }
-      ]
+      ],
+      "media": {
+        "src": "../../../assets/screens/editor.jpg",
+        "alt": "The Cameraman editor: a recording with the speaker's camera bubble and subtitles, the multi-track timeline below, and the subtitle style panel on the right.",
+        "priority": true
+      }
     },
     {
       "type": "stats",
@@ -78,25 +83,60 @@
       ]
     },
     {
-      "type": "cmFeatures",
+      "type": "cmShowcase",
       "anchor": "features",
       "title": "Record once, then fix it in the edit.",
       "subtitle": "Cuts, camera, captions, motion and music, all inside the app you recorded with.",
-      "items": [
+      "rows": [
         {
-          "icon": "circle-dot",
-          "title": "Multi-track recording",
-          "description": "Screen, camera, system audio and microphone are captured at once as separate tracks, so you can trim, mute or move each one on its own.",
+          "title": "Record screen, camera and audio in one take.",
+          "description": "Pick a display, a window or an app, switch on the camera and the mic, and set the quality and a countdown. Each source lands on its own track.",
+          "points": [
+            "Draw on screen while you record",
+            "Built-in teleprompter",
+            "Native, 1080p or 720p capture"
+          ],
           "color": "red",
-          "wide": true
+          "media": {
+            "src": "../../../assets/screens/record.jpg",
+            "alt": "The Cameraman recording window with camera, microphone, system audio, drawing and teleprompter toggles, quality and timer options, and a Start Recording button."
+          }
         },
         {
-          "icon": "user-round",
-          "title": "A camera that looks good",
-          "description": "Circle, rounded or capsule frames, a blurred, colored or removed background, and a place and size you can change for each part of the video.",
+          "title": "A camera bubble you style, not just place.",
+          "description": "Rect, circle, round or pill frames. Blur the background, fill it with a color, or remove it and keep only you. The original recording is never changed.",
+          "points": [
+            "Background removal on your Mac",
+            "Accessories, or your own logo",
+            "Drag it anywhere, per part of the video"
+          ],
           "color": "yellow",
-          "tag": "New"
+          "media": {
+            "src": "../../../assets/screens/camera.jpg",
+            "alt": "The camera panel in Cameraman: frame shape options, background set to Remove, accessories, and the speaker shown without his background."
+          }
         },
+        {
+          "title": "Music and overlays in the same window.",
+          "description": "Six music styles composed on your Mac for the length of the video and lowered under your voice. Arrows, boxes, lines, text and images go on top of any moment.",
+          "points": [
+            "Another variation in one click",
+            "Or import your own song",
+            "Volume and voice ducking"
+          ],
+          "color": "teal",
+          "media": {
+            "src": "../../../assets/screens/music.jpg",
+            "alt": "The music panel in Cameraman with six styles, Cinematic selected, volume and lower-under-voice sliders, and a red arrow overlay on the video preview."
+          }
+        }
+      ]
+    },
+    {
+      "type": "cmFeatures",
+      "anchor": "more",
+      "title": "Also in the editor",
+      "items": [
         {
           "icon": "scissors",
           "title": "Multi-track timeline",
@@ -121,19 +161,6 @@
           "description": "Name cards, titles, counting stats and bar charts, or your own HTML animation, rendered to transparent video and placed under the camera.",
           "color": "red",
           "tag": "New"
-        },
-        {
-          "icon": "music",
-          "title": "Music from code",
-          "description": "Six styles composed on your Mac for the length of the video, ducked under your voice. Or bring your own song.",
-          "color": "yellow",
-          "tag": "New"
-        },
-        {
-          "icon": "pen-line",
-          "title": "Draw while you record",
-          "description": "Pen, arrows, shapes, a laser pointer and blur over the screen, each on a single key.",
-          "color": "teal"
         },
         {
           "icon": "wand-sparkles",
@@ -245,10 +272,10 @@
           ]
         },
         {
-          "feature": "Works without an account",
+          "feature": "Windows and Linux",
           "values": [
-            true,
-            true,
+            false,
+            false,
             true
           ]
         }

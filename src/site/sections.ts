@@ -1,12 +1,12 @@
 // Cameraman's own section types, on top of the blueprint's. docs/GUIDES/EXTENDING.md
 import { z } from 'astro/zod';
-import { iconSchema, linkSchema, sectionBase, type ImageFn } from '../schemas/primitives';
+import { iconSchema, linkSchema, mediaSchema, sectionBase, type ImageFn } from '../schemas/primitives';
 
 /** Accent hues from tokens.css (--pop-*); cards and chips only, never body text. */
 export const popColor = z.enum(['red', 'yellow', 'teal', 'plum', 'sky']);
 export type PopColor = z.infer<typeof popColor>;
 
-export const buildSiteSections = (_image: ImageFn) =>
+export const buildSiteSections = (image: ImageFn) =>
   [
     z.object({
       ...sectionBase,
@@ -19,6 +19,8 @@ export const buildSiteSections = (_image: ImageFn) =>
       actions: z.array(linkSchema).min(1).max(2),
       chips: z.array(z.object({ label: z.string().min(1), color: popColor })).max(6).default([]),
       note: z.string().optional(),
+      /** A real screenshot; without it the hero draws the CSS editor mockup. */
+      media: mediaSchema(image).optional(),
     }),
     z.object({
       ...sectionBase,
@@ -39,6 +41,24 @@ export const buildSiteSections = (_image: ImageFn) =>
         )
         .min(2)
         .max(12),
+    }),
+    z.object({
+      ...sectionBase,
+      type: z.literal('cmShowcase'),
+      title: z.string().min(1),
+      subtitle: z.string().optional(),
+      rows: z
+        .array(
+          z.object({
+            title: z.string().min(1),
+            description: z.string().min(1),
+            points: z.array(z.string().min(1)).max(4).default([]),
+            color: popColor,
+            media: mediaSchema(image),
+          }),
+        )
+        .min(1)
+        .max(4),
     }),
     z.object({
       ...sectionBase,
