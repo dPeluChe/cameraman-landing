@@ -1,0 +1,294 @@
+---
+import Button from '../../components/ui/Button.astro';
+import Mascot from '../Mascot.astro';
+import Shot from '../Shot.astro';
+import type { SectionOf } from '../../schemas/sections';
+
+export interface Props {
+  section: SectionOf<'cmHero'>;
+  headingLevel?: 'h1' | 'h2';
+}
+
+const { section, headingLevel: Heading = 'h1' } = Astro.props;
+const { badge, title, titleHighlight, rotate, subtitle, actions, chips, note, anchor, media, guide } = section;
+const highlight = titleHighlight && title.includes(titleHighlight) ? titleHighlight : undefined;
+const [before, after] = highlight ? (title.split(highlight) as [string, string]) : [title, ''];
+const [lead, tail] = rotate && before.includes('{rotate}') ? (before.split('{rotate}') as [string, string]) : [before, undefined];
+
+// Decorative timeline rows: [start %, width %, hue] per clip.
+const rows: [number, number, string][][] = [
+  [[0, 38, 'red'], [40, 34, 'red'], [76, 24, 'red']],
+  [[6, 18, 'yellow'], [52, 22, 'yellow']],
+  [[0, 100, 'teal']],
+  [[26, 20, 'plum'], [70, 16, 'sky']],
+];
+---
+
+<section id={anchor} class="cm-hero relative overflow-hidden" aria-labelledby="hero-title">
+  <div class:list={['container-page relative grid items-center gap-12 py-16 md:py-24', media ? 'lg:gap-14' : 'lg:grid-cols-[1.05fr_1fr] lg:gap-16']}>
+    <div class:list={[media && 'grid items-center gap-10 lg:grid-cols-[1fr_auto]']}>
+    <div class:list={['flex flex-col items-start', media && 'max-w-3xl']}>
+      {badge && <p class="animate-fade-in mb-6 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-semibold">{badge}</p>}
+      <Heading id="hero-title" class="text-4xl leading-[1.05] md:text-6xl">
+        {lead}
+        {
+          rotate && tail !== undefined && (
+            <>
+              <span class="sr-only">{rotate[0]}</span>
+              <span class="cm-rot" data-words={JSON.stringify(rotate)} aria-hidden="true"><span class="cm-rot-word">{rotate[0]}</span></span>
+            </>
+          )
+        }
+        {tail}
+        {highlight && <span class="cm-hl">{highlight}</span>}
+        {after}
+      </Heading>
+      <p class="cm-sub mt-6 max-w-xl text-lg leading-relaxed md:text-xl">{subtitle}</p>
+      <div class="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+        {actions.map((action) => <Button link={action} />)}
+      </div>
+      {note && <p class="cm-sub mt-4 text-sm">{note}</p>}
+      {
+        chips.length > 0 && (
+          <ul class="mt-8 flex flex-wrap gap-2">
+            {chips.map((chip) => (
+              <li class="cm-chip" style={`--pop: var(--pop-${chip.color})`}>{chip.label}</li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+      {
+        media && (
+          <div class="hidden w-[clamp(14rem,22vw,20rem)] lg:block">
+            <Mascot mode="cycle" />
+          </div>
+        )
+      }
+    </div>
+
+    {media ? (
+      <figure class="cm-shot">
+        <Shot media={media} sizes="(min-width: 80rem) 74rem, 100vw" />
+      </figure>
+    ) : (
+    <div class="cm-window" aria-hidden="true">
+      <div class="cm-bar">
+        <span class="cm-rec"></span>REC <span class="cm-tc">00:42:17</span>
+      </div>
+      <div class="cm-preview mx-3">
+        <div class="cm-lines">
+          <span style="width: 62%"></span><span style="width: 44%"></span><span style="width: 70%"></span><span style="width: 36%"></span>
+        </div>
+        <div class="cm-cam"><span class="cm-cam-play"></span><span class="cm-cam-rec"></span></div>
+      </div>
+      <div class="cm-timeline m-3 mt-3">
+        {
+          rows.map((row) => (
+            <div class="cm-row">
+              {row.map(([start, width, hue]) => (
+                <span class="cm-clip" style={`left: ${start}%; width: ${width}%; --pop: var(--pop-${hue})`} />
+              ))}
+            </div>
+          ))
+        }
+        <span class="cm-playhead"></span>
+      </div>
+    </div>
+    )}
+  </div>
+  {guide && <Mascot mode="follow" href={guide.href} label={guide.label} stops={guide.stops} />}
+</section>
+
+<script>
+  // Swaps the pill word: out, new text and hue, in. Width follows so the title reflows smoothly.
+  // Hues hold 3:1+ against navy text (plum does not), and the word never fades so no frame dips below it.
+  const hues = ['red', 'yellow', 'teal', 'sky'];
+  const pill = document.querySelector<HTMLElement>('.cm-rot');
+  const word = pill?.querySelector<HTMLElement>('.cm-rot-word');
+  if (pill && word && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const words: string[] = JSON.parse(pill.dataset.words ?? '[]');
+    const fit = () => (pill.style.width = `${word.offsetWidth}px`);
+    let i = 0;
+    fit();
+    setInterval(() => {
+      pill.toggleAttribute('data-out', true);
+      setTimeout(() => {
+        i = (i + 1) % words.length;
+        word.textContent = words[i] ?? '';
+        pill.style.setProperty('--pop', `var(--pop-${hues[i % hues.length]})`);
+        fit();
+        pill.removeAttribute('data-out');
+      }, 260);
+    }, 2400);
+  }
+</script>
+
+<style>
+  .cm-rot {
+    --pop: var(--pop-red);
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    border-radius: 0.3em;
+    margin-inline: 0.05em;
+    color: var(--pop-navy);
+    background: var(--pop);
+    transition: width 0.3s ease;
+  }
+  .cm-rot-word {
+    display: inline-block;
+    padding: 0 0.22em 0.06em;
+    white-space: nowrap;
+    transition: translate 0.25s ease;
+  }
+  .cm-rot[data-out] .cm-rot-word {
+    translate: 0 -110%;
+  }
+  .cm-hero {
+    background: var(--pop-navy);
+    color: var(--pop-cream);
+    border-bottom-left-radius: var(--radius-xl);
+    border-bottom-right-radius: var(--radius-xl);
+  }
+  .cm-hl {
+    color: var(--brand-400);
+  }
+  .cm-sub {
+    color: color-mix(in srgb, var(--pop-cream) 82%, var(--pop-navy));
+  }
+  .cm-chip {
+    border-radius: var(--radius-full);
+    padding: 0.35rem 0.85rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--pop-cream);
+    background: color-mix(in srgb, var(--pop) 22%, var(--pop-navy));
+    border: 1px solid color-mix(in srgb, var(--pop) 55%, transparent);
+  }
+  .cm-shot {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    border: 1px solid color-mix(in srgb, var(--pop-cream) 18%, transparent);
+    box-shadow: 0 40px 90px -30px rgb(0 0 0 / 0.75), 0 0 0 6px color-mix(in srgb, var(--pop-red) 35%, transparent);
+  }
+  .cm-window {
+    position: relative;
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--pop-cream) 6%, var(--pop-navy));
+    border: 1px solid color-mix(in srgb, var(--pop-cream) 14%, transparent);
+    box-shadow: 0 30px 80px -20px rgb(0 0 0 / 0.6);
+    transform: rotate(1.5deg);
+  }
+  .cm-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  .cm-rec {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: var(--pop-red);
+    animation: cm-blink 1.4s steps(2, jump-none) infinite;
+  }
+  .cm-tc {
+    margin-left: auto;
+    opacity: 0.7;
+  }
+  .cm-preview {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--pop-cream) 92%, var(--pop-navy));
+    overflow: hidden;
+  }
+  .cm-lines {
+    position: absolute;
+    inset: 14% 40% auto 8%;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .cm-lines span {
+    display: block;
+    height: 0.55rem;
+    border-radius: var(--radius-full);
+    background: color-mix(in srgb, var(--pop-navy) 22%, transparent);
+  }
+  .cm-cam {
+    position: absolute;
+    right: 6%;
+    bottom: 9%;
+    width: 30%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--pop-teal);
+    border: 0.3rem solid var(--pop-yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14%;
+    animation: cm-bob 4s ease-in-out infinite;
+  }
+  .cm-cam-play {
+    width: 0;
+    height: 0;
+    border-top: 0.6rem solid transparent;
+    border-bottom: 0.6rem solid transparent;
+    border-left: 0.9rem solid var(--pop-navy);
+  }
+  .cm-cam-rec {
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--pop-red);
+  }
+  .cm-timeline {
+    position: relative;
+    display: grid;
+    gap: 0.45rem;
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    background: rgb(0 0 0 / 0.25);
+  }
+  .cm-row {
+    position: relative;
+    height: 1.1rem;
+  }
+  .cm-clip {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-radius: 0.35rem;
+    background: var(--pop);
+  }
+  .cm-playhead {
+    position: absolute;
+    top: 0.4rem;
+    bottom: 0.4rem;
+    left: 0.75rem;
+    width: 2px;
+    background: var(--pop-cream);
+    box-shadow: 0 0 0 1px var(--pop-navy);
+    animation: cm-play 7s linear infinite;
+  }
+  @keyframes cm-play {
+    from { left: 0.75rem; }
+    to { left: calc(100% - 0.75rem); }
+  }
+  @keyframes cm-blink {
+    50% { opacity: 0.25; }
+  }
+  @keyframes cm-bob {
+    50% { transform: translateY(-6%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cm-playhead, .cm-cam, .cm-rec { animation: none; }
+    .cm-playhead { left: 42%; }
+  }
+</style>

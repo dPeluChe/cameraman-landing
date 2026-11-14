@@ -1,0 +1,58 @@
+---
+import SectionShell from './SectionShell.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import ContactForm from '../islands/ContactForm';
+import type { SectionOf } from '../../schemas/sections';
+import type { ContactTransport } from '../../lib/contact';
+import { getSite, getUi } from '../../lib/content';
+import { localeFromParam } from '../../lib/i18n';
+
+export interface Props {
+  section: SectionOf<'contactForm'>;
+}
+
+const { section } = Astro.props;
+const locale = localeFromParam(Astro.currentLocale);
+const site = await getSite(locale);
+const ui = await getUi(locale);
+
+const { provider, endpoint, honeypotField, redirectTo } = site.contactForm;
+
+// Transport is resolved on the server so no secret ever reaches the client bundle
+// beyond what a PUBLIC_ env var already exposes on purpose.
+const transport: ContactTransport = {
+  provider,
+  target: provider === 'endpoint' ? (endpoint ?? '') : (import.meta.env.PUBLIC_CONTACT_ENDPOINT ?? ''),
+  publicKey: import.meta.env.PUBLIC_CONTACT_KEY || undefined,
+  honeypotField,
+  recipient: site.contact.email,
+  subject: `${site.brand.name} — ${section.title}`,
+  redirectTo,
+};
+---
+
+<SectionShell anchor={section.anchor}>
+  <div class="mx-auto max-w-2xl">
+    <SectionHeader title={section.title} subtitle={section.subtitle} />
+
+    <div class="rounded-xl border border-border bg-surface p-8 shadow-md">
+      <ContactForm
+        client:visible
+        transport={transport}
+        extraFields={section.extraFields}
+        submitLabel={section.submitLabel}
+        successMessage={section.successMessage}
+        errorMessage={section.errorMessage}
+        privacyNote={section.privacyNote}
+        labels={{
+          name: ui.fieldName,
+          email: ui.fieldEmail,
+          message: ui.fieldMessage,
+          required: ui.required,
+          optional: ui.optional,
+          sending: ui.sending,
+        }}
+      />
+    </div>
+  </div>
+</SectionShell>

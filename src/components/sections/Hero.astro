@@ -1,0 +1,99 @@
+---
+import SectionShell from './SectionShell.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import Picture from '../ui/Picture.astro';
+import type { SectionOf } from '../../schemas/sections';
+
+export interface Props {
+  section: SectionOf<'hero'>;
+  headingLevel?: 'h1' | 'h2';
+}
+
+const { section, headingLevel: Heading = 'h1' } = Astro.props;
+const { badge, title, titleHighlight, subtitle, actions, media, anchor, layout = 'centered' } = section;
+
+// Split once so the highlighted fragment keeps its place inside the sentence.
+const [before, after] = titleHighlight && title.includes(titleHighlight)
+  ? (title.split(titleHighlight) as [string, string])
+  : [title, ''];
+
+const isSplit = layout === 'split-left' || layout === 'split-right';
+const isSplitRight = layout === 'split-right';
+---
+
+<SectionShell anchor={anchor} labelledBy="hero-title">
+  {
+    !isSplit ? (
+      <div class="flex flex-col items-center text-center">
+        {badge && (
+          <p class="animate-fade-in mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-brand-bg px-4 py-2 text-sm text-brand">
+            {badge.icon && <Icon name={badge.icon} size={16} />}
+            {badge.text}
+          </p>
+        )}
+
+        <Heading id="hero-title" class="max-w-4xl text-4xl leading-[1.1] md:text-6xl text-fg">
+          {before}
+          {after && <span class="text-brand">{titleHighlight}</span>}
+          {after}
+        </Heading>
+
+        {subtitle && <p class="mt-6 max-w-3xl text-lg leading-relaxed text-fg-muted md:text-xl">{subtitle}</p>}
+
+        {actions.length > 0 && (
+          <div class="mt-10 flex w-full flex-col gap-4 sm:w-auto sm:flex-row">
+            {actions.map((action) => (
+              <Button link={action} />
+            ))}
+          </div>
+        )}
+
+        {media && (
+          <div class="mt-16 w-full overflow-hidden rounded-xl border border-border shadow-lg">
+            <Picture media={media} class="w-full" sizes="(min-width: 80rem) 76rem, 100vw" />
+          </div>
+        )}
+      </div>
+    ) : (
+      <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div class:list={['flex flex-col text-start items-start', isSplitRight && 'lg:order-2']}>
+          {badge && (
+            <p class="animate-fade-in mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-brand-bg px-4 py-2 text-sm text-brand">
+              {badge.icon && <Icon name={badge.icon} size={16} />}
+              {badge.text}
+            </p>
+          )}
+
+          <Heading id="hero-title" class="text-4xl leading-[1.1] md:text-5xl lg:text-6xl text-fg">
+            {before}
+            {after && <span class="text-brand">{titleHighlight}</span>}
+            {after}
+          </Heading>
+
+          {subtitle && <p class="mt-6 text-lg leading-relaxed text-fg-muted md:text-xl">{subtitle}</p>}
+
+          {actions.length > 0 && (
+            <div class="mt-8 flex w-full flex-col gap-4 sm:w-auto sm:flex-row">
+              {actions.map((action) => (
+                <Button link={action} />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {media && (
+          <div
+            class:list={[
+              'w-full overflow-hidden rounded-xl border border-border shadow-lg',
+              isSplitRight && 'lg:order-1',
+            ]}
+          >
+            <Picture media={media} class="w-full object-cover" sizes="(min-width: 64rem) 38rem, 100vw" />
+          </div>
+        )}
+      </div>
+    )
+  }
+</SectionShell>
+

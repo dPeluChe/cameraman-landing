@@ -1,0 +1,98 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Picture from '../components/ui/Picture.astro';
+import { getSite, getUi, type PostEntry } from '../lib/content';
+import { alternateHrefs, routeHref } from '../lib/routes';
+import { articleJsonLd, breadcrumbJsonLd, ownerId, siteBase } from '../lib/seo';
+import type { Locale } from '../lib/i18n';
+import { formatDate } from '../lib/format';
+
+export interface Props {
+  locale: Locale;
+  post: PostEntry;
+}
+
+const { locale, post } = Astro.props;
+const site = await getSite(locale);
+const ui = await getUi(locale);
+const { Content } = await render(post);
+
+const alternates = await alternateHrefs('updates', post);
+const base = siteBase(Astro);
+const origin = new URL(base).origin;
+const url = new URL(Astro.url.pathname, base).href;
+const cover = post.data.cover?.src;
+const image = new URL(typeof cover === 'string' ? cover : (cover?.src ?? site.seo.defaultOgImage), base).href;
+const updatesHref = routeHref(site, locale, 'updates');
+
+const graph = [
+  articleJsonLd({
+    title: post.data.title,
+    description: post.data.description,
+    url,
+    image,
+    datePublished: post.data.date,
+    dateModified: post.data.updated,
+    origin,
+    locale,
+    owner: ownerId(site, origin),
+  }),
+  breadcrumbJsonLd([
+    { name: site.brand.name, url: new URL(routeHref(site, locale, 'index'), base).href },
+    { name: ui.updatesTitle, url: new URL(updatesHref, base).href },
+    { name: post.data.title, url },
+  ]),
+];
+---
+
+<BaseLayout
+  locale={locale}
+  alternates={alternates}
+  title={post.data.title}
+  description={post.data.description}
+  ogImage={typeof cover === 'string' ? cover : undefined}
+  ogType="article"
+  noindex={post.data.draft}
+  jsonLd={graph}
+  publishedTime={post.data.date}
+  modifiedTime={post.data.updated}
+>
+  <article class="section-y">
+    <div class="container-page max-w-3xl">
+      <a href={updatesHref} class="text-sm font-medium text-brand hover:underline">
+        ← {ui.backTo} {ui.updatesTitle.toLowerCase()}
+      </a>
+
+      <h1 class="mt-6 text-3xl text-fg md:text-5xl">{post.data.title}</h1>
+
+      <p class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-fg-subtle">
+        <span>
+          {ui.publishedOn} <time datetime={post.data.date.toISOString()}>{formatDate(locale, post.data.date)}</time>
+        </span>
+        {
+          post.data.updated && (
+            <span>
+              · {ui.updatedOn} <time datetime={post.data.updated.toISOString()}>{formatDate(locale, post.data.updated)}</time>
+            </span>
+          )
+        }
+        {post.data.category && <span class="rounded-full bg-brand-bg px-2.5 py-0.5 font-medium text-brand">{post.data.category}</span>}
+      </p>
+
+      {
+        post.data.cover && (
+          <Picture
+            media={post.data.cover}
+            class="mt-10 w-full rounded-xl border border-border"
+            sizes="(min-width: 48rem) 48rem, 100vw"
+          />
+        )
+      }
+
+      <div class="prose-content mt-10">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>

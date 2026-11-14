@@ -1,0 +1,38 @@
+---
+import SectionShell from './SectionShell.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import Icon from '../ui/Icon.astro';
+import type { SectionOf } from '../../schemas/sections';
+
+export interface Props {
+  section: SectionOf<'services'>;
+}
+
+const { section } = Astro.props;
+---
+
+<SectionShell anchor={section.anchor}>
+  <SectionHeader title={section.title} subtitle={section.subtitle} />
+
+  <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    {
+      section.items.map((item) => (
+        <li class="group relative rounded-xl border border-border bg-surface p-8 shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-md">
+          <span class="flex size-14 items-center justify-center rounded-full bg-surface-muted text-fg transition-colors group-hover:bg-brand-bg group-hover:text-brand">
+            <Icon name={item.icon} size={26} />
+          </span>
+          <h3 class="mt-6 text-xl text-fg">
+            {item.href ? (
+              <a href={item.href} class="after:absolute after:inset-0 hover:text-brand">
+                {item.title}
+              </a>
+            ) : (
+              item.title
+            )}
+          </h3>
+          <p class="mt-3 text-sm leading-relaxed text-fg-muted">{item.description}</p>
+        </li>
+      ))
+    }
+  </ul>
+</SectionShell>

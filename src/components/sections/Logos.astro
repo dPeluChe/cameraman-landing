@@ -1,0 +1,33 @@
+---
+import SectionShell from './SectionShell.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import Picture from '../ui/Picture.astro';
+import type { SectionOf } from '../../schemas/sections';
+
+export interface Props {
+  section: SectionOf<'logos'>;
+}
+
+const { section } = Astro.props;
+const tone = section.grayscale ? 'opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0' : '';
+---
+
+<SectionShell anchor={section.anchor}>
+  <SectionHeader title={section.title} />
+
+  <ul class="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
+    {
+      section.items.map((item) => (
+        <li class={tone}>
+          {item.href ? (
+            <a href={item.href} target="_blank" rel="noopener noreferrer" aria-label={item.name}>
+              <Picture media={item.logo} class="h-8 w-auto md:h-10" />
+            </a>
+          ) : (
+            <Picture media={item.logo} class="h-8 w-auto md:h-10" />
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</SectionShell>

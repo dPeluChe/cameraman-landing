@@ -1,0 +1,48 @@
+---
+// Facade: an eager iframe costs ~500KB of third-party JS. The thumbnail is the
+// repo's only raw <img> — Picture would make the build fetch it from YouTube.
+// docs/ARCHITECTURE/SEO.md#third-party-embeds
+export interface Props {
+  videoId: string;
+  label: string;
+  title: string;
+  class?: string;
+}
+
+const { videoId, label, title, class: className = '' } = Astro.props;
+const thumb = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+---
+
+<div
+  class:list={['relative aspect-video w-full overflow-hidden rounded-xl border border-border bg-surface-muted', className]}
+  data-lite-yt
+  data-id={videoId}
+  data-title={title}
+>
+  <button type="button" class="group absolute inset-0 size-full cursor-pointer" aria-label={`${label}: ${title}`}>
+    <img src={thumb} alt="" width="480" height="360" loading="lazy" decoding="async" class="size-full object-cover" />
+    <span class="absolute inset-0 bg-black/25 transition-colors group-hover:bg-black/15"></span>
+    <span
+      class="absolute top-1/2 left-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-red-600 shadow-lg transition-transform group-hover:scale-110 md:size-20"
+    >
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+    </span>
+  </button>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-lite-yt]').forEach((container) => {
+    container.querySelector('button')?.addEventListener('click', () => {
+      const frame = document.createElement('iframe');
+      const id = container.dataset.id ?? '';
+      frame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+      frame.title = container.dataset.title ?? 'video';
+      frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      frame.allowFullscreen = true;
+      frame.className = 'absolute inset-0 size-full border-0';
+      container.replaceChildren(frame);
+    });
+  });
+</script>

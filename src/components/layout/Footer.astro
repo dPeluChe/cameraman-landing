@@ -1,0 +1,144 @@
+---
+import Picture from '../ui/Picture.astro';
+import Icon from '../ui/Icon.astro';
+import type { SiteEntry } from '../../lib/content';
+import { resolveTemplate } from '../../lib/content';
+import { routeHref } from '../../lib/routes';
+import { socialIcon } from '../../lib/social';
+import type { Locale } from '../../lib/i18n';
+
+export interface Props {
+  site: SiteEntry;
+  locale: Locale;
+}
+
+const { site, locale } = Astro.props;
+const { footer, contact, social, brand } = site;
+
+const copyright = resolveTemplate(footer.copyright, {
+  year: String(new Date().getFullYear()),
+  brand: brand.name,
+});
+
+// Tailwind needs literal class names, so the track count is a lookup, not math.
+// Brand block spans 2; each content column takes one.
+const GRID_BY_COLUMNS = [
+  'lg:grid-cols-2',
+  'lg:grid-cols-3',
+  'lg:grid-cols-4',
+  'lg:grid-cols-5',
+  'lg:grid-cols-6',
+];
+const gridClass = GRID_BY_COLUMNS[Math.min(footer.columns.length, GRID_BY_COLUMNS.length - 1)];
+
+---
+
+<footer class="relative z-10 border-t border-border bg-surface">
+  <div class="container-page py-14 md:py-16">
+    <div class:list={['grid grid-cols-2 gap-x-8 gap-y-12', gridClass]}>
+      <div class="col-span-2">
+        <a href={routeHref(site, locale, 'index')} class="inline-block" aria-label={brand.name}>
+          <Picture media={brand.logo.light} class:list={['h-8 w-auto', brand.logo.dark && 'dark:hidden']} />
+          {brand.logo.dark && <Picture media={brand.logo.dark} class="hidden h-8 w-auto dark:block" />}
+        </a>
+
+        {brand.tagline && <p class="mt-5 max-w-sm text-sm leading-relaxed text-fg-muted">{brand.tagline}</p>}
+
+        <ul class="mt-6 space-y-2.5 text-sm">
+          <li>
+            <a class="text-fg-muted transition-colors hover:text-brand" href={`mailto:${contact.email}`}>
+              {contact.email}
+            </a>
+          </li>
+          {
+            contact.phone && (
+              <li>
+                <a
+                  class="text-fg-muted transition-colors hover:text-brand"
+                  href={`tel:${contact.phone.replace(/\s/g, '')}`}
+                >
+                  {contact.phone}
+                </a>
+              </li>
+            )
+          }
+        </ul>
+
+        {
+          social.length > 0 && (
+            <ul class="mt-7 flex flex-wrap gap-2.5">
+              {social.map((item) => (
+                <li>
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex size-10 items-center justify-center rounded-full border border-border text-fg-muted transition-colors hover:border-brand hover:text-brand"
+                  >
+                    <Icon name={socialIcon(item)} size={17} />
+                    <span class="sr-only">{item.platform}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+
+      {
+        footer.columns.map((column) => {
+          // A titled group is a navigation landmark; an untitled row of links is
+          // just a list, and naming it would mean inventing the name.
+          const Wrapper = column.title ? 'nav' : 'div';
+          return (
+            <Wrapper {...(column.title ? { 'aria-label': column.title } : {})}>
+              {column.title && (
+                <h2 class="text-xs font-semibold tracking-wider text-fg-subtle uppercase">{column.title}</h2>
+              )}
+              <ul class:list={['space-y-3 text-sm', column.title && 'mt-4']}>
+                {column.links.map((link) => (
+                  <li>
+                    <a href={link.href} class="text-fg-muted transition-colors hover:text-brand">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Wrapper>
+          );
+        })
+      }
+    </div>
+
+    <div
+      class="mt-14 flex flex-col gap-4 border-t border-border pt-6 text-xs text-fg-subtle sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>{copyright}</p>
+
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+        {
+          footer.legalLinks.map((link) => (
+            <a href={link.href} class="transition-colors hover:text-brand">
+              {link.label}
+            </a>
+          ))
+        }
+        {
+          footer.credit && (
+            <p>
+              Built by{' '}
+              <a
+                href={footer.credit.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-medium text-fg-muted transition-colors hover:text-brand"
+              >
+                {footer.credit.label}
+              </a>
+            </p>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</footer>

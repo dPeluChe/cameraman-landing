@@ -1,0 +1,39 @@
+---
+import Picture from './Picture.astro';
+import type { PostEntry, SiteEntry, UiStrings } from '../../lib/content';
+import { detailSlug } from '../../lib/content';
+import { routeHref } from '../../lib/routes';
+import type { Locale } from '../../lib/i18n';
+import { formatDate } from '../../lib/format';
+
+export interface Props {
+  post: PostEntry;
+  site: SiteEntry;
+  locale: Locale;
+  ui: UiStrings;
+  /** h2 when the card list is the page's top-level content, h3 when nested in a section. */
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { post, site, locale, ui, headingLevel: Heading = 'h3' } = Astro.props;
+const href = `${routeHref(site, locale, 'updates')}/${detailSlug(post)}`;
+const dateLabel = formatDate(locale, post.data.date);
+---
+
+<article class="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-sm transition-shadow hover:shadow-md">
+  {post.data.cover && <Picture media={post.data.cover} class="aspect-video w-full object-cover" sizes="(min-width: 48rem) 24rem, 100vw" />}
+
+  <div class="flex flex-1 flex-col p-6">
+    <p class="flex items-center gap-2 text-xs text-fg-subtle">
+      <time datetime={post.data.date.toISOString()}>{dateLabel}</time>
+      {post.data.category && <span class="rounded-full bg-brand-bg px-2 py-0.5 font-medium text-brand">{post.data.category}</span>}
+    </p>
+
+    <Heading class="mt-3 text-lg text-fg">
+      <a href={href} class="after:absolute after:inset-0 group-hover:text-brand">{post.data.title}</a>
+    </Heading>
+
+    <p class="mt-2 flex-1 text-sm leading-relaxed text-fg-muted">{post.data.description}</p>
+    <p class="mt-4 text-sm font-semibold text-brand">{ui.readMore}</p>
+  </div>
+</article>

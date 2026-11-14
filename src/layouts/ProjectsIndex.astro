@@ -1,0 +1,56 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SectionRenderer from '../components/sections/SectionRenderer.astro';
+import ProjectCard from '../components/ui/ProjectCard.astro';
+import { getPage, getProjects, getSite, getUi } from '../lib/content';
+import { breadcrumbJsonLd, siteBase } from '../lib/seo';
+import { alternateHrefs, routeHref } from '../lib/routes';
+import type { Locale } from '../lib/i18n';
+
+export interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const page = await getPage(locale, 'projects');
+const site = await getSite(locale);
+const ui = await getUi(locale);
+const projects = await getProjects(locale);
+
+const alternates = await alternateHrefs('projects');
+const base = siteBase(Astro);
+const crumbs = breadcrumbJsonLd([
+  { name: site.brand.name, url: new URL(routeHref(site, locale, 'index'), base).href },
+  { name: page.data.seo.title, url: new URL(Astro.url.pathname, base).href },
+]);
+---
+
+<BaseLayout
+  locale={locale}
+  alternates={alternates}
+  title={page.data.seo.title}
+  description={page.data.seo.description}
+  ogImage={page.data.seo.ogImage}
+  noindex={page.data.seo.noindex}
+  jsonLd={[crumbs]}
+>
+  <SectionRenderer sections={page.data.sections} />
+
+  <section class="section-y pt-0">
+    <div class="container-page">
+      {
+        projects.length === 0 ? (
+          <p class="text-center text-fg-muted">{ui.emptyProjects}</p>
+        ) : (
+          <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project) => (
+              <li>
+                <ProjectCard project={project} site={site} locale={locale} ui={ui} headingLevel="h2" />
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

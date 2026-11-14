@@ -1,0 +1,92 @@
+---
+import Picture from '../ui/Picture.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import LocaleSwitcher from './LocaleSwitcher.astro';
+import type { SiteEntry, UiStrings } from '../../lib/content';
+import { routeHref, type Alternate } from '../../lib/routes';
+import type { Locale } from '../../lib/i18n';
+
+export interface Props {
+  site: SiteEntry;
+  ui: UiStrings;
+  locale: Locale;
+  alternates: Alternate[];
+}
+
+const { site, ui, locale, alternates } = Astro.props;
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+const home = routeHref(site, locale, 'index');
+const hasDarkLogo = Boolean(site.brand.logo.dark);
+const { headerBlur } = site.features;
+---
+
+<header
+  class:list={[
+    'sticky top-0 z-50 border-b border-border/80',
+    headerBlur ? 'bg-bg/80 backdrop-blur-md' : 'bg-bg',
+  ]}
+>
+  <div class="container-page flex h-16 items-center justify-between gap-4">
+    <a href={home} class="flex items-center gap-3" aria-label={site.brand.name}>
+      <Picture media={site.brand.logo.light} class:list={['h-8 w-auto', hasDarkLogo && 'dark:hidden']} />
+      {site.brand.logo.dark && <Picture media={site.brand.logo.dark} class="hidden h-8 w-auto dark:block" />}
+    </a>
+
+    <nav class="hidden items-center gap-1 md:flex" aria-label={site.brand.name}>
+      {
+        site.nav.map((link) => (
+          <a
+            href={link.href}
+            aria-current={link.href.split('#')[0] === current ? 'page' : undefined}
+            class="rounded-md px-3 py-2 text-sm font-medium text-fg-muted transition-colors hover:bg-brand-bg hover:text-brand aria-[current=page]:text-brand"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <LocaleSwitcher site={site} ui={ui} locale={locale} alternates={alternates} />
+      <ThemeToggle site={site} ui={ui} />
+
+      <button
+        type="button"
+        id="nav-toggle"
+        class="rounded-md border border-border p-2 text-fg-muted md:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label={ui.menu}
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-nav" class="container-page hidden border-t border-border py-3 md:hidden" aria-label={ui.menu}>
+    {
+      site.nav.map((link) => (
+        <a
+          href={link.href}
+          aria-current={link.href.split('#')[0] === current ? 'page' : undefined}
+          class="block rounded-md px-3 py-2.5 text-base font-medium text-fg-muted hover:bg-brand-bg hover:text-brand aria-[current=page]:text-brand"
+        >
+          {link.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('mobile-nav');
+
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    nav?.classList.toggle('hidden', open);
+  });
+</script>

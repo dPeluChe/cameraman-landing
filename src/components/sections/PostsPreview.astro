@@ -1,0 +1,45 @@
+---
+import SectionShell from './SectionShell.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import PostCard from '../ui/PostCard.astro';
+import Button from '../ui/Button.astro';
+import type { SectionOf } from '../../schemas/sections';
+import { getPosts, getSite, getUi } from '../../lib/content';
+import { localeFromParam } from '../../lib/i18n';
+
+export interface Props {
+  section: SectionOf<'postsPreview'>;
+}
+
+const { section } = Astro.props;
+const locale = localeFromParam(Astro.currentLocale);
+const site = await getSite(locale);
+const ui = await getUi(locale);
+const posts = (await getPosts(locale)).slice(0, section.limit);
+---
+
+<SectionShell anchor={section.anchor}>
+  <SectionHeader title={section.title} subtitle={section.subtitle} />
+
+  {
+    posts.length === 0 ? (
+      <p class="text-center text-fg-muted">{ui.emptyPosts}</p>
+    ) : (
+      <ul class="grid gap-6 md:grid-cols-3">
+        {posts.map((post) => (
+          <li>
+            <PostCard post={post} site={site} locale={locale} ui={ui} />
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    section.viewAll && (
+      <div class="mt-12 flex justify-center">
+        <Button link={section.viewAll} />
+      </div>
+    )
+  }
+</SectionShell>

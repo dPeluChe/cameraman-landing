@@ -1,0 +1,61 @@
+---
+import Picture from '../components/ui/Picture.astro';
+import type { Media } from '../schemas/primitives';
+
+export interface Props {
+  media: Media;
+  sizes: string;
+}
+
+const { media, sizes } = Astro.props;
+---
+
+<div class="cm-skel" data-skel>
+  <Picture media={media} class="w-full" sizes={sizes} />
+</div>
+
+<script>
+  // Only JS marks a shot as loading, so without it the image simply shows.
+  for (const el of document.querySelectorAll<HTMLElement>('[data-skel]')) {
+    const img = el.querySelector('img');
+    if (!img || img.complete) continue;
+    el.toggleAttribute('data-loading', true);
+    const done = () => el.removeAttribute('data-loading');
+    img.addEventListener('load', done, { once: true });
+    img.addEventListener('error', done, { once: true });
+  }
+</script>
+
+<style>
+  .cm-skel {
+    position: relative;
+  }
+  .cm-skel :global(img) {
+    display: block;
+    transition: opacity 0.5s;
+  }
+  .cm-skel[data-loading] :global(img) {
+    opacity: 0;
+  }
+  .cm-skel[data-loading]::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        100deg,
+        transparent 30%,
+        color-mix(in srgb, var(--pop-cream) 14%, transparent) 50%,
+        transparent 70%
+      )
+      0 0 / 250% 100%,
+      color-mix(in srgb, var(--pop-navy) 85%, var(--pop-cream));
+    animation: cm-shimmer 1.4s linear infinite;
+  }
+  @keyframes cm-shimmer {
+    from { background-position: 100% 0, 0 0; }
+    to { background-position: -150% 0, 0 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cm-skel[data-loading]::before { animation: none; }
+  }
+</style>

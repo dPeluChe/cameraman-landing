@@ -1,0 +1,13 @@
+---
+// Fixed gradient wash. Purely decorative and token-driven, so a rebrand needs no
+// change here. Own layer + translateZ keeps it off the main paint path.
+---
+
+<div class="pointer-events-none fixed inset-0 -z-10 decor" aria-hidden="true"></div>
+
+<style>
+  .decor {
+    background: radial-gradient(ellipse at top left, var(--decor-from) 0%, var(--decor-mid) 40%, var(--decor-to) 100%);
+    transform: translateZ(0);
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+import SectionShell from '../../components/sections/SectionShell.astro';
+import Icon from '../../components/ui/Icon.astro';
+import type { SectionOf } from '../../schemas/sections';
+
+export interface Props {
+  section: SectionOf<'cmFeatures'>;
+}
+
+const { section } = Astro.props;
+---
+
+<SectionShell anchor={section.anchor}>
+  <div class="mb-12 max-w-3xl">
+    {section.eyebrow && <p class="mb-3 text-sm font-bold text-brand">{section.eyebrow}</p>}
+    <h2 class="text-3xl text-fg md:text-5xl">{section.title}</h2>
+    {section.subtitle && <p class="mt-4 text-lg leading-relaxed text-fg-muted">{section.subtitle}</p>}
+  </div>
+  <ul class="grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      section.items.map((item) => (
+        <li class="cm-item" style={`--pop: var(--pop-${item.color})`}>
+          <span class="cm-icon">
+            <Icon name={item.icon} size={20} />
+          </span>
+          <div>
+            <h3 class="text-lg text-fg">
+              {item.title}
+              {item.tag && <span class="cm-tag">{item.tag}</span>}
+            </h3>
+            <p class="mt-1.5 leading-relaxed text-fg-muted">{item.description}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</SectionShell>
+
+<style>
+  .cm-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    padding-top: 1.25rem;
+    border-top: 2px solid color-mix(in srgb, var(--pop) 60%, var(--color-border));
+  }
+  .cm-icon {
+    display: inline-flex;
+    width: 2.25rem;
+    height: 2.25rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    background: var(--pop);
+    color: var(--pop-navy);
+  }
+  .cm-tag {
+    margin-left: 0.5rem;
+    border-radius: var(--radius-full);
+    padding: 0.1rem 0.55rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    vertical-align: 0.2em;
+    color: var(--color-text);
+    background: color-mix(in srgb, var(--pop) 30%, var(--color-surface));
+  }
+</style>

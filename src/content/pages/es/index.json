@@ -1,0 +1,423 @@
+{
+  "locale": "es",
+  "route": "index",
+  "seo": {
+    "title": "Grabador de pantalla y editor de video gratis para Mac",
+    "description": "Graba pantalla, cámara y micrófono en tu Mac, edita en un timeline multipista y deja que un agente de IA haga los cortes. Gratis, abierto y local.",
+    "noindex": false
+  },
+  "sections": [
+    {
+      "type": "cmHero",
+      "title": "Graba tus {rotate} como pro. Edita sin ser editor.",
+      "titleHighlight": "Edita sin ser editor.",
+      "rotate": [
+        "videos",
+        "tutoriales",
+        "cursos",
+        "demos",
+        "explicaciones"
+      ],
+      "subtitle": "Graba tu pantalla y tu cámara, genera subtítulos en tu Mac y eleva la calidad y la presentación de cada video. Edítalo tú, conecta tu agente por MCP o pídeselo al asistente.",
+      "actions": [
+        {
+          "label": "Descargar para macOS",
+          "href": "https://github.com/dPeluChe/cameraman/releases/latest",
+          "variant": "primary",
+          "icon": "download",
+          "external": true
+        },
+        {
+          "label": "Ver el código",
+          "href": "https://github.com/dPeluChe/cameraman",
+          "variant": "ghost",
+          "icon": "github",
+          "external": true
+        }
+      ],
+      "note": "Beta · macOS 13 o posterior · Apple Silicon e Intel",
+      "chips": [
+        {
+          "label": "Nativo en Swift",
+          "color": "red"
+        },
+        {
+          "label": "Todo local",
+          "color": "yellow"
+        },
+        {
+          "label": "Servidor MCP",
+          "color": "teal"
+        },
+        {
+          "label": "Auto-zoom",
+          "color": "plum"
+        },
+        {
+          "label": "Subtítulos",
+          "color": "sky"
+        },
+        {
+          "label": "Música",
+          "color": "red"
+        }
+      ],
+      "media": {
+        "src": "../../../assets/screens/editor.jpg",
+        "alt": "El editor de Cameraman: una grabación con la burbuja de cámara del presentador y subtítulos, el timeline multipista abajo y el panel de estilo de subtítulos a la derecha.",
+        "priority": true
+      },
+      "guide": {
+        "label": "Ir a descargar",
+        "href": "/es#download",
+        "stops": [
+          {
+            "anchor": "features",
+            "hide": true
+          },
+          {
+            "anchor": "more",
+            "face": "play",
+            "say": "Cortes, zooms, subtítulos: unos clics."
+          },
+          {
+            "anchor": "agents",
+            "face": "talk",
+            "say": "O pídemelo y lo hago yo."
+          },
+          {
+            "anchor": "compare",
+            "face": "pause",
+            "say": "Gratis. Sin cuenta ni marca de agua."
+          },
+          {
+            "anchor": "download",
+            "face": "play",
+            "say": "¿Listo? Descarga la beta."
+          },
+          {
+            "anchor": "faq",
+            "face": "pause",
+            "say": "Pregunta lo que quieras."
+          },
+          {
+            "anchor": "start",
+            "hide": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "stats",
+      "items": [
+        {
+          "value": "4",
+          "label": "Pistas por grabación: pantalla, cámara, audio del sistema y micrófono"
+        },
+        {
+          "value": "40+",
+          "label": "Herramientas de edición para un agente de IA"
+        },
+        {
+          "value": "6",
+          "label": "Estilos de música compuestos en tu Mac"
+        },
+        {
+          "value": "0",
+          "label": "Archivos subidos, nunca"
+        }
+      ]
+    },
+    {
+      "type": "cmShowcase",
+      "anchor": "features",
+      "title": "Graba una vez y arréglalo en la edición.",
+      "subtitle": "Grabas, cortas, agregas flechas y subtítulos, exportas y publicas. Sin un editor profesional pesado de por medio.",
+      "rows": [
+        {
+          "title": "Graba pantalla, cámara y audio en una sola toma.",
+          "description": "Elige una pantalla, una ventana o una app, enciende la cámara y el micrófono, y define la calidad y una cuenta atrás. Cada fuente queda en su propia pista.",
+          "points": [
+            "Dibuja en pantalla mientras grabas",
+            "Teleprompter integrado",
+            "Captura nativa, 1080p o 720p"
+          ],
+          "color": "red",
+          "media": {
+            "src": "../../../assets/screens/record.jpg",
+            "alt": "La ventana de grabación de Cameraman con interruptores de cámara, micrófono, audio del sistema, dibujo y teleprompter, opciones de calidad y temporizador, y el botón Start Recording."
+          },
+          "mascot": "rec",
+          "say": "Una toma: pantalla, cara y voz."
+        },
+        {
+          "title": "Una burbuja de cámara que estilizas, no solo colocas.",
+          "description": "Marco rectangular, circular, redondeado o de cápsula. Desenfoca el fondo, llénalo de color o quítalo y quédate solo tú. La grabación original nunca cambia.",
+          "points": [
+            "Quitar el fondo en tu Mac",
+            "Accesorios, o tu propio logo",
+            "Muévela a donde quieras, por parte del video"
+          ],
+          "color": "yellow",
+          "media": {
+            "src": "../../../assets/screens/camera.jpg",
+            "alt": "El panel de cámara de Cameraman: formas de marco, fondo en Remove, accesorios, y el presentador sin su fondo."
+          },
+          "mascot": "play",
+          "say": "¿El fondo? Fuera."
+        },
+        {
+          "title": "Música y anotaciones en la misma ventana.",
+          "description": "Seis estilos de música compuestos en tu Mac a la medida del video, que bajan cuando hablas. Flechas, recuadros, líneas, texto e imágenes encima de cualquier momento.",
+          "points": [
+            "Otra variación con un clic",
+            "O importa tu propia canción",
+            "Volumen y bajada bajo la voz"
+          ],
+          "color": "teal",
+          "media": {
+            "src": "../../../assets/screens/music.jpg",
+            "alt": "El panel de música de Cameraman con seis estilos, Cinematic elegido, controles de volumen y de bajar bajo la voz, y una flecha roja sobre la vista previa."
+          },
+          "mascot": "talk",
+          "say": "Señálalo con una flecha."
+        }
+      ]
+    },
+    {
+      "type": "cmFeatures",
+      "anchor": "more",
+      "title": "Además, en el editor",
+      "items": [
+        {
+          "icon": "scissors",
+          "title": "Timeline multipista",
+          "description": "Recorta, divide y borra cerrando huecos; luego suma B-roll, imágenes, tarjetas de color y música en sus propias pistas.",
+          "color": "teal"
+        },
+        {
+          "icon": "zoom-in",
+          "title": "Auto-zoom",
+          "description": "Los clics y las pausas se vuelven zooms suaves solos, y aun así puedes poner tus propios keyframes.",
+          "color": "plum"
+        },
+        {
+          "icon": "captions",
+          "title": "Subtítulos en tu Mac",
+          "description": "La voz se transcribe en el equipo con WhisperKit, se vuelve subtítulos con estilo y se exporta en SRT o VTT. No se sube nada.",
+          "color": "sky"
+        },
+        {
+          "icon": "sparkles",
+          "title": "Animaciones",
+          "description": "Tarjetas de nombre, títulos, cifras que cuentan y gráficas de barras, o tu propia animación en HTML, en video transparente y debajo de la cámara.",
+          "color": "red",
+          "tag": "Nuevo"
+        },
+        {
+          "icon": "wand-sparkles",
+          "title": "Efectos por capa",
+          "description": "Sepia, blanco y negro, color, desenfoque y viñeta en la pantalla, la cámara o el fondo, y cambio de tono de voz.",
+          "color": "plum"
+        },
+        {
+          "icon": "share",
+          "title": "Exporta en cualquier formato",
+          "description": "1080p H.264, HEVC, 4K, vertical 9:16, cuadrado, 4:5 y GIF animado, con la mezcla que elegiste.",
+          "color": "sky"
+        },
+        {
+          "icon": "undo-2",
+          "title": "No destructivo",
+          "description": "Las ediciones viven en el archivo del proyecto y tus grabaciones nunca se tocan. Deshaz lo que sea y lleva proyectos como paquetes portables.",
+          "color": "red"
+        }
+      ]
+    },
+    {
+      "type": "cmAgent",
+      "anchor": "agents",
+      "title": "Pide la edición con tus palabras.",
+      "subtitle": "Abre el asistente con ⌘J y pídelo con tus palabras. Usa el mismo editor que tú, paso a paso, y ves cada cambio llegar al timeline.",
+      "points": [
+        {
+          "title": "Dentro de la app.",
+          "description": "Un solo chat para todos tus proyectos, con tu propia sesión de Claude Code. Cameraman nunca la ve."
+        },
+        {
+          "title": "Más de 40 herramientas.",
+          "description": "Proyectos, clips, cámara, subtítulos, animaciones, música y exportación, con un servidor MCP integrado."
+        },
+        {
+          "title": "Sin miedo a probar.",
+          "description": "Las ediciones no son destructivas: tus grabaciones no se tocan y todo se puede deshacer."
+        },
+        {
+          "title": "Usa tu propio agente.",
+          "description": "Claude Code, Codex CLI, Cursor y Claude Desktop también se pueden conectar."
+        }
+      ],
+      "clients": [
+        "Claude Code",
+        "Codex CLI",
+        "Cursor",
+        "Claude Desktop"
+      ],
+      "chat": {
+        "label": "Ejemplo de conversación con el asistente de Cameraman",
+        "youLabel": "Tú",
+        "agentLabel": "Asistente",
+        "request": "Quita las pausas largas, pon música tranquila y muestra una tarjeta con mi nombre cuando me presento.",
+        "reply": "Va. Leo los subtítulos para encontrar las pausas y tu presentación.",
+        "tools": [
+          "get_captions",
+          "delete_range",
+          "add_music",
+          "add_motion",
+          "preview_frame"
+        ],
+        "done": "Listo: 14 pausas fuera, música tranquila bajo tu voz y tu tarjeta en el 0:08."
+      }
+    },
+    {
+      "type": "comparison",
+      "anchor": "compare",
+      "title": "Cómo se compara",
+      "subtitle": "Frente a herramientas que quizá ya usas.",
+      "headers": [
+        "Función",
+        "Cameraman",
+        "Screen Studio",
+        "OBS"
+      ],
+      "rows": [
+        {
+          "feature": "Precio",
+          "values": [
+            "Gratis",
+            "De pago",
+            "Gratis"
+          ]
+        },
+        {
+          "feature": "Código abierto",
+          "values": [
+            true,
+            false,
+            true
+          ]
+        },
+        {
+          "feature": "Editor de video incluido",
+          "values": [
+            true,
+            true,
+            false
+          ]
+        },
+        {
+          "feature": "Edición con agentes de IA",
+          "values": [
+            true,
+            false,
+            false
+          ]
+        },
+        {
+          "feature": "Windows y Linux",
+          "values": [
+            false,
+            false,
+            true
+          ]
+        }
+      ],
+      "note": "Revisado en noviembre de 2026. ¿Algo cambió? Abre un issue en GitHub."
+    },
+    {
+      "type": "howItWorks",
+      "anchor": "download",
+      "title": "De la grabación a la exportación",
+      "subtitle": "Descarga la beta y haz tu primer video en minutos.",
+      "steps": [
+        {
+          "icon": "download",
+          "title": "Descarga",
+          "description": "Baja el DMG notarizado desde GitHub y arrastra Cameraman a Aplicaciones."
+        },
+        {
+          "icon": "video",
+          "title": "Graba",
+          "description": "Elige pantalla, ventana o área, enciende cámara y micrófono, y graba."
+        },
+        {
+          "icon": "scissors",
+          "title": "Edita y exporta",
+          "description": "Corta en el timeline o pídeselo al asistente, y elige un formato. El archivo nunca sale de tu Mac."
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "anchor": "faq",
+      "title": "Preguntas",
+      "items": [
+        {
+          "question": "¿Cameraman es gratis de verdad?",
+          "answer": "Sí. Tiene licencia MIT, sin suscripción, sin cuenta y sin marca de agua. Si te sirve, puedes apoyarlo en GitHub Sponsors."
+        },
+        {
+          "question": "¿Necesito saber editar video?",
+          "answer": "No. Cameraman está pensado para quien quiere explicar algo en pantalla, no para aprender un editor profesional. Cortes, subtítulos, flechas y fondos son unos clics, y el asistente puede hacerlos por ti."
+        },
+        {
+          "question": "¿Qué necesito para usarlo?",
+          "answer": "Una Mac con macOS 13 o posterior, Apple Silicon o Intel. La transcripción en el equipo necesita Apple Silicon."
+        },
+        {
+          "question": "¿Sube mis videos a algún lado?",
+          "answer": "No. Grabar, editar, transcribir y exportar pasa todo en tu Mac."
+        },
+        {
+          "question": "¿Cuánto cuesta el asistente de IA?",
+          "answer": "Cameraman no cobra nada. El asistente usa el Claude Code que ya tienes, así que las respuestas salen de tu propio plan de Claude."
+        },
+        {
+          "question": "¿Es estable?",
+          "answer": "Es una beta en desarrollo activo. Grabar, editar y exportar ya se usan a diario; en el changelog ves qué cambió y qué sigue."
+        },
+        {
+          "question": "¿Puedo compilarlo yo?",
+          "answer": "Sí. Clona el repositorio y abre el proyecto de Xcode; el README tiene los pasos."
+        }
+      ],
+      "jsonLd": true
+    },
+    {
+      "type": "cmCta",
+      "anchor": "start",
+      "title": "Cameraman salvó la edición. Otra vez.",
+      "subtitle": "Tutoriales, cursos, demos o explicaciones: grábalos, edítalos y publícalos. Gratis y con licencia MIT.",
+      "actions": [
+        {
+          "label": "Descargar para macOS",
+          "href": "https://github.com/dPeluChe/cameraman/releases/latest",
+          "variant": "primary",
+          "icon": "download",
+          "external": true
+        },
+        {
+          "label": "Dar estrella en GitHub",
+          "href": "https://github.com/dPeluChe/cameraman",
+          "variant": "secondary",
+          "icon": "star",
+          "external": true
+        }
+      ],
+      "mascot": {
+        "face": "talk",
+        "say": "Misión cumplida."
+      }
+    }
+  ]
+}

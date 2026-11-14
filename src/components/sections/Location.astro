@@ -1,0 +1,80 @@
+---
+import SectionShell from './SectionShell.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import LiteMap from '../embeds/LiteMap.astro';
+import type { SectionOf } from '../../schemas/sections';
+import { getSite, getUi } from '../../lib/content';
+import { localeFromParam } from '../../lib/i18n';
+
+export interface Props {
+  section: SectionOf<'location'>;
+}
+
+const { section } = Astro.props;
+const locale = localeFromParam(Astro.currentLocale);
+const site = await getSite(locale);
+const ui = await getUi(locale);
+const { address, phone, whatsapp, email, openingHours } = site.contact;
+---
+
+<SectionShell anchor={section.anchor}>
+  <SectionHeader title={section.title} subtitle={section.subtitle} />
+
+  <div class="grid items-start gap-10 lg:grid-cols-2">
+    {
+      section.showBusinessInfo && (
+        <div class="rounded-xl border border-border bg-surface p-8">
+          {address && (
+            <address class="not-italic">
+              <p class="text-lg font-semibold text-fg">{site.brand.name}</p>
+              <p class="mt-2 text-sm leading-relaxed text-fg-muted">
+                {address.street}
+                <br />
+                {address.zip} {address.city}, {address.state}
+              </p>
+            </address>
+          )}
+
+          <ul class="mt-6 space-y-2 text-sm">
+            <li>
+              <a class="text-fg-muted hover:text-brand" href={`mailto:${email}`}>
+                {email}
+              </a>
+            </li>
+            {phone && (
+              <li>
+                <a class="text-fg-muted hover:text-brand" href={`tel:${phone.replace(/\s/g, '')}`}>
+                  {phone}
+                </a>
+              </li>
+            )}
+            {whatsapp && (
+              <li>
+                <a
+                  class="text-fg-muted hover:text-brand"
+                  href={`https://wa.me/${whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  WhatsApp
+                </a>
+              </li>
+            )}
+          </ul>
+
+          {openingHours.length > 0 && (
+            <ul class="mt-6 space-y-1 border-t border-border pt-6 text-sm text-fg-muted">
+              {openingHours.map((slot) => (
+                <li>{slot}</li>
+              ))}
+            </ul>
+          )}
+
+          {section.note && <p class="mt-6 text-xs text-fg-subtle">{section.note}</p>}
+        </div>
+      )
+    }
+
+    {section.mapEmbedUrl && <LiteMap src={section.mapEmbedUrl} label={ui.loadMap} title={section.title} />}
+  </div>
+</SectionShell>

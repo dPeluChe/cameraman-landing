@@ -1,0 +1,269 @@
+---
+import type { MascotFace } from './sections';
+
+type Stop = { anchor: string; face: MascotFace; say?: string; hide: boolean };
+
+export interface Props {
+  // cycle: steps through its faces; peek: pops up beside something as it scrolls in, holding one face;
+  // follow: a corner link that appears once the hero is gone and reacts to the section in view.
+  mode: 'cycle' | 'peek' | 'follow';
+  face?: MascotFace;
+  say?: string;
+  /** Which side of the mascot the bubble lines up with. */
+  side?: 'left' | 'right';
+  href?: string;
+  label?: string;
+  stops?: Stop[];
+}
+
+const { mode, face = 'play', say, side = 'right', href, label, stops = [] } = Astro.props;
+const bars: [number, number, number][] = [
+  [305, 607, 44], [353, 599, 59], [401, 607, 44], [449, 584, 89], [497, 604, 49],
+  [545, 592, 74], [593, 607, 44], [641, 597, 64], [689, 607, 44],
+];
+const Tag = mode === 'follow' && href ? 'a' : 'div';
+const attrs: Record<string, string | undefined> = Tag === 'a' ? { href, 'aria-label': label, title: label } : { 'aria-hidden': 'true' };
+---
+
+<Tag
+  class:list={['cm-mascot', `cm-${mode}`, `cm-side-${side}`]}
+  data-mascot={mode}
+  data-face={face}
+  data-stops={mode === 'follow' ? JSON.stringify(stops) : undefined}
+  {...attrs}
+>
+  {(say || mode === 'follow') && <span class="cm-say" aria-hidden="true">{say}</span>}
+  <svg viewBox="0 0 1024 1024" aria-hidden="true">
+    <path class="cm-cape" d="M223 425 60 930l358-85 94 80 92-80 361 85-163-505Z" />
+    <g class="cm-head">
+      <rect class="cm-face" x="226" y="186" width="572" height="592" rx="62" />
+      <path class="cm-ink cm-l cm-l-play" d="M350 340 440 400 350 460Z" />
+      <g class="cm-ink cm-l cm-l-pause">
+        <rect x="348" y="342" width="30" height="116" rx="8" />
+        <rect x="410" y="342" width="30" height="116" rx="8" />
+      </g>
+      <circle class="cm-red cm-l cm-l-rec" cx="395" cy="400" r="56" />
+      <circle class="cm-red cm-eye" cx="630" cy="400" r="64" />
+      <g class="cm-ink cm-mouth">
+        {bars.map(([x, y, h], i) => <rect x={x} y={y} width="24" height={h} rx="12" style={`--d: ${(i * 0.11).toFixed(2)}s`} />)}
+      </g>
+    </g>
+  </svg>
+</Tag>
+
+<script>
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const faces = ['play', 'pause', 'rec', 'talk'];
+
+  if (!reduced) {
+    for (const el of document.querySelectorAll<HTMLElement>('[data-mascot="cycle"]')) {
+      let i = 0;
+      setInterval(() => (el.dataset.face = faces[++i % faces.length]), 2600);
+    }
+  }
+
+  const follower = document.querySelector<HTMLElement>('[data-mascot="follow"]');
+  const hero = document.querySelector('.cm-hero');
+  if (follower && hero && 'IntersectionObserver' in window) {
+    const bubble = follower.querySelector<HTMLElement>('.cm-say');
+    const stops: { anchor: string; face: string; say?: string; hide: boolean }[] = JSON.parse(follower.dataset.stops ?? '[]');
+    const byAnchor = new Map(stops.map((s) => [s.anchor, s]));
+    let quiet: number | undefined;
+
+    new IntersectionObserver((entries) => entries.forEach((e) => follower.toggleAttribute('data-shown', !e.isIntersecting))).observe(hero);
+    const watch = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const stop = byAnchor.get(entry.target.id);
+          if (!entry.isIntersecting || !stop) continue;
+          follower.toggleAttribute('data-away', stop.hide);
+          if (stop.hide) continue;
+          follower.dataset.face = stop.face;
+          if (bubble && stop.say) {
+            bubble.textContent = stop.say;
+            // Says its line when the section arrives, then goes quiet until hovered.
+            follower.toggleAttribute('data-talking', true);
+            clearTimeout(quiet);
+            quiet = window.setTimeout(() => follower.removeAttribute('data-talking'), 4000);
+          }
+        }
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    for (const stop of stops) {
+      const el = document.getElementById(stop.anchor);
+      if (el) watch.observe(el);
+    }
+  }
+</script>
+
+<style>
+  .cm-mascot {
+    position: relative;
+    display: block;
+    filter: drop-shadow(0 30px 40px rgb(0 0 0 / 0.45));
+    animation: cm-float 5s ease-in-out infinite;
+  }
+  .cm-mascot svg {
+    display: block;
+    overflow: visible;
+  }
+  .cm-say {
+    position: absolute;
+    bottom: calc(100% + 0.5rem);
+    width: max-content;
+    max-width: 16rem;
+    border-radius: var(--radius-md);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--pop-navy);
+    background: var(--pop-cream);
+    border: 2px solid var(--pop-navy);
+  }
+  .cm-say::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    border: 0.45rem solid transparent;
+    border-top-color: var(--pop-navy);
+  }
+  .cm-side-right .cm-say {
+    right: 0;
+  }
+  .cm-side-right .cm-say::after {
+    right: 1.25rem;
+  }
+  .cm-side-left .cm-say {
+    left: 0;
+  }
+  .cm-side-left .cm-say::after {
+    left: 1.25rem;
+  }
+  .cm-follow {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    z-index: 40;
+    width: 5.5rem;
+    filter: drop-shadow(0 12px 18px rgb(0 0 0 / 0.3));
+    opacity: 0;
+    pointer-events: none;
+    translate: 0 2rem;
+    transition: opacity 0.4s, translate 0.4s;
+  }
+  .cm-follow[data-shown]:not([data-away]) {
+    opacity: 1;
+    pointer-events: auto;
+    translate: 0 0;
+  }
+  .cm-follow .cm-say {
+    opacity: 0;
+    scale: 0.8;
+    transform-origin: bottom right;
+    transition: opacity 0.25s, scale 0.25s;
+  }
+  .cm-follow[data-talking] .cm-say,
+  .cm-follow:hover .cm-say,
+  .cm-follow:focus-visible .cm-say {
+    opacity: 1;
+    scale: 1;
+  }
+  .cm-follow:focus-visible {
+    outline: 3px solid var(--brand-400);
+    outline-offset: 4px;
+    border-radius: var(--radius-md);
+  }
+  .cm-follow svg {
+    transition: scale 0.2s;
+  }
+  .cm-follow:hover svg {
+    scale: 1.06;
+  }
+  @media (width < 40rem) {
+    .cm-follow {
+      display: none;
+    }
+  }
+  .cm-peek {
+    filter: drop-shadow(0 14px 20px rgb(0 0 0 / 0.35));
+    animation: none;
+  }
+  @supports (animation-timeline: view()) {
+    .cm-peek {
+      animation: cm-pop linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 35%;
+    }
+  }
+  @keyframes cm-pop {
+    from { opacity: 0; transform: translateY(40%) rotate(12deg) scale(0.6); }
+    to { opacity: 1; transform: none; }
+  }
+  .cm-cape {
+    fill: var(--pop-red);
+    transform-origin: 512px 425px;
+    animation: cm-sway 5s ease-in-out infinite;
+  }
+  .cm-face {
+    fill: var(--pop-cream);
+    stroke: var(--pop-navy);
+    stroke-width: 8;
+  }
+  .cm-ink {
+    fill: var(--pop-navy);
+  }
+  .cm-red {
+    fill: var(--pop-red);
+  }
+  .cm-eye {
+    animation: cm-blink 1.4s steps(2, jump-none) infinite;
+  }
+  .cm-l {
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+    scale: 0.4;
+    transition: opacity 0.25s, scale 0.35s cubic-bezier(0.3, 1.6, 0.5, 1);
+  }
+  [data-face='play'] .cm-l-play,
+  [data-face='talk'] .cm-l-play,
+  [data-face='pause'] .cm-l-pause,
+  [data-face='rec'] .cm-l-rec {
+    opacity: 1;
+    scale: 1;
+  }
+  [data-face='rec'] .cm-l-rec {
+    animation: cm-blink 1.4s steps(2, jump-none) infinite;
+  }
+  .cm-mouth rect {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: cm-talk 0.9s ease-in-out var(--d) infinite alternate;
+  }
+  [data-face='talk'] .cm-mouth rect,
+  [data-talking] .cm-mouth rect {
+    animation-duration: 0.4s;
+  }
+  [data-face='pause']:not([data-talking]) .cm-mouth rect {
+    animation-play-state: paused;
+  }
+  @keyframes cm-float {
+    50% { transform: translateY(-14px) rotate(-2deg); }
+  }
+  @keyframes cm-sway {
+    50% { transform: skewX(-3deg) scaleY(1.03); }
+  }
+  @keyframes cm-talk {
+    from { transform: scaleY(0.45); }
+    to { transform: scaleY(1.15); }
+  }
+  @keyframes cm-blink {
+    50% { opacity: 0.25; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cm-mascot, .cm-peek, .cm-cape, .cm-eye, .cm-mouth rect, [data-face='rec'] .cm-l-rec { animation: none; }
+    .cm-follow, .cm-follow .cm-say, .cm-l { transition: none; }
+  }
+</style>

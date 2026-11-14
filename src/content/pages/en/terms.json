@@ -1,0 +1,22 @@
+{
+  "locale": "en",
+  "route": "terms",
+  "seo": {
+    "title": "Terms of use",
+    "description": "The terms for using the Cameraman app and this website: MIT license, no warranty, and you own what you record.",
+    "noindex": false
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "layout": "centered",
+      "title": "Terms of use",
+      "subtitle": "Last updated: November 13, 2026"
+    },
+    {
+      "type": "richText",
+      "body": "These terms cover the Cameraman app and this website. Cameraman is made by dPeluChe.\n\n## The app is MIT licensed\n\nCameraman is free and open source under the [MIT license](https://github.com/dPeluChe/cameraman/blob/main/LICENSE). You can use, copy, change and share it, including for commercial work, as long as the license notice goes with your copies. The license is the full agreement for the software; these terms only add context.\n\n## No warranty\n\nThe app is provided \"as is\", without warranty of any kind, as the MIT license says. It is a beta: keep copies of recordings you cannot lose. To the extent the law allows, the authors are not liable for lost data or any other damage from using it.\n\n## What you record is yours\n\nYou own your recordings, projects and exports. You are responsible for what you capture, including getting consent from people you record and following the recording and privacy laws where you and they are.\n\n## Services from other companies\n\nSome features rely on services you choose to use, each under its own terms:\n\n- The AI assistant runs your Claude Code, under [Anthropic's terms](https://www.anthropic.com/legal/consumer-terms) and your Claude plan.\n- AI apps you connect to the MCP server are covered by their own terms.\n- Downloads and update checks use GitHub, under [GitHub's terms](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service).\n\n## This website\n\nThe site describes the app for information. Features and comparisons can change between releases, and the [changelog](https://github.com/dPeluChe/cameraman/blob/main/docs/CHANGELOG.md) is the record of what shipped. Product names in the comparison belong to their owners.\n\n## Changes\n\nIf these terms change, the new version is published here with a new date.\n\n## Contact\n\n[support@dpeluche.dev](mailto:support@dpeluche.dev).",
+      "layout": "prose"
+    }
+  ]
+}

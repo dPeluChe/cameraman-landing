@@ -1,0 +1,51 @@
+---
+import SectionShell from './SectionShell.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import ProjectCard from '../ui/ProjectCard.astro';
+import Button from '../ui/Button.astro';
+import type { SectionOf } from '../../schemas/sections';
+import { getProjects, getSite, getUi } from '../../lib/content';
+import { localeFromParam } from '../../lib/i18n';
+
+export interface Props {
+  section: SectionOf<'projectsPreview'>;
+}
+
+const { section } = Astro.props;
+const locale = localeFromParam(Astro.currentLocale);
+const site = await getSite(locale);
+const ui = await getUi(locale);
+
+const all = await getProjects(locale);
+// Falling back to all keeps the section from vanishing when nobody set a flag --
+// an empty grid on the home page is the failure a clone would ship unnoticed.
+const featured = all.filter((project) => project.data.featured);
+const pool = section.featuredOnly && featured.length > 0 ? featured : all;
+const projects = pool.slice(0, section.limit);
+---
+
+<SectionShell anchor={section.anchor}>
+  <SectionHeader title={section.title} subtitle={section.subtitle} />
+
+  {
+    projects.length === 0 ? (
+      <p class="text-center text-fg-muted">{ui.emptyProjects}</p>
+    ) : (
+      <ul class="grid gap-6 md:grid-cols-3">
+        {projects.map((project) => (
+          <li>
+            <ProjectCard project={project} site={site} locale={locale} ui={ui} />
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    section.viewAll && (
+      <div class="mt-12 flex justify-center">
+        <Button link={section.viewAll} />
+      </div>
+    )
+  }
+</SectionShell>

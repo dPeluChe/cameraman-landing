@@ -1,0 +1,65 @@
+---
+import Icon from './Icon.astro';
+import type { SiteEntry } from '../../lib/content';
+
+export interface Props {
+  site: SiteEntry;
+}
+
+const { site } = Astro.props;
+const config = site.features.floatingContact;
+
+if (!config || !config.enabled) return;
+
+const platform = config.platform;
+const target = config.target || (platform === 'whatsapp' ? site.contact.whatsapp : platform === 'phone' ? site.contact.phone : platform === 'email' ? site.contact.email : '');
+
+let href = '#';
+let iconName = 'message-circle';
+
+switch (platform) {
+  case 'whatsapp': {
+    const cleanPhone = (target ?? '').replace(/\D/g, '');
+    const msg = config.message ? `?text=${encodeURIComponent(config.message)}` : '';
+    href = `https://wa.me/${cleanPhone}${msg}`;
+    iconName = 'message-circle';
+    break;
+  }
+  case 'telegram': {
+    const username = (target ?? '').replace(/^@/, '');
+    href = `https://t.me/${username}`;
+    iconName = 'send';
+    break;
+  }
+  case 'phone': {
+    href = `tel:${target ?? ''}`;
+    iconName = 'phone';
+    break;
+  }
+  case 'email': {
+    href = `mailto:${target ?? ''}`;
+    iconName = 'mail';
+    break;
+  }
+  case 'custom': {
+    href = target ?? '#';
+    iconName = 'message-square';
+    break;
+  }
+}
+---
+
+<aside class="fixed right-5 bottom-5 z-40">
+  <a
+    href={href}
+    target={platform === 'phone' || platform === 'email' ? undefined : '_blank'}
+    rel={platform === 'phone' || platform === 'email' ? undefined : 'noopener noreferrer'}
+    aria-label={config.label}
+    class="group flex size-14 items-center justify-center rounded-full bg-brand-solid text-on-brand shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-brand-solid-hover hover:shadow-brand active:scale-95 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2"
+  >
+    <Icon name={iconName} size={26} />
+    <span class="pointer-events-none absolute right-16 hidden whitespace-nowrap rounded-md border border-border bg-surface px-3 py-1.5 text-xs font-semibold text-fg shadow-md transition-opacity group-hover:block dark:border-border">
+      {config.label}
+    </span>
+  </a>
+</aside>

@@ -1,0 +1,14 @@
+---
+// Content stores icon names, never components — a CMS cannot ship JSX.
+import { Icon as IconifyIcon } from 'astro-icon/components';
+
+export interface Props {
+  name: string;
+  class?: string;
+  size?: number;
+}
+
+const { name, class: className, size = 24 } = Astro.props;
+---
+
+<IconifyIcon name={`lucide:${name}`} class={className} width={size} height={size} aria-hidden="true" />

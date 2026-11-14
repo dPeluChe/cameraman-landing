@@ -1,0 +1,52 @@
+---
+import Picture from './Picture.astro';
+import type { ProjectEntry, SiteEntry, UiStrings } from '../../lib/content';
+import { detailSlug } from '../../lib/content';
+import { routeHref } from '../../lib/routes';
+import type { Locale } from '../../lib/i18n';
+
+export interface Props {
+  project: ProjectEntry;
+  site: SiteEntry;
+  locale: Locale;
+  ui: UiStrings;
+  /** h2 when the card list is the page's top-level content, h3 when nested in a section. */
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { project, site, locale, ui, headingLevel: Heading = 'h3' } = Astro.props;
+const href = `${routeHref(site, locale, 'projects')}/${detailSlug(project)}`;
+// Two at most: the card is a hook, the spec sheet lives on the detail page.
+const meta = project.data.meta.slice(0, 2);
+---
+
+<article class="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-sm transition-shadow hover:shadow-md">
+  <Picture media={project.data.cover} class="aspect-video w-full object-cover" sizes="(min-width: 48rem) 24rem, 100vw" />
+
+  <div class="flex flex-1 flex-col p-6">
+    {project.data.category && (
+      <p class="text-xs">
+        <span class="rounded-full bg-brand-bg px-2 py-0.5 font-medium text-brand">{project.data.category}</span>
+      </p>
+    )}
+
+    <Heading class="mt-3 text-lg text-fg">
+      <a href={href} class="after:absolute after:inset-0 group-hover:text-brand">{project.data.title}</a>
+    </Heading>
+
+    <p class="mt-2 flex-1 text-sm leading-relaxed text-fg-muted">{project.data.description}</p>
+
+    {meta.length > 0 && (
+      <dl class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs text-fg-subtle">
+        {meta.map((item) => (
+          <div class="flex gap-1">
+            <dt class="font-medium">{item.label}:</dt>
+            <dd>{item.value}</dd>
+          </div>
+        ))}
+      </dl>
+    )}
+
+    <p class="mt-4 text-sm font-semibold text-brand">{ui.readMore}</p>
+  </div>
+</article>

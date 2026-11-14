@@ -1,0 +1,199 @@
+{
+  "locale": "es",
+  "brand": {
+    "name": "Cameraman",
+    "tagline": "Grabador de pantalla y editor de video para macOS, gratis y de código abierto, que los agentes de IA pueden editar por ti.",
+    "logo": {
+      "light": {
+        "src": "../../assets/brand/logo.svg",
+        "alt": "Cameraman",
+        "width": 210,
+        "height": 40
+      },
+      "dark": {
+        "src": "../../assets/brand/logo-dark.svg",
+        "alt": "Cameraman",
+        "width": 210,
+        "height": 40
+      }
+    }
+  },
+  "contact": {
+    "email": "support@dpeluche.dev",
+    "openingHours": []
+  },
+  "social": [
+    {
+      "platform": "GitHub",
+      "url": "https://github.com/dPeluChe/cameraman"
+    }
+  ],
+  "seo": {
+    "defaultTitle": "Cameraman: grabador de pantalla y editor de video para Mac",
+    "titleTemplate": "%title% | %brand%",
+    "defaultDescription": "Grabador de pantalla y editor de video para macOS, gratis y de código abierto. Local, nativo en Swift, con un asistente de IA y un servidor MCP que edita tus videos.",
+    "defaultOgImage": "/og/default.png",
+    "robots": {
+      "index": true,
+      "follow": true
+    },
+    "verification": {}
+  },
+  "organization": {
+    "type": "Organization",
+    "sameAs": [
+      "https://github.com/dPeluChe/cameraman"
+    ]
+  },
+  "nav": [
+    {
+      "label": "Funciones",
+      "href": "/es/#features",
+      "variant": "ghost"
+    },
+    {
+      "label": "Edición con IA",
+      "href": "/es/#agents",
+      "variant": "ghost"
+    },
+    {
+      "label": "Comparativa",
+      "href": "/es/#compare",
+      "variant": "ghost"
+    },
+    {
+      "label": "Preguntas",
+      "href": "/es/#faq",
+      "variant": "ghost"
+    }
+  ],
+  "footer": {
+    "columns": [
+      {
+        "title": "Producto",
+        "links": [
+          {
+            "label": "Descargar",
+            "href": "https://github.com/dPeluChe/cameraman/releases/latest",
+            "variant": "ghost",
+            "external": true
+          },
+          {
+            "label": "Todas las versiones",
+            "href": "https://github.com/dPeluChe/cameraman/releases",
+            "variant": "ghost",
+            "external": true
+          },
+          {
+            "label": "Cambios",
+            "href": "https://github.com/dPeluChe/cameraman/blob/main/docs/CHANGELOG.md",
+            "variant": "ghost",
+            "external": true
+          }
+        ]
+      },
+      {
+        "title": "Código abierto",
+        "links": [
+          {
+            "label": "Código fuente",
+            "href": "https://github.com/dPeluChe/cameraman",
+            "variant": "ghost",
+            "external": true
+          },
+          {
+            "label": "Reportar un error",
+            "href": "https://github.com/dPeluChe/cameraman/issues/new",
+            "variant": "ghost",
+            "external": true
+          },
+          {
+            "label": "Contribuir",
+            "href": "https://github.com/dPeluChe/cameraman/blob/main/CONTRIBUTING.md",
+            "variant": "ghost",
+            "external": true
+          }
+        ]
+      },
+      {
+        "title": "Apoya el proyecto",
+        "links": [
+          {
+            "label": "GitHub Sponsors",
+            "href": "https://github.com/sponsors/dPeluChe",
+            "variant": "ghost",
+            "external": true
+          },
+          {
+            "label": "PayPal",
+            "href": "https://paypal.me/dpeluche",
+            "variant": "ghost",
+            "external": true
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "Privacidad",
+        "href": "/es/privacidad",
+        "variant": "ghost"
+      },
+      {
+        "label": "Términos",
+        "href": "/es/terminos",
+        "variant": "ghost"
+      }
+    ],
+    "copyright": "© %year% %brand%. Licencia MIT.",
+    "credit": {
+      "label": "dPeluChe",
+      "href": "https://dpeluche.dev"
+    }
+  },
+  "features": {
+    "darkMode": true,
+    "defaultTheme": "system",
+    "showThemeToggle": true,
+    "scrollLayout": "flow",
+    "stickyMobileCta": {
+      "enabled": true,
+      "label": "Descargar para macOS",
+      "href": "https://github.com/dPeluChe/cameraman/releases/latest",
+      "icon": "download"
+    }
+  },
+  "contactForm": {
+    "provider": "mailto"
+  },
+  "routes": {
+    "services": {
+      "enabled": false,
+      "segment": "servicios"
+    },
+    "about": {
+      "enabled": false,
+      "segment": "nosotros"
+    },
+    "updates": {
+      "enabled": false,
+      "segment": "novedades"
+    },
+    "projects": {
+      "enabled": false,
+      "segment": "proyectos"
+    },
+    "contact": {
+      "enabled": false,
+      "segment": "contacto"
+    },
+    "privacy": {
+      "enabled": true,
+      "segment": "privacidad"
+    },
+    "terms": {
+      "enabled": true,
+      "segment": "terminos"
+    }
+  }
+}

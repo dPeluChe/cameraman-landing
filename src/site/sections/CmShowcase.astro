@@ -1,0 +1,116 @@
+---
+import SectionShell from '../../components/sections/SectionShell.astro';
+import Mascot from '../Mascot.astro';
+import Shot from '../Shot.astro';
+import type { ImageMetadata } from 'astro';
+import type { SectionOf } from '../../schemas/sections';
+
+export interface Props {
+  section: SectionOf<'cmShowcase'>;
+}
+
+const { section } = Astro.props;
+// Portrait shots (a small window) would tower over the text at half width.
+const isPortrait = (src: string | ImageMetadata) => typeof src !== 'string' && src.height > src.width;
+---
+
+<div class="cm-band">
+  <SectionShell anchor={section.anchor}>
+    <div class="mb-14 max-w-3xl">
+      <h2 class="text-3xl text-fg md:text-5xl">{section.title}</h2>
+      {section.subtitle && <p class="mt-4 text-lg leading-relaxed text-fg-muted">{section.subtitle}</p>}
+    </div>
+    <div class="grid gap-20 lg:gap-28">
+      {
+        section.rows.map((row, i) => (
+          <div class="grid items-center gap-8 lg:grid-cols-[1fr_1.15fr] lg:gap-16" style={`--pop: var(--pop-${row.color})`}>
+            <div class:list={[i % 2 === 1 && 'lg:order-2']}>
+              <span class="cm-rule" aria-hidden="true" />
+              <h3 class="mt-5 text-2xl text-fg md:text-3xl">{row.title}</h3>
+              <p class="mt-3 text-lg leading-relaxed text-fg-muted">{row.description}</p>
+              {row.points.length > 0 && (
+                <ul class="mt-5 grid gap-2">
+                  {row.points.map((point) => (
+                    <li class="cm-point text-fg">{point}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <div class:list={['relative', isPortrait(row.media.src) && 'w-full max-w-sm justify-self-center']}>
+              <figure class="cm-shot">
+                <Shot media={row.media} sizes="(min-width: 80rem) 40rem, (min-width: 64rem) 50vw, 100vw" />
+              </figure>
+              {row.mascot && (
+                <div class:list={['cm-peeker', i % 2 === 1 && 'cm-peeker-left']}>
+                  <Mascot mode="peek" face={row.mascot} say={row.say} side={i % 2 === 1 ? 'left' : 'right'} />
+                </div>
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </SectionShell>
+</div>
+
+<style>
+  .cm-band {
+    background: var(--color-surface-muted);
+  }
+  .cm-rule {
+    display: block;
+    width: 3rem;
+    height: 0.35rem;
+    border-radius: var(--radius-full);
+    background: var(--pop);
+  }
+  .cm-point {
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
+  }
+  .cm-point::before {
+    content: '';
+    flex: none;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--pop);
+    transform: translateY(-0.1rem);
+  }
+  .cm-peeker {
+    position: absolute;
+    z-index: 2;
+    right: -1.5rem;
+    bottom: -2rem;
+    width: clamp(4.5rem, 9vw, 7rem);
+  }
+  .cm-peeker-left {
+    right: auto;
+    left: -1.5rem;
+  }
+  @media (width >= 80rem) {
+    .cm-peeker {
+      right: -3rem;
+      bottom: -3rem;
+    }
+    .cm-peeker-left {
+      right: auto;
+      left: -3rem;
+    }
+  }
+  @media (width < 40rem) {
+    .cm-peeker {
+      right: -0.5rem;
+    }
+    .cm-peeker-left {
+      left: -0.5rem;
+    }
+  }
+  .cm-shot {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    border: 1px solid color-mix(in srgb, var(--pop) 45%, var(--color-border));
+    box-shadow: 0 24px 60px -24px color-mix(in srgb, var(--pop) 55%, transparent);
+  }
+</style>

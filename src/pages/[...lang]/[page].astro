@@ -1,0 +1,27 @@
+---
+// Every non-home page. Route keys are open, so this file never needs editing to
+// add one: anything without a reserved listing renders its sections. `updates`
+// and `projects` are the two reserved keys, because they render a collection.
+import ContentPage from '../../layouts/ContentPage.astro';
+import UpdatesIndex from '../../layouts/UpdatesIndex.astro';
+import ProjectsIndex from '../../layouts/ProjectsIndex.astro';
+import { pagePaths } from '../../lib/routes';
+import type { PageRoute } from '../../lib/content';
+import type { Locale } from '../../lib/i18n';
+
+export async function getStaticPaths() {
+  return pagePaths();
+}
+
+const { locale, route } = Astro.props as { locale: Locale; route: PageRoute };
+---
+
+{
+  route === 'updates' ? (
+    <UpdatesIndex locale={locale} />
+  ) : route === 'projects' ? (
+    <ProjectsIndex locale={locale} />
+  ) : (
+    <ContentPage locale={locale} route={route} />
+  )
+}

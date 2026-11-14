@@ -1,0 +1,40 @@
+---
+import SectionShell from '../../components/sections/SectionShell.astro';
+import Button from '../../components/ui/Button.astro';
+import Mascot from '../Mascot.astro';
+import type { SectionOf } from '../../schemas/sections';
+
+export interface Props {
+  section: SectionOf<'cmCta'>;
+}
+
+const { section } = Astro.props;
+const titleId = `cta-${section.anchor ?? 'main'}`;
+---
+
+<SectionShell anchor={section.anchor} labelledBy={titleId}>
+  <div class="cm-card relative mx-auto max-w-4xl rounded-xl border border-border bg-surface p-10 text-center shadow-md md:p-16">
+    <h2 id={titleId} class="text-2xl text-fg md:text-3xl">{section.title}</h2>
+    {section.subtitle && <p class="mx-auto mt-4 max-w-2xl text-base text-fg-muted md:text-lg">{section.subtitle}</p>}
+    <div class="mt-8 flex w-full flex-col justify-center gap-4 sm:flex-row">
+      {section.actions.map((action) => <Button link={action} />)}
+    </div>
+    {
+      section.mascot && (
+        <div class="cm-cta-mascot hidden md:block">
+          <Mascot mode="peek" face={section.mascot.face} say={section.mascot.say} />
+        </div>
+      )
+    }
+  </div>
+</SectionShell>
+
+<style>
+  .cm-cta-mascot {
+    position: absolute;
+    top: -3.5rem;
+    right: -1.5rem;
+    z-index: 2;
+    width: clamp(5rem, 9vw, 7.5rem);
+  }
+</style>

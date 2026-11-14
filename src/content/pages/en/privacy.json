@@ -1,0 +1,22 @@
+{
+  "locale": "en",
+  "route": "privacy",
+  "seo": {
+    "title": "Privacy policy",
+    "description": "How the Cameraman app and this website handle your data: the app collects nothing, and recordings never leave your Mac.",
+    "noindex": false
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "layout": "centered",
+      "title": "Privacy policy",
+      "subtitle": "Last updated: November 13, 2026"
+    },
+    {
+      "type": "richText",
+      "body": "**The Cameraman app does not collect, send or share any personal data.** It has no account, no analytics, no tracking and no third-party SDKs that collect data.\n\n## Your recordings stay on your Mac\n\nRecordings, projects, captions and exports are saved only on your Mac, and the app works offline. Cameraman uses the camera, microphone and screen only when you start a recording.\n\n## Transcription runs on your Mac\n\nSpeech is transcribed on-device. The audio is never sent to a server.\n\n## The AI assistant\n\nThe assistant inside the app runs the Claude Code you already have installed and signed in. Your requests, and the project details the assistant reads to answer them, go to Anthropic through your own Claude Code session, under [Anthropic's privacy policy](https://www.anthropic.com/legal/privacy) and your plan. Cameraman never sees that conversation or your login, and you can use the app without the assistant.\n\n## The MCP server\n\nThe optional built-in MCP server runs on your Mac and only accepts AI apps you connect on that Mac. It edits your local project files and sends nothing anywhere. What those apps send to their own providers is covered by their policies.\n\n## Update checks\n\nThe app can check for new versions by asking the public GitHub Releases API for the list of releases. The request carries no personal information. GitHub sees your IP address, as with any web request.\n\n## This website\n\nThis site has no analytics, no cookies and no tracking scripts. The host keeps standard server logs, such as IP address and pages requested, to run and protect the service. Downloads come from GitHub, under [GitHub's privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).\n\n## Changes\n\nIf this policy changes, the new version is published here with a new date.\n\n## Contact\n\nQuestions about this policy: [support@dpeluche.dev](mailto:support@dpeluche.dev).",
+      "layout": "prose"
+    }
+  ]
+}

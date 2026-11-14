@@ -1,0 +1,38 @@
+---
+import Icon from './Icon.astro';
+import type { Link } from '../../schemas/primitives';
+import { getUi } from '../../lib/content';
+import { localeFromParam } from '../../lib/i18n';
+
+export interface Props {
+  link: Link;
+  class?: string;
+  fullWidth?: boolean;
+}
+
+const { link, class: className = '', fullWidth = false } = Astro.props;
+const isExternal = link.external ?? /^https?:\/\//.test(link.href);
+const ui = await getUi(localeFromParam(Astro.currentLocale));
+
+const variants: Record<Link['variant'], string> = {
+  primary:
+    'bg-brand-solid text-on-brand hover:bg-brand-solid-hover shadow-sm hover:shadow-brand border border-transparent',
+  secondary: 'bg-surface text-fg border border-border-strong hover:border-brand hover:text-brand',
+  ghost: 'bg-transparent text-fg-muted border border-transparent hover:text-brand hover:bg-brand-bg',
+};
+---
+
+<a
+  href={link.href}
+  class:list={[
+    'inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-semibold transition-colors duration-200 active:scale-[0.98]',
+    variants[link.variant],
+    fullWidth && 'w-full',
+    className,
+  ]}
+  {...isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+>
+  {link.icon && <Icon name={link.icon} size={18} />}
+  <span>{link.label}</span>
+  {isExternal && <span class="sr-only">{ui.opensInNewTab}</span>}
+</a>
