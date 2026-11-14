@@ -9,9 +9,9 @@
   "sections": [
     {
       "type": "cmHero",
-      "title": "Graba tu Mac. Deja que la IA haga los cortes.",
-      "titleHighlight": "Deja que la IA haga los cortes.",
-      "subtitle": "Cameraman graba pantalla, cámara y audio en pistas separadas, te da un editor con timeline de verdad y trae un asistente que edita el video cuando se lo pides.",
+      "title": "Graba un tutorial. Edítalo sin ser editor.",
+      "titleHighlight": "Edítalo sin ser editor.",
+      "subtitle": "Graba tu pantalla y tu cara, genera subtítulos en tu Mac, y luego corta, señala con flechas o cambia el fondo en un editor sencillo. O pídele al asistente que lo haga por ti.",
       "actions": [
         {
           "label": "Descargar para macOS",
@@ -59,6 +59,45 @@
         "src": "../../../assets/screens/editor.jpg",
         "alt": "El editor de Cameraman: una grabación con la burbuja de cámara del presentador y subtítulos, el timeline multipista abajo y el panel de estilo de subtítulos a la derecha.",
         "priority": true
+      },
+      "guide": {
+        "label": "Ir a descargar",
+        "href": "/es#download",
+        "stops": [
+          {
+            "anchor": "features",
+            "hide": true
+          },
+          {
+            "anchor": "more",
+            "face": "play",
+            "say": "Cortes, zooms, subtítulos: unos clics."
+          },
+          {
+            "anchor": "agents",
+            "face": "talk",
+            "say": "O pídemelo y lo hago yo."
+          },
+          {
+            "anchor": "compare",
+            "face": "pause",
+            "say": "Gratis. Sin cuenta ni marca de agua."
+          },
+          {
+            "anchor": "download",
+            "face": "play",
+            "say": "¿Listo? Descarga la beta."
+          },
+          {
+            "anchor": "faq",
+            "face": "pause",
+            "say": "Pregunta lo que quieras."
+          },
+          {
+            "anchor": "start",
+            "hide": true
+          }
+        ]
       }
     },
     {
@@ -86,7 +125,7 @@
       "type": "cmShowcase",
       "anchor": "features",
       "title": "Graba una vez y arréglalo en la edición.",
-      "subtitle": "Cortes, cámara, subtítulos, animaciones y música, dentro de la misma app con la que grabaste.",
+      "subtitle": "Grabas, cortas, agregas flechas y subtítulos, exportas y publicas. Sin un editor profesional pesado de por medio.",
       "rows": [
         {
           "title": "Graba pantalla, cámara y audio en una sola toma.",
@@ -101,7 +140,8 @@
             "src": "../../../assets/screens/record.jpg",
             "alt": "La ventana de grabación de Cameraman con interruptores de cámara, micrófono, audio del sistema, dibujo y teleprompter, opciones de calidad y temporizador, y el botón Start Recording."
           },
-          "mascot": "rec"
+          "mascot": "rec",
+          "say": "Una toma: pantalla, cara y voz."
         },
         {
           "title": "Una burbuja de cámara que estilizas, no solo colocas.",
@@ -116,7 +156,8 @@
             "src": "../../../assets/screens/camera.jpg",
             "alt": "El panel de cámara de Cameraman: formas de marco, fondo en Remove, accesorios, y el presentador sin su fondo."
           },
-          "mascot": "play"
+          "mascot": "play",
+          "say": "¿El fondo? Fuera."
         },
         {
           "title": "Música y anotaciones en la misma ventana.",
@@ -131,7 +172,8 @@
             "src": "../../../assets/screens/music.jpg",
             "alt": "El panel de música de Cameraman con seis estilos, Cinematic elegido, controles de volumen y de bajar bajo la voz, y una flecha roja sobre la vista previa."
           },
-          "mascot": "talk"
+          "mascot": "talk",
+          "say": "Señálalo con una flecha."
         }
       ]
     },
@@ -318,6 +360,10 @@
           "answer": "Sí. Tiene licencia MIT, sin suscripción, sin cuenta y sin marca de agua. Si te sirve, puedes apoyarlo en GitHub Sponsors."
         },
         {
+          "question": "¿Necesito saber editar video?",
+          "answer": "No. Cameraman está pensado para quien quiere explicar algo en pantalla, no para aprender un editor profesional. Cortes, subtítulos, flechas y fondos son unos clics, y el asistente puede hacerlos por ti."
+        },
+        {
           "question": "¿Qué necesito para usarlo?",
           "answer": "Una Mac con macOS 13 o posterior, Apple Silicon o Intel. La transcripción en el equipo necesita Apple Silicon."
         },
@@ -341,9 +387,10 @@
       "jsonLd": true
     },
     {
-      "type": "cta",
-      "title": "Haz tu próximo video de pantalla con Cameraman.",
-      "subtitle": "Licencia MIT. Lee el código, cámbialo y compila tu propia versión.",
+      "type": "cmCta",
+      "anchor": "start",
+      "title": "Haz tu próximo tutorial con Cameraman.",
+      "subtitle": "Gratis y con licencia MIT. Graba, edita y publica sin aprender un editor profesional.",
       "actions": [
         {
           "label": "Descargar para macOS",
@@ -359,7 +406,11 @@
           "icon": "star",
           "external": true
         }
-      ]
+      ],
+      "mascot": {
+        "face": "play",
+        "say": "Tu próximo tutorial empieza aquí."
+      }
     }
   ]
 }

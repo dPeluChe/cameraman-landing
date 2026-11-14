@@ -7,6 +7,7 @@ const popColor = z.enum(['red', 'yellow', 'teal', 'plum', 'sky']);
 export type PopColor = z.infer<typeof popColor>;
 export const mascotFace = z.enum(['play', 'pause', 'rec', 'talk']);
 export type MascotFace = z.infer<typeof mascotFace>;
+const mascotLine = z.string().min(1).max(60);
 
 export const buildSiteSections = (image: ImageFn) =>
   [
@@ -23,6 +24,16 @@ export const buildSiteSections = (image: ImageFn) =>
       note: z.string().optional(),
       /** A real screenshot; without it the hero draws the CSS editor mockup. */
       media: mediaSchema(image).optional(),
+      /** The floating mascot: a link, plus what it says at each section. `hide` hands over to the shots' own mascots. */
+      guide: z
+        .object({
+          label: z.string().min(1),
+          href: z.string().min(1),
+          stops: z.array(
+            z.object({ anchor: z.string().min(1), face: mascotFace.default('play'), say: mascotLine.optional(), hide: z.boolean().default(false) }),
+          ),
+        })
+        .optional(),
     }),
     z.object({
       ...sectionBase,
@@ -58,10 +69,19 @@ export const buildSiteSections = (image: ImageFn) =>
             color: popColor,
             media: mediaSchema(image),
             mascot: mascotFace.optional(),
+            say: mascotLine.optional(),
           }),
         )
         .min(1)
         .max(4),
+    }),
+    z.object({
+      ...sectionBase,
+      type: z.literal('cmCta'),
+      title: z.string().min(1),
+      subtitle: z.string().optional(),
+      actions: z.array(linkSchema).min(1).max(2),
+      mascot: z.object({ face: mascotFace.default('play'), say: mascotLine.optional() }).optional(),
     }),
     z.object({
       ...sectionBase,

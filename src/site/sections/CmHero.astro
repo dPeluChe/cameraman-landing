@@ -10,7 +10,7 @@ export interface Props {
 }
 
 const { section, headingLevel: Heading = 'h1' } = Astro.props;
-const { badge, title, titleHighlight, subtitle, actions, chips, note, anchor, media } = section;
+const { badge, title, titleHighlight, subtitle, actions, chips, note, anchor, media, guide } = section;
 const highlight = titleHighlight && title.includes(titleHighlight) ? titleHighlight : undefined;
 const [before, after] = highlight ? (title.split(highlight) as [string, string]) : [title, ''];
 
@@ -87,7 +87,7 @@ const rows: [number, number, string][][] = [
     </div>
     )}
   </div>
-  {media && <Mascot mode="follow" />}
+  {guide && <Mascot mode="follow" href={guide.href} label={guide.label} stops={guide.stops} />}
 </section>
 
 <style>

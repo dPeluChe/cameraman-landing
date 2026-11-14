@@ -1,23 +1,39 @@
 ---
 import type { MascotFace } from './sections';
 
+type Stop = { anchor: string; face: MascotFace; say?: string; hide: boolean };
+
 export interface Props {
-  // cycle: steps through its faces; follow: floats in a corner once the hero is gone and reacts to the section in view;
-  // peek: pops up beside a screenshot as it scrolls in, holding one face.
-  mode: 'cycle' | 'follow' | 'peek';
+  // cycle: steps through its faces; peek: pops up beside something as it scrolls in, holding one face;
+  // follow: a corner link that appears once the hero is gone and reacts to the section in view.
+  mode: 'cycle' | 'peek' | 'follow';
   face?: MascotFace;
-  class?: string;
+  say?: string;
+  /** Which side of the mascot the bubble lines up with. */
+  side?: 'left' | 'right';
+  href?: string;
+  label?: string;
+  stops?: Stop[];
 }
 
-const { mode, face = 'play', class: className } = Astro.props;
+const { mode, face = 'play', say, side = 'right', href, label, stops = [] } = Astro.props;
 const bars: [number, number, number][] = [
   [305, 607, 44], [353, 599, 59], [401, 607, 44], [449, 584, 89], [497, 604, 49],
   [545, 592, 74], [593, 607, 44], [641, 597, 64], [689, 607, 44],
 ];
+const Tag = mode === 'follow' && href ? 'a' : 'div';
+const attrs: Record<string, string | undefined> = Tag === 'a' ? { href, 'aria-label': label, title: label } : { 'aria-hidden': 'true' };
 ---
 
-<div class:list={['cm-mascot', `cm-${mode}`, className]} data-mascot={mode} data-face={face} aria-hidden="true">
-  <svg viewBox="0 0 1024 1024">
+<Tag
+  class:list={['cm-mascot', `cm-${mode}`, `cm-side-${side}`]}
+  data-mascot={mode}
+  data-face={face}
+  data-stops={mode === 'follow' ? JSON.stringify(stops) : undefined}
+  {...attrs}
+>
+  {(say || mode === 'follow') && <span class="cm-say" aria-hidden="true">{say}</span>}
+  <svg viewBox="0 0 1024 1024" aria-hidden="true">
     <path class="cm-cape" d="M223 425 60 930l358-85 94 80 92-80 361 85-163-505Z" />
     <g class="cm-head">
       <rect class="cm-face" x="226" y="186" width="572" height="592" rx="62" />
@@ -33,14 +49,11 @@ const bars: [number, number, number][] = [
       </g>
     </g>
   </svg>
-</div>
+</Tag>
 
 <script>
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const faces = ['play', 'pause', 'rec', 'talk'];
-  // What each section is about: the assistant talking, a comparison to pause on. In the showcase
-  // (features) the screenshots carry their own mascot, so the floater steps aside.
-  const bySection: Record<string, string> = { features: 'away', more: 'play', agents: 'talk', compare: 'pause', download: 'play', faq: 'pause' };
 
   if (!reduced) {
     for (const el of document.querySelectorAll<HTMLElement>('[data-mascot="cycle"]')) {
@@ -52,26 +65,41 @@ const bars: [number, number, number][] = [
   const follower = document.querySelector<HTMLElement>('[data-mascot="follow"]');
   const hero = document.querySelector('.cm-hero');
   if (follower && hero && 'IntersectionObserver' in window) {
+    const bubble = follower.querySelector<HTMLElement>('.cm-say');
+    const stops: { anchor: string; face: string; say?: string; hide: boolean }[] = JSON.parse(follower.dataset.stops ?? '[]');
+    let quiet: number | undefined;
+
     new IntersectionObserver((entries) => entries.forEach((e) => follower.toggleAttribute('data-shown', !e.isIntersecting))).observe(hero);
-    const sections = Object.keys(bySection)
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
     const watch = new IntersectionObserver(
       (entries) => {
-        for (const entry of entries) if (entry.isIntersecting) {
-          const face = bySection[entry.target.id];
-          follower.toggleAttribute('data-away', face === 'away');
-          if (face !== 'away') follower.dataset.face = face;
+        for (const entry of entries) {
+          const stop = stops.find((s) => s.anchor === entry.target.id);
+          if (!entry.isIntersecting || !stop) continue;
+          follower.toggleAttribute('data-away', stop.hide);
+          if (stop.hide) continue;
+          follower.dataset.face = stop.face;
+          if (bubble && stop.say) {
+            bubble.textContent = stop.say;
+            // Says its line when the section arrives, then goes quiet until hovered.
+            follower.toggleAttribute('data-talking', true);
+            clearTimeout(quiet);
+            quiet = window.setTimeout(() => follower.removeAttribute('data-talking'), 4000);
+          }
         }
       },
       { rootMargin: '-45% 0px -50% 0px' },
     );
-    sections.forEach((el) => watch.observe(el));
+    for (const stop of stops) {
+      const el = document.getElementById(stop.anchor);
+      if (el) watch.observe(el);
+    }
   }
 </script>
 
 <style>
   .cm-mascot {
+    position: relative;
+    display: block;
     filter: drop-shadow(0 30px 40px rgb(0 0 0 / 0.45));
     animation: cm-float 5s ease-in-out infinite;
   }
@@ -79,21 +107,83 @@ const bars: [number, number, number][] = [
     display: block;
     overflow: visible;
   }
+  .cm-say {
+    position: absolute;
+    bottom: calc(100% + 0.5rem);
+    width: max-content;
+    max-width: 16rem;
+    border-radius: var(--radius-md);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--pop-navy);
+    background: var(--pop-cream);
+    border: 2px solid var(--pop-navy);
+  }
+  .cm-say::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    border: 0.45rem solid transparent;
+    border-top-color: var(--pop-navy);
+  }
+  .cm-side-right .cm-say {
+    right: 0;
+  }
+  .cm-side-right .cm-say::after {
+    right: 1.25rem;
+  }
+  .cm-side-left .cm-say {
+    left: 0;
+  }
+  .cm-side-left .cm-say::after {
+    left: 1.25rem;
+  }
   .cm-follow {
     position: fixed;
     right: 1.5rem;
     bottom: 1.5rem;
     z-index: 40;
     width: 5.5rem;
-    pointer-events: none;
     filter: drop-shadow(0 12px 18px rgb(0 0 0 / 0.3));
     opacity: 0;
+    pointer-events: none;
     translate: 0 2rem;
     transition: opacity 0.4s, translate 0.4s;
   }
   .cm-follow[data-shown]:not([data-away]) {
     opacity: 1;
+    pointer-events: auto;
     translate: 0 0;
+  }
+  .cm-follow .cm-say {
+    opacity: 0;
+    scale: 0.8;
+    transform-origin: bottom right;
+    transition: opacity 0.25s, scale 0.25s;
+  }
+  .cm-follow[data-talking] .cm-say,
+  .cm-follow:hover .cm-say,
+  .cm-follow:focus-visible .cm-say {
+    opacity: 1;
+    scale: 1;
+  }
+  .cm-follow:focus-visible {
+    outline: 3px solid var(--brand-400);
+    outline-offset: 4px;
+    border-radius: var(--radius-md);
+  }
+  .cm-follow svg {
+    transition: scale 0.2s;
+  }
+  .cm-follow:hover svg {
+    scale: 1.06;
+  }
+  @media (width < 40rem) {
+    .cm-follow {
+      display: none;
+    }
   }
   .cm-peek {
     filter: drop-shadow(0 14px 20px rgb(0 0 0 / 0.35));
@@ -109,11 +199,6 @@ const bars: [number, number, number][] = [
   @keyframes cm-pop {
     from { opacity: 0; transform: translateY(40%) rotate(12deg) scale(0.6); }
     to { opacity: 1; transform: none; }
-  }
-  @media (width < 64rem) {
-    .cm-follow {
-      display: none;
-    }
   }
   .cm-cape {
     fill: var(--pop-red);
@@ -155,12 +240,12 @@ const bars: [number, number, number][] = [
     transform-box: fill-box;
     transform-origin: center;
     animation: cm-talk 0.9s ease-in-out var(--d) infinite alternate;
-    transition: scale 0.3s;
   }
-  [data-face='talk'] .cm-mouth rect {
+  [data-face='talk'] .cm-mouth rect,
+  [data-talking] .cm-mouth rect {
     animation-duration: 0.4s;
   }
-  [data-face='pause'] .cm-mouth rect {
+  [data-face='pause']:not([data-talking]) .cm-mouth rect {
     animation-play-state: paused;
   }
   @keyframes cm-float {
@@ -178,6 +263,6 @@ const bars: [number, number, number][] = [
   }
   @media (prefers-reduced-motion: reduce) {
     .cm-mascot, .cm-peek, .cm-cape, .cm-eye, .cm-mouth rect, [data-face='rec'] .cm-l-rec { animation: none; }
-    .cm-follow, .cm-l { transition: none; }
+    .cm-follow, .cm-follow .cm-say, .cm-l { transition: none; }
   }
 </style>

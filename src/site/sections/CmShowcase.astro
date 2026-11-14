@@ -42,7 +42,7 @@ const isPortrait = (src: string | ImageMetadata) => typeof src !== 'string' && s
               </figure>
               {row.mascot && (
                 <div class:list={['cm-peeker', i % 2 === 1 && 'cm-peeker-left']}>
-                  <Mascot mode="peek" face={row.mascot} />
+                  <Mascot mode="peek" face={row.mascot} say={row.say} side={i % 2 === 1 ? 'left' : 'right'} />
                 </div>
               )}
             </div>
