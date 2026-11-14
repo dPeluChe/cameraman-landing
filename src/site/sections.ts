@@ -18,6 +18,8 @@ export const buildSiteSections = (image: ImageFn) =>
       title: z.string().min(1),
       /** Substring of `title` drawn in the brand color. */
       titleHighlight: z.string().optional(),
+      /** Words that take turns in a pill where the title says `{rotate}`; the first one is what readers and crawlers get. */
+      rotate: z.array(z.string().min(1)).min(2).max(6).optional(),
       subtitle: z.string().min(1),
       actions: z.array(linkSchema).min(1).max(2),
       chips: z.array(z.object({ label: z.string().min(1), color: popColor })).max(6).default([]),

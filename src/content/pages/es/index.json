@@ -9,9 +9,16 @@
   "sections": [
     {
       "type": "cmHero",
-      "title": "Graba un tutorial. Edítalo sin ser editor.",
-      "titleHighlight": "Edítalo sin ser editor.",
-      "subtitle": "Graba tu pantalla y tu cara, genera subtítulos en tu Mac, y luego corta, señala con flechas o cambia el fondo en un editor sencillo. O pídele al asistente que lo haga por ti.",
+      "title": "Graba tus {rotate} como pro. Edita sin ser editor.",
+      "titleHighlight": "Edita sin ser editor.",
+      "rotate": [
+        "videos",
+        "tutoriales",
+        "cursos",
+        "demos",
+        "explicaciones"
+      ],
+      "subtitle": "Graba tu pantalla y tu cámara, genera subtítulos en tu Mac y eleva la calidad y la presentación de cada video. Edítalo tú, conecta tu agente por MCP o pídeselo al asistente.",
       "actions": [
         {
           "label": "Descargar para macOS",
@@ -389,8 +396,8 @@
     {
       "type": "cmCta",
       "anchor": "start",
-      "title": "Haz tu próximo tutorial con Cameraman.",
-      "subtitle": "Gratis y con licencia MIT. Graba, edita y publica sin aprender un editor profesional.",
+      "title": "Cameraman salvó la edición. Otra vez.",
+      "subtitle": "Tutoriales, cursos, demos o explicaciones: grábalos, edítalos y publícalos. Gratis y con licencia MIT.",
       "actions": [
         {
           "label": "Descargar para macOS",
@@ -408,8 +415,8 @@
         }
       ],
       "mascot": {
-        "face": "play",
-        "say": "Tu próximo tutorial empieza aquí."
+        "face": "talk",
+        "say": "Misión cumplida."
       }
     }
   ]

@@ -9,9 +9,16 @@
   "sections": [
     {
       "type": "cmHero",
-      "title": "Record a tutorial. Edit it without being an editor.",
-      "titleHighlight": "Edit it without being an editor.",
-      "subtitle": "Record your screen and your face, get subtitles made on your Mac, then cut, point with arrows or change the background in a simple editor. Or ask the assistant to do it for you.",
+      "title": "Record your {rotate} like a pro. Edit without being an editor.",
+      "titleHighlight": "Edit without being an editor.",
+      "rotate": [
+        "videos",
+        "tutorials",
+        "courses",
+        "demos",
+        "explainers"
+      ],
+      "subtitle": "Record your screen and camera, get subtitles made on your Mac, and raise the quality and presentation of every video. Edit it yourself, connect your agent over MCP, or ask the assistant.",
       "actions": [
         {
           "label": "Download for macOS",
@@ -389,8 +396,8 @@
     {
       "type": "cmCta",
       "anchor": "start",
-      "title": "Make your next tutorial with Cameraman.",
-      "subtitle": "Free and MIT licensed. Record, edit and publish without learning a pro editor.",
+      "title": "Cameraman saved the edit. Again.",
+      "subtitle": "Tutorials, courses, demos or explainers: record them, edit them and publish. Free and MIT licensed.",
       "actions": [
         {
           "label": "Download for macOS",
@@ -408,8 +415,8 @@
         }
       ],
       "mascot": {
-        "face": "play",
-        "say": "Your next tutorial starts here."
+        "face": "talk",
+        "say": "Mission accomplished."
       }
     }
   ]

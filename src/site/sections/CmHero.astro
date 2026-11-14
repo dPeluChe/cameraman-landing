@@ -10,9 +10,10 @@ export interface Props {
 }
 
 const { section, headingLevel: Heading = 'h1' } = Astro.props;
-const { badge, title, titleHighlight, subtitle, actions, chips, note, anchor, media, guide } = section;
+const { badge, title, titleHighlight, rotate, subtitle, actions, chips, note, anchor, media, guide } = section;
 const highlight = titleHighlight && title.includes(titleHighlight) ? titleHighlight : undefined;
 const [before, after] = highlight ? (title.split(highlight) as [string, string]) : [title, ''];
+const [lead, tail] = rotate && before.includes('{rotate}') ? (before.split('{rotate}') as [string, string]) : [before, undefined];
 
 // Decorative timeline rows: [start %, width %, hue] per clip.
 const rows: [number, number, string][][] = [
@@ -29,7 +30,16 @@ const rows: [number, number, string][][] = [
     <div class:list={['flex flex-col items-start', media && 'max-w-3xl']}>
       {badge && <p class="animate-fade-in mb-6 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-semibold">{badge}</p>}
       <Heading id="hero-title" class="text-4xl leading-[1.05] md:text-6xl">
-        {before}
+        {lead}
+        {
+          rotate && tail !== undefined && (
+            <>
+              <span class="sr-only">{rotate[0]}</span>
+              <span class="cm-rot" data-words={JSON.stringify(rotate)} aria-hidden="true"><span class="cm-rot-word">{rotate[0]}</span></span>
+            </>
+          )
+        }
+        {tail}
         {highlight && <span class="cm-hl">{highlight}</span>}
         {after}
       </Heading>
@@ -90,7 +100,51 @@ const rows: [number, number, string][][] = [
   {guide && <Mascot mode="follow" href={guide.href} label={guide.label} stops={guide.stops} />}
 </section>
 
+<script>
+  // Swaps the pill word: out, new text and hue, in. Width follows so the title reflows smoothly.
+  const hues = ['red', 'yellow', 'teal', 'plum', 'sky'];
+  const pill = document.querySelector<HTMLElement>('.cm-rot');
+  const word = pill?.querySelector<HTMLElement>('.cm-rot-word');
+  if (pill && word && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const words: string[] = JSON.parse(pill.dataset.words ?? '[]');
+    const fit = () => (pill.style.width = `${word.offsetWidth}px`);
+    let i = 0;
+    fit();
+    setInterval(() => {
+      pill.toggleAttribute('data-out', true);
+      setTimeout(() => {
+        i = (i + 1) % words.length;
+        word.textContent = words[i] ?? '';
+        pill.style.setProperty('--pop', `var(--pop-${hues[i % hues.length]})`);
+        fit();
+        pill.removeAttribute('data-out');
+      }, 260);
+    }, 2400);
+  }
+</script>
+
 <style>
+  .cm-rot {
+    --pop: var(--pop-red);
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    border-radius: 0.3em;
+    margin-inline: 0.05em;
+    color: var(--pop-navy);
+    background: var(--pop);
+    transition: width 0.3s ease, background-color 0.3s;
+  }
+  .cm-rot-word {
+    display: inline-block;
+    padding: 0 0.22em 0.06em;
+    white-space: nowrap;
+    transition: translate 0.25s ease, opacity 0.25s;
+  }
+  .cm-rot[data-out] .cm-rot-word {
+    translate: 0 -60%;
+    opacity: 0;
+  }
   .cm-hero {
     background: var(--pop-navy);
     color: var(--pop-cream);
