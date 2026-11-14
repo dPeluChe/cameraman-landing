@@ -102,7 +102,8 @@ const rows: [number, number, string][][] = [
 
 <script>
   // Swaps the pill word: out, new text and hue, in. Width follows so the title reflows smoothly.
-  const hues = ['red', 'yellow', 'teal', 'plum', 'sky'];
+  // Hues hold 3:1+ against navy text (plum does not), and the word never fades so no frame dips below it.
+  const hues = ['red', 'yellow', 'teal', 'sky'];
   const pill = document.querySelector<HTMLElement>('.cm-rot');
   const word = pill?.querySelector<HTMLElement>('.cm-rot-word');
   if (pill && word && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -133,17 +134,16 @@ const rows: [number, number, string][][] = [
     margin-inline: 0.05em;
     color: var(--pop-navy);
     background: var(--pop);
-    transition: width 0.3s ease, background-color 0.3s;
+    transition: width 0.3s ease;
   }
   .cm-rot-word {
     display: inline-block;
     padding: 0 0.22em 0.06em;
     white-space: nowrap;
-    transition: translate 0.25s ease, opacity 0.25s;
+    transition: translate 0.25s ease;
   }
   .cm-rot[data-out] .cm-rot-word {
-    translate: 0 -60%;
-    opacity: 0;
+    translate: 0 -110%;
   }
   .cm-hero {
     background: var(--pop-navy);
