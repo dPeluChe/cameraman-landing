@@ -1,6 +1,4 @@
-# Contributing to Cameraman Landing
-
-Thanks for your interest in improving the Cameraman landing page!
+# Contributing to the Cameraman landing
 
 ## Setup
 
@@ -8,62 +6,40 @@ Thanks for your interest in improving the Cameraman landing page!
 git clone https://github.com/dPeluChe/cameraman-landing.git
 cd cameraman-landing
 npm install
-npm run dev   # http://localhost:3914
+npm run dev   # http://localhost:4433
 ```
 
-Requires Node 18+.
+Requires Node 22.23.4+ (`engines` in `package.json`).
 
-## Branch conventions
+## Branches and PRs
 
-Use prefix-based branch names:
+Nothing lands on `main` directly: branch, commit, pull request. Use a prefix:
+`feat/`, `fix/`, `design/`, `content/`, `chore/`. One logical change per PR.
 
-- `feat/` — new feature or section
-- `fix/` — bug fix
-- `design/` — visual / layout improvements
-- `content/` — copy changes
-- `chore/` — deps, config, tooling
+## Where to change what
 
-Examples: `feat/agents-animation`, `fix/mobile-nav`, `content/update-stats`.
+- Copy, sections and their order: `src/content/pages/<locale>/index.json` (English at `/`, Spanish at `/es`). Both locales change together.
+- Colors, radii, fonts: `src/styles/tokens.css`, never a component.
+- Cameraman's own section types (`cmHero`, `cmShowcase`, `cmFeatures`, `cmCta`, `cmAgent`) and the mascot: `src/site/`. See `docs/GUIDES/EXTENDING.md`.
+- App screenshots: `src/assets/screens/`, referenced from the content JSON. Images go through `Picture.astro`, never a raw `<img>`.
 
-## Keep PRs focused
-
-One logical change per PR. If you're adding a new section AND fixing the nav,
-that's two PRs.
-
-## Style
-
-- **TypeScript strict** — no `any`, no `@ts-ignore`.
-- **Tailwind 4** for all styling. Custom theme tokens live in `src/index.css`
-  under `@theme`. Don't add inline styles unless the value is dynamic.
-- **framer-motion** for animations. Use the `Reveal` / `Stagger` wrappers for
-  scroll-triggered entrances — don't reinvent per-section.
-- **Components** are small and single-purpose. If a section grows past ~200
-  lines, extract sub-components into `components/`.
-- **No comments** unless explaining a non-obvious *why*. The code should be
-  self-documenting.
+The full rules are in `CLAUDE.md` and `AGENTS.md`.
 
 ## Content accuracy
 
-Feature status badges (`shipped` / `new` / `tuning` / `improving`) must reflect
-the real state of the [Cameraman app](https://github.com/dPeluChe/cameraman).
-When updating a feature's status, cross-reference the app's
-[`docs/TASK_TODO.md`](https://github.com/dPeluChe/cameraman/blob/main/docs/TASK_TODO.md)
-and [`docs/CHANGELOG.md`](https://github.com/dPeluChe/cameraman/blob/main/docs/CHANGELOG.md).
+Feature claims must match the [Cameraman app](https://github.com/dPeluChe/cameraman). Check its
+[`docs/CHANGELOG.md`](https://github.com/dPeluChe/cameraman/blob/main/docs/CHANGELOG.md) before
+claiming a feature, and keep the MCP tool count and "beta" honest.
 
-## Screenshots
-
-Feature cards use `FeatureImage` with gradient placeholders. To add a real
-screenshot:
-
-1. Drop the image into `public/screenshots/`
-2. Set `imageSrc: '/screenshots/your-image.png'` on the feature object in
-   `src/sections/Features.tsx`
+Before adding a screenshot, check it for tokens or keys: a recorded terminal once showed an MCP
+bearer token and had to be pixelated.
 
 ## Before submitting
 
 ```bash
-npm run lint    # no errors
-npm run build   # passes cleanly
+npm run lint && npm run check && npm run build && npm test
+npm run responsive   # no horizontal overflow at 320-1024px
+npm run audit        # Lighthouse budget: 100 accessibility, best practices and SEO
 ```
 
 ## License

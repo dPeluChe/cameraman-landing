@@ -1,5 +1,6 @@
-# Client landing
+# Cameraman landing
 
+The site for [Cameraman](https://github.com/dPeluChe/cameraman), served at cameraman.dev.
 Static site built with Astro. Content is data validated by Zod schemas; brand
 values live in one CSS file; SEO is generated, not hand-written.
 

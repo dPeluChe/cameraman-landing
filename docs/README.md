@@ -17,7 +17,6 @@
 |---|---|
 | [LESSONS_FROM_CLONES.md](./GUIDES/LESSONS_FROM_CLONES.md) | Before a migration: what cost rework in the first clones, and what now prevents it |
 | [EXTENDING.md](./GUIDES/EXTENDING.md) | The site needs its own section types or chrome |
-| [CLONE_PROMPT.md](./GUIDES/CLONE_PROMPT.md) | The prompt for the agent that builds a clone |
 | [BRAND_TOKENS.md](./GUIDES/BRAND_TOKENS.md) | Rebranding, or verifying contrast |
 | [STATIC_ASSETS.md](./GUIDES/STATIC_ASSETS.md) | Favicons, webmanifest, OG image |
 | [CONTACT_FORM.md](./GUIDES/CONTACT_FORM.md) | Choosing or changing the form transport |

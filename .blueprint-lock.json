@@ -1,6 +1,6 @@
 {
   "blueprint": "github.com/dPeluChe/landings-base",
-  "note": "Files the clone owns are listed in `owned`. Everything in `files` belongs to the blueprint — see docs/GUIDES/UPDATING_FROM_BLUEPRINT.md",
+  "note": "Files the clone owns are listed in `owned`. Everything in `files` belongs to the blueprint \u2014 see docs/GUIDES/UPDATING_FROM_BLUEPRINT.md",
   "owned": [
     "src/content/",
     "src/assets/brand/",
@@ -19,6 +19,7 @@
     "package.json",
     "package-lock.json",
     "README.md",
+    "CONTRIBUTING.md",
     "CLAUDE.md",
     ".env"
   ],
@@ -29,7 +30,6 @@
     ".gitignore": "7d4850a4a4ef212a",
     ".gitleaks-baseline.json": "37517e5f3dc66819",
     "AGENTS.md": "f02e2a606df29352",
-    "CONTRIBUTING.md": "111c80ce864c0388",
     "LICENSE": "b85f22706eb5eb03",
     "Makefile": "da17560c253b2127",
     "astro.config.mjs": "b99050055a7a3544",

@@ -67,13 +67,14 @@ const attrs: Record<string, string | undefined> = Tag === 'a' ? { href, 'aria-la
   if (follower && hero && 'IntersectionObserver' in window) {
     const bubble = follower.querySelector<HTMLElement>('.cm-say');
     const stops: { anchor: string; face: string; say?: string; hide: boolean }[] = JSON.parse(follower.dataset.stops ?? '[]');
+    const byAnchor = new Map(stops.map((s) => [s.anchor, s]));
     let quiet: number | undefined;
 
     new IntersectionObserver((entries) => entries.forEach((e) => follower.toggleAttribute('data-shown', !e.isIntersecting))).observe(hero);
     const watch = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          const stop = stops.find((s) => s.anchor === entry.target.id);
+          const stop = byAnchor.get(entry.target.id);
           if (!entry.isIntersecting || !stop) continue;
           follower.toggleAttribute('data-away', stop.hide);
           if (stop.hide) continue;
